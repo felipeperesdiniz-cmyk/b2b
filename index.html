@@ -238,8 +238,11 @@ a{color:inherit}
 /* matrizes and atletas with photos: the pinned frame shows whichever photographed horse is being read; phones get each photo inline */
 #matrizes .mz,#atletas .mz{grid-template-columns:minmax(0,6fr) minmax(0,6fr)}
 .mz-stack .ph{position:relative;aspect-ratio:3/2;max-height:none}
-.mz-stack img{position:absolute;inset:0;opacity:0;transition:opacity .7s cubic-bezier(.2,.7,.1,1)}
-.mz-stack img.on{opacity:1}
+.mz-stack img{position:absolute;inset:0;display:none}   /* only the current photo and the one fading out are ever drawn */
+.mz-stack img.off{display:block;z-index:1}
+.mz-stack img.on{display:block;z-index:2;animation:mzIn .45s cubic-bezier(.2,.7,.1,1) both}
+@keyframes mzIn{from{opacity:0}to{opacity:1}}
+@media (prefers-reduced-motion:reduce){.mz-stack img.on{animation:none}}
 .mz-inl{display:none}
 .mz-list li > *{grid-column:2}
 .mz-list.pf li > *{grid-column:auto}
@@ -930,12 +933,25 @@ function photoIndex(stack, cap, rows) {
   if (!stack || !rows.length) return;
   const shots = [...stack.querySelectorAll('img')];
   let cur = '';
+  let fade = 0;
   const show = li => {
     if (li.dataset.mz === cur) return;
     cur = li.dataset.mz;
-    shots.forEach(im => im.classList.toggle('on', im.dataset.for === cur));
+    const next = shots.find(im => im.dataset.for === cur), prev = shots.find(im => im.classList.contains('on'));
     const ped = li.querySelector('span');
     cap.innerHTML = `<b>${li.querySelector('b').firstChild.textContent}</b>${ped ? `<span>${ped.textContent}</span>` : ''}`;
+    if (!next || next === prev) return;
+    // swap only once the new photo is decoded, so the frame never flashes empty or lags behind the list
+    const go = () => {
+      if (next.dataset.for !== cur) return;
+      clearTimeout(fade);
+      shots.forEach(im => { if (im !== prev) im.classList.remove('on', 'off'); });
+      if (prev) { prev.classList.remove('on'); prev.classList.add('off'); }
+      next.classList.add('on');
+      fade = setTimeout(() => prev && prev.classList.remove('off'), 500);
+    };
+    next.loading = 'eager';
+    (next.decode ? next.decode() : Promise.resolve()).then(go, go);
   };
   const pick = () => {
     const mid = innerHeight * .42;
