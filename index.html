@@ -234,8 +234,8 @@ a{color:inherit}
   .mz-feature .ph{max-height:none}
 }
 
-/* matrizes with photos: the pinned frame shows whichever photographed mare is being read; phones get each photo inline */
-#matrizes .mz{grid-template-columns:minmax(0,6fr) minmax(0,6fr)}
+/* matrizes and atletas with photos: the pinned frame shows whichever photographed horse is being read; phones get each photo inline */
+#matrizes .mz,#atletas .mz{grid-template-columns:minmax(0,6fr) minmax(0,6fr)}
 .mz-stack .ph{position:relative;aspect-ratio:3/2;max-height:none}
 .mz-stack img{position:absolute;inset:0;opacity:0;transition:opacity .7s cubic-bezier(.2,.7,.1,1)}
 .mz-stack img.on{opacity:1}
@@ -245,8 +245,8 @@ a{color:inherit}
 .mz-list li::before{grid-row:1/span 4}
 .mz-list li[data-mz]{cursor:default}
 @media (max-width:860px){
-  #matrizes .mz{grid-template-columns:1fr}
-  #matrizes .mz-feature{display:none}
+  #matrizes .mz,#atletas .mz{grid-template-columns:1fr}
+  #matrizes .mz-feature,#atletas .mz-feature{display:none}
   .mz-inl{display:block;margin:14px 0 4px;overflow:hidden;background:#ddd8cf}
   .mz-inl img{width:100%;height:auto}
 }
@@ -255,12 +255,11 @@ a{color:inherit}
 .mz-feature img{object-position:var(--pos,30% 50%)}
 .mz-list em{font-style:normal;font-size:.62rem;letter-spacing:.1em;text-transform:uppercase;border:1px solid currentColor;border-radius:999px;padding:3px 9px;margin-left:10px;vertical-align:.35em;opacity:.7;white-space:nowrap}
 #atletas{background:var(--ink);color:var(--bone);padding-block:clamp(100px,16vh,180px);font-family:var(--f-text)}
-#atletas .mz{grid-template-columns:minmax(0,7fr) minmax(0,5fr)}
 #atletas .mz-feature{order:2}
 #atletas .mz-head p,#atletas .mz-list p{color:rgba(241,237,230,.72)}
 #atletas .mz-feature figcaption span,#atletas .mz-list span,#atletas .mz-list li::before{color:var(--steel)}
 #atletas .mz-list,#atletas .mz-list li{border-color:var(--line)}
-#atletas .mz-feature .ph{background:#17140f}
+#atletas .mz-feature .ph,#atletas .mz-inl{background:#17140f}
 .mz-sub{margin:clamp(48px,8vh,80px) 0 18px;font-weight:400;font-size:.72rem;letter-spacing:.1em;text-transform:uppercase;color:var(--steel)}
 .mz-list.pf{counter-reset:none}
 .mz-list.pf li{grid-template-columns:minmax(0,1fr);padding-block:16px}
@@ -544,16 +543,16 @@ time{font-size:.7rem;letter-spacing:.1em;text-transform:uppercase;color:#67625b}
     <p>A genética B2B medida em segundos, nas principais provas de Três Tambores do país.</p>
   </div>
   <div class="mz">
-    <figure class="mz-feature">
-      <div class="ph"><picture><source media="(max-width: 760px) and (orientation: portrait)" srcset="assets/m/morganna-rolls.webp"><img src="assets/morganna-rolls.webp" alt="B2B Morganna Rolls, égua palomino, no pasto" loading="lazy" decoding="async" width="1800" height="1197"></picture></div>
-      <figcaption><b>B2B Morganna Rolls</b><span>Tux N Rolls × Frenchmans Bulla</span></figcaption>
+    <figure class="mz-feature mz-stack" id="atStack">
+      <div class="ph"><img src="assets/morganna-rolls.webp" alt="B2B Morganna Rolls, égua palomino, no pasto" loading="lazy" decoding="async" width="1800" height="1197" data-for="morganna-rolls"><img src="assets/mz/reality-zorrero.webp" alt="B2B Reality Zorrero, égua tordilha, montada na pista" loading="lazy" decoding="async" width="1800" height="1200" data-for="reality-zorrero"><img src="assets/mjp-epic-sis.webp" alt="MJP Epic Sis, égua tordilha, galopando no piquete" loading="lazy" decoding="async" width="1600" height="1067" data-for="mjp-epic-sis"><img src="assets/at/tapdancer-rolls.webp" alt="B2B Tapdancer Rolls, tordilha, contornando o tambor no Heringer Ranch" loading="lazy" decoding="async" width="1800" height="1200" data-for="tapdancer-rolls"><img src="assets/at/tiberius-rolls.webp" alt="B2B Tiberius Rolls contornando o tambor na Copa" loading="lazy" decoding="async" width="1280" height="853" data-for="tiberius-rolls"><img src="assets/at/tristan-streak.webp" alt="B2B Tristan Streak, tordilho, contornando o tambor no GP" loading="lazy" decoding="async" width="1280" height="854" data-for="tristan-streak"></div>
+      <figcaption id="atCap"><b>B2B Morganna Rolls</b><span>Tux N Rolls × Frenchmans Bulla</span></figcaption>
     </figure>
     <div>
       <ol class="mz-list">
-      <li><b>B2B Morganna Rolls</b><span>Tux N Rolls × Frenchmans Bulla</span><p>Corre na casa dos 16 segundos e já é doadora, com filho também correndo nos 16.</p></li>
+      <li data-mz="morganna-rolls"><b>B2B Morganna Rolls</b><span>Tux N Rolls × Frenchmans Bulla</span><div class="mz-inl"><picture><source media="(max-width: 760px)" srcset="assets/m/morganna-rolls.webp"><img src="assets/morganna-rolls.webp" alt="B2B Morganna Rolls, égua palomino, no pasto" loading="lazy" decoding="async" width="1800" height="1197"></picture></div><p>Corre na casa dos 16 segundos e já é doadora, com filho também correndo nos 16.</p></li>
       <li><b>Mended Heart</b><span>Heart Of The Cartel × French Bar Belle</span><p>Melhor tempo de 16.401 s, já nas primeiras corridas, em 2024.</p></li>
-      <li><b>B2B Reality Zorrero</b><span>El Shady Zorrero × Julie Tux Failas B2B</span><p>Tordilha com menor tempo de 16.688 s e diversos títulos.</p></li>
-      <li><b>MJP Epic Sis</b><span>Epic Leader</span><p>O DNA dos melhores do mundo nos Três Tambores, em pista no Brasil.</p></li>
+      <li data-mz="reality-zorrero"><b>B2B Reality Zorrero</b><span>El Shady Zorrero × Julie Tux Failas B2B</span><div class="mz-inl"><picture><source media="(max-width: 760px)" srcset="assets/m/at-reality-zorrero.webp"><img src="assets/mz/reality-zorrero.webp" alt="B2B Reality Zorrero, égua tordilha, montada na pista" loading="lazy" decoding="async" width="1800" height="1200"></picture></div><p>Tordilha com menor tempo de 16.688 s e diversos títulos.</p></li>
+      <li data-mz="mjp-epic-sis"><b>MJP Epic Sis</b><span>Epic Leader</span><div class="mz-inl"><picture><source media="(max-width: 760px)" srcset="assets/m/at-mjp-epic-sis.webp"><img src="assets/mjp-epic-sis.webp" alt="MJP Epic Sis, égua tordilha, galopando no piquete" loading="lazy" decoding="async" width="1600" height="1067"></picture></div><p>O DNA dos melhores do mundo nos Três Tambores, em pista no Brasil.</p></li>
       <li><b>HP Stoli My Jet</b><span>Blazin Jetolena × Im Chica Stoli</span><p>A terceira Blazin Jetolena a desembarcar no Brasil.</p></li>
       <li><b>B2B Quaker Tux Guy</b><span>Tux N Rolls × B2B Movidas Guy</span><p>Títulos no Congresso Brasileiro, Grand Slam Cutter, PF e Copa WV. Menor tempo de 16.656 s.</p></li>
       <li><b>B2B Poseidon Rolls</b><span>Tux N Rolls × Glisten Failas KRB</span><p>Diversos tempos na casa dos 16 segundos, com constância nas competições.</p></li>
@@ -578,9 +577,9 @@ time{font-size:.7rem;letter-spacing:.1em;text-transform:uppercase;color:#67625b}
       </ul>
       <h3 class="mz-sub">Geração T</h3>
       <ul class="mz-list pf">
-      <li><b>B2B Tapdancer Rolls</b><span>Tux N Rolls × Guapa Fortunes OFV</span><p>1º lugar no GP ABQM 2D do Heringer Ranch · 17.473 s.</p></li>
-      <li><b>B2B Tiberius Rolls</b><span>B2B Lucius Ta Fame × Three Carat Diamond</span><p>2º lugar na Aberta Sênior 2D do Heringer Ranch · 17.405 s.</p></li>
-      <li><b>B2B Tristan Streak</b><span>Tux N Rolls × Miss Victory Fly LW</span><p>Tordilho que faz história como atleta, e um lindo garanhão.</p></li>
+      <li data-mz="tapdancer-rolls"><b>B2B Tapdancer Rolls</b><span>Tux N Rolls × Guapa Fortunes OFV</span><div class="mz-inl"><picture><source media="(max-width: 760px)" srcset="assets/m/at-tapdancer-rolls.webp"><img src="assets/at/tapdancer-rolls.webp" alt="B2B Tapdancer Rolls, tordilha, contornando o tambor no Heringer Ranch" loading="lazy" decoding="async" width="1800" height="1200"></picture></div><p>1º lugar no GP ABQM 2D do Heringer Ranch · 17.473 s.</p></li>
+      <li data-mz="tiberius-rolls"><b>B2B Tiberius Rolls</b><span>B2B Lucius Ta Fame × Three Carat Diamond</span><div class="mz-inl"><picture><source media="(max-width: 760px)" srcset="assets/m/at-tiberius-rolls.webp"><img src="assets/at/tiberius-rolls.webp" alt="B2B Tiberius Rolls contornando o tambor na Copa" loading="lazy" decoding="async" width="1280" height="853"></picture></div><p>2º lugar na Aberta Sênior 2D do Heringer Ranch · 17.405 s.</p></li>
+      <li data-mz="tristan-streak"><b>B2B Tristan Streak</b><span>Tux N Rolls × Miss Victory Fly LW</span><div class="mz-inl"><picture><source media="(max-width: 760px)" srcset="assets/m/at-tristan-streak.webp"><img src="assets/at/tristan-streak.webp" alt="B2B Tristan Streak, tordilho, contornando o tambor no GP" loading="lazy" decoding="async" width="1280" height="854"></picture></div><p>Tordilho que faz história como atleta, e um lindo garanhão.</p></li>
       <li><b>B2B Theodora Rolls</b><span>Filha de HP Boom Shockalocka</span><p>Campeã e reservada campeã em importantes provas de Três Tambores.</p></li>
       <li><b>B2B Triumph Rolls</b><span>Filho de Simply Epic</span><p>Neto de Epic Leader pela linha materna.</p></li>
       </ul>
@@ -927,30 +926,32 @@ document.querySelectorAll('.yt').forEach(yt => yt.querySelector('button').addEve
   loadYtApi().then(() => ytPlay(yt), () => ytFallback(yt));
 }));
 
-/* ---------- matrizes: swap the pinned photo to the mare in view ---------- */
-const mzStack = $('#mzStack');
-if (mzStack) {
-  const shots = [...mzStack.querySelectorAll('img')], cap = $('#mzCap');
-  const rows = [...document.querySelectorAll('#matrizes li[data-mz]')];
+/* ---------- matrizes + atletas: swap the pinned photo to the horse in view ---------- */
+function photoIndex(stack, cap, rows) {
+  if (!stack || !rows.length) return;
+  const shots = [...stack.querySelectorAll('img')];
   let cur = '';
   const show = li => {
     if (li.dataset.mz === cur) return;
     cur = li.dataset.mz;
     shots.forEach(im => im.classList.toggle('on', im.dataset.for === cur));
-    cap.innerHTML = `<b>${li.querySelector('b').firstChild.textContent}</b><span>${li.querySelector('span').textContent}</span>`;
+    const ped = li.querySelector('span');
+    cap.innerHTML = `<b>${li.querySelector('b').firstChild.textContent}</b>${ped ? `<span>${ped.textContent}</span>` : ''}`;
   };
   const pick = () => {
-    const mid = innerHeight * .55;
+    const mid = innerHeight * .42;
     let best = rows[0];
     rows.forEach(li => { if (li.getBoundingClientRect().top < mid) best = li; });
     show(best);
   };
   // load the stack once the section is close, so the swap never shows an empty frame
-  new IntersectionObserver(([e], o) => { if (e.isIntersecting) { shots.forEach(im => im.loading = 'eager'); o.disconnect(); } }, { rootMargin: '100% 0px' }).observe(mzStack);
+  new IntersectionObserver(([e], o) => { if (e.isIntersecting) { shots.forEach(im => im.loading = 'eager'); o.disconnect(); } }, { rootMargin: '100% 0px' }).observe(stack);
   let tk = false;
   addEventListener('scroll', () => { if (!tk) { tk = true; requestAnimationFrame(() => { tk = false; pick(); }); } }, { passive: true });
   pick();
 }
+photoIndex($('#mzStack'), $('#mzCap'), [...document.querySelectorAll('#matrizes li[data-mz]')]);
+photoIndex($('#atStack'), $('#atCap'), [...document.querySelectorAll('#atletas li[data-mz]')]);
 })();
 </script>
 </body>
