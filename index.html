@@ -226,6 +226,22 @@ a{color:inherit}
   .mz-feature .ph{max-height:none}
 }
 
+/* matrizes with photos: the pinned frame shows whichever photographed mare is being read; phones get each photo inline */
+#matrizes .mz{grid-template-columns:minmax(0,6fr) minmax(0,6fr)}
+.mz-stack .ph{position:relative;aspect-ratio:3/2;max-height:none}
+.mz-stack img{position:absolute;inset:0;opacity:0;transition:opacity .7s cubic-bezier(.2,.7,.1,1)}
+.mz-stack img.on{opacity:1}
+.mz-inl{display:none}
+.mz-list li > *{grid-column:2}
+.mz-list li::before{grid-row:1/span 4}
+.mz-list li[data-mz]{cursor:default}
+@media (max-width:860px){
+  #matrizes .mz{grid-template-columns:1fr}
+  #matrizes .mz-feature{display:none}
+  .mz-inl{display:block;margin:14px 0 4px;overflow:hidden;background:#ddd8cf}
+  .mz-inl img{width:100%;height:auto}
+}
+
 /* ---------- atletas: same index as the mares, dark, photo on the right ---------- */
 .mz-feature img{object-position:var(--pos,30% 50%)}
 .mz-list em{font-style:normal;font-size:.62rem;letter-spacing:.1em;text-transform:uppercase;border:1px solid currentColor;border-radius:999px;padding:3px 9px;margin-left:10px;vertical-align:.35em;opacity:.7;white-space:nowrap}
@@ -487,23 +503,23 @@ time{font-size:.7rem;letter-spacing:.1em;text-transform:uppercase;color:#67625b}
     <p>As éguas que formam cada geração do B2B Ranch: importadas, de linhagens raras, e algumas ainda em pista.</p>
   </div>
   <div class="mz">
-    <figure class="mz-feature">
-      <div class="ph"><img src="assets/mjp-epic-sis.webp" alt="MJP Epic Sis, égua tordilha, galopando no piquete" loading="lazy" decoding="async" width="1600" height="1067" style="--pos:52% 50%"></div>
-      <figcaption><b>MJP Epic Sis</b><span>Filha de Epic Leader</span></figcaption>
+    <figure class="mz-feature mz-stack" id="mzStack">
+      <div class="ph"><img src="assets/mz/ophelia-rolls.webp" alt="B2B Ophelia Rolls, égua alazã, no piquete" loading="lazy" decoding="async" width="1800" height="1200" data-for="ophelia-rolls"><img src="assets/mz/ornella-rolls.webp" alt="B2B Ornella Rolls, égua castanha, de perfil no piquete" loading="lazy" decoding="async" width="1800" height="1200" data-for="ornella-rolls"><img src="assets/mz/reality-zorrero.webp" alt="B2B Reality Zorrero, égua tordilha, montada na pista" loading="lazy" decoding="async" width="1800" height="1200" data-for="reality-zorrero"><img src="assets/mz/secretlover-tux.webp" alt="B2B Secretlover Tux, égua castanha, galopando no piquete" loading="lazy" decoding="async" width="1800" height="1200" data-for="secretlover-tux"><img src="assets/mz/hp-boom-shockalocka.webp" alt="HP Boom Shockalocka, égua alazã, no pasto" loading="lazy" decoding="async" width="1800" height="1200" data-for="hp-boom-shockalocka"><img src="assets/mjp-epic-sis.webp" alt="MJP Epic Sis, égua tordilha, galopando no piquete" loading="lazy" decoding="async" width="1600" height="1067" data-for="mjp-epic-sis"></div>
+      <figcaption id="mzCap"><b>B2B Ophelia Rolls</b><span>Tux N Rolls × Glisten Failas KRB</span></figcaption>
     </figure>
     <ol class="mz-list">
       <li><b>B2B Movidas Guy</b><span>Frenchmans Guy × Docs Little Movida</span><p>Única matriz no Brasil irmã própria de A Smooth Guy, garanhão com mais de US$ 5 milhões como reprodutor. Mãe de B2B Quaker Tux Guy.</p></li>
-      <li><b>B2B Ophelia Rolls</b><span>Tux N Rolls × Glisten Failas KRB</span><p>Linhagem King Ranch, pela força de Failas Ambassador. Pontuada pela ABQM; mãe de B2B Anitta French.</p></li>
-      <li><b>B2B Ornella Rolls</b><span>Tux N Rolls</span><p>Irmã de B2B Noa Carat Rolls, a maior ganhadora de rodeio do Brasil. Uma matriz pensada para produzir atletas.</p></li>
-      <li><b>B2B Reality Zorrero<em>Também atleta</em></b><span>El Shady Zorrero × Julie Tux Failas B2B</span><p>Tordilha, menor tempo de 16.688 s e diversos títulos. Agora também um grande projeto como matriz.</p></li>
-      <li><b>B2B Secretlover Tux</b><span>Tux N Rolls × Magnolia Shady FF</span><p>Irmã própria de B2B Lovergirl Rolls, a única tríplice coroada nos Três Tambores no Brasil.</p></li>
+      <li data-mz="ophelia-rolls"><b>B2B Ophelia Rolls</b><span>Tux N Rolls × Glisten Failas KRB</span><div class="mz-inl"><picture><source media="(max-width: 760px) and (orientation: portrait)" srcset="assets/m/mz-ophelia-rolls.webp"><img src="assets/mz/ophelia-rolls.webp" alt="B2B Ophelia Rolls, égua alazã, no piquete" loading="lazy" decoding="async" width="1800" height="1200"></picture></div><p>Linhagem King Ranch, pela força de Failas Ambassador. Pontuada pela ABQM; mãe de B2B Anitta French.</p></li>
+      <li data-mz="ornella-rolls"><b>B2B Ornella Rolls</b><span>Tux N Rolls</span><div class="mz-inl"><picture><source media="(max-width: 760px) and (orientation: portrait)" srcset="assets/m/mz-ornella-rolls.webp"><img src="assets/mz/ornella-rolls.webp" alt="B2B Ornella Rolls, égua castanha, de perfil no piquete" loading="lazy" decoding="async" width="1800" height="1200"></picture></div><p>Irmã de B2B Noa Carat Rolls, a maior ganhadora de rodeio do Brasil. Uma matriz pensada para produzir atletas.</p></li>
+      <li data-mz="reality-zorrero"><b>B2B Reality Zorrero<em>Também atleta</em></b><span>El Shady Zorrero × Julie Tux Failas B2B</span><div class="mz-inl"><picture><source media="(max-width: 760px) and (orientation: portrait)" srcset="assets/m/mz-reality-zorrero.webp"><img src="assets/mz/reality-zorrero.webp" alt="B2B Reality Zorrero, égua tordilha, montada na pista" loading="lazy" decoding="async" width="1800" height="1200"></picture></div><p>Tordilha, menor tempo de 16.688 s e diversos títulos. Agora também um grande projeto como matriz.</p></li>
+      <li data-mz="secretlover-tux"><b>B2B Secretlover Tux</b><span>Tux N Rolls × Magnolia Shady FF</span><div class="mz-inl"><picture><source media="(max-width: 760px) and (orientation: portrait)" srcset="assets/m/mz-secretlover-tux.webp"><img src="assets/mz/secretlover-tux.webp" alt="B2B Secretlover Tux, égua castanha, galopando no piquete" loading="lazy" decoding="async" width="1800" height="1200"></picture></div><p>Irmã própria de B2B Lovergirl Rolls, a única tríplice coroada nos Três Tambores no Brasil.</p></li>
       <li><b>Frenchmans Bulla</b><span>Frenchmans Guy</span><p>Mãe de B2B Morganna Rolls, considerada sua principal filha.</p></li>
       <li><b>Julie Tux Failas B2B</b><span>Linhagem Failas Ambassador</span><p>Mãe de B2B Reality Zorrero, com El Shady Zorrero. Um nome de grande importância na história do Quarto de Milha no Brasil.</p></li>
-      <li><b>HP Boom Shockalocka</b><span>Boom Goes The Fame</span><p>Importada. Irmã própria de Rollin In The Fame e Rockette Ta Fame; mãe de B2B Theodora Rolls.</p></li>
+      <li data-mz="hp-boom-shockalocka"><b>HP Boom Shockalocka</b><span>Boom Goes The Fame</span><div class="mz-inl"><picture><source media="(max-width: 760px) and (orientation: portrait)" srcset="assets/m/mz-hp-boom-shockalocka.webp"><img src="assets/mz/hp-boom-shockalocka.webp" alt="HP Boom Shockalocka, égua alazã, no pasto" loading="lazy" decoding="async" width="1800" height="1200"></picture></div><p>Importada. Irmã própria de Rollin In The Fame e Rockette Ta Fame; mãe de B2B Theodora Rolls.</p></li>
       <li><b>Mended Heart<em>Também atleta</em></b><span>Heart Of The Cartel × French Bar Belle</span><p>Importada, a única filha de Heart Of The Cartel no Brasil e irmã materna de Adios Pantalones. Melhor tempo de 16.401 s.</p></li>
       <li><b>Custom Made Kat</b><span>Custom Crome × Princessontheprowl</span><p>Importada e versátil, neta de High Brow Cat. Mãe de B2B Apollo Rolls, que corre na casa dos 16 segundos.</p></li>
       <li><b>Guapa Fortunes OFV</b><span>El Shady Zorrero × Miss Fortunes Fool</span><p>Filha da lendária Miss Fortunes Fool, por Dash Ta Fame. Mãe de B2B Tapdancer Rolls e B2B Bullet Fool.</p></li>
-      <li><b>MJP Epic Sis<em>Também atleta</em></b><span>Epic Leader</span><p>Filha direta de Epic Leader, papel inédito no Brasil, da família de DM Sissy Hayday, tetracampeã mundial.</p></li>
+      <li data-mz="mjp-epic-sis"><b>MJP Epic Sis<em>Também atleta</em></b><span>Epic Leader</span><div class="mz-inl"><img src="assets/mjp-epic-sis.webp" alt="MJP Epic Sis, égua tordilha, galopando no piquete" loading="lazy" decoding="async" width="1600" height="1067"></div><p>Filha direta de Epic Leader, papel inédito no Brasil, da família de DM Sissy Hayday, tetracampeã mundial.</p></li>
       <li><b>Simply Epic</b><span>Epic Leader × A Girl Needs Cash</span><p>Importada. Mãe de B2B Simply Rolls, B2B Triumph Rolls e B2B Star Famous Epic.</p></li>
       <li><b>Three Carat Diamond</b><span>Tres Seis × Dangle A Carat</span><p>Importada. Mãe de B2B Noa Carat Rolls, bicampeã de Barretos e campeã do Congresso Brasileiro, Nacional ABQM e Grand Prix.</p></li>
       <li><b>HP Stoli My Jet<em>Também atleta</em></b><span>Blazin Jetolena × Im Chica Stoli</span><p>Irmã materna de Steal Money, ganhador de mais de US$ 710 mil nos Três Tambores.</p></li>
@@ -868,6 +884,31 @@ function loadYtApi() {
 document.querySelectorAll('.yt').forEach(yt => yt.querySelector('button').addEventListener('click', () => {
   loadYtApi().then(() => ytPlay(yt), () => ytFallback(yt));
 }));
+
+/* ---------- matrizes: swap the pinned photo to the mare in view ---------- */
+const mzStack = $('#mzStack');
+if (mzStack) {
+  const shots = [...mzStack.querySelectorAll('img')], cap = $('#mzCap');
+  const rows = [...document.querySelectorAll('#matrizes li[data-mz]')];
+  let cur = '';
+  const show = li => {
+    if (li.dataset.mz === cur) return;
+    cur = li.dataset.mz;
+    shots.forEach(im => im.classList.toggle('on', im.dataset.for === cur));
+    cap.innerHTML = `<b>${li.querySelector('b').firstChild.textContent}</b><span>${li.querySelector('span').textContent}</span>`;
+  };
+  const pick = () => {
+    const mid = innerHeight * .55;
+    let best = rows[0];
+    rows.forEach(li => { if (li.getBoundingClientRect().top < mid) best = li; });
+    show(best);
+  };
+  // load the stack once the section is close, so the swap never shows an empty frame
+  new IntersectionObserver(([e], o) => { if (e.isIntersecting) { shots.forEach(im => im.loading = 'eager'); o.disconnect(); } }, { rootMargin: '100% 0px' }).observe(mzStack);
+  let tk = false;
+  addEventListener('scroll', () => { if (!tk) { tk = true; requestAnimationFrame(() => { tk = false; pick(); }); } }, { passive: true });
+  pick();
+}
 })();
 </script>
 </body>
