@@ -54,6 +54,14 @@ a{color:inherit}
 /* ---------- nav ---------- */
 .nav{position:fixed;inset:0 0 auto;z-index:50;display:flex;justify-content:flex-end;align-items:center;padding:calc(18px + env(safe-area-inset-top,0px)) var(--gut-r) 18px var(--gut);color:#fff;mix-blend-mode:difference;pointer-events:none}
 .nav a{pointer-events:auto;text-decoration:none}
+/* past the opening, a bar slides in behind the logo and menu, tinted to the section underneath, so the links never sit on top of text */
+.topbar{position:fixed;inset:0 0 auto;z-index:49;height:calc(var(--bar-h,84px) + env(safe-area-inset-top,0px));background:var(--bar-bg,rgba(244,242,238,.9));-webkit-backdrop-filter:blur(14px) saturate(1.2);backdrop-filter:blur(14px) saturate(1.2);border-bottom:1px solid var(--bar-line,rgba(11,10,9,.08));transform:translateY(-101%);transition:transform .5s cubic-bezier(.2,.7,.1,1),background-color .4s,border-color .4s;pointer-events:none}
+.topbar.on{transform:none}
+@media (max-width:640px){.topbar{--bar-h:68px}}
+.nav{transition:color .4s}
+.nav.solid{mix-blend-mode:normal;color:var(--nav-fg,#0b0a09)}
+.nav.solid ul{padding-top:6px}
+
 .brand{position:fixed;z-index:51;left:var(--gut);top:calc(12px + env(safe-area-inset-top,0px));display:block;line-height:0;opacity:0;transform:translateY(-8px);transition:opacity .9s ease,transform .9s cubic-bezier(.2,.7,.1,1)}
 .brand img{height:86px;width:auto;transition:height .5s cubic-bezier(.2,.7,.1,1);filter:drop-shadow(0 3px 10px rgba(0,0,0,.28))}
 .brand.in{opacity:1;transform:none}
@@ -356,6 +364,7 @@ time{font-size:.7rem;letter-spacing:.1em;text-transform:uppercase;color:#67625b}
 <script>document.documentElement.classList.add('js')</script>
 
 <a class="brand" id="brand" href="#hero" aria-label="B2B Ranch, início"><img src="assets/logo-mark.webp" alt="B2B Ranch Quarter Horse" width="372" height="240"></a>
+<div class="topbar" id="topbar" aria-hidden="true"></div>
 <nav class="nav" aria-label="Principal">
   <button class="menu-btn" id="menuBtn" type="button" aria-expanded="false" aria-controls="menu">Menu<i aria-hidden="true"></i></button>
   <ul>
@@ -743,6 +752,8 @@ addEventListener('keydown', e => { if (e.key === 'Escape' && menu.classList.cont
 
 /* ---------- brand ---------- */
 const brand = $('#brand');
+const topbar = $('#topbar'), nav = $('.nav'), barSecs = [...document.querySelectorAll('main > section')];
+let barSec = null;
 requestAnimationFrame(() => brand.classList.add('in'));
 
 /* ---------- plantel panels ---------- */
@@ -804,6 +815,22 @@ function frame(now) {
   blackout.style.opacity = sstep(.9, .99, p).toFixed(3);
 
   brand.classList.toggle('small', sy > 40);
+  // top bar: hidden over the opening, then tinted to whatever section sits under the menu
+  const pastHero = sy > H.top + H.h - vh * .6;
+  topbar.classList.toggle('on', pastHero);
+  nav.classList.toggle('solid', pastHero);
+  if (pastHero) {
+    const under = barSecs.find(el => { const r = el.getBoundingClientRect(); return r.top <= 40 && r.bottom > 40; });
+    if (under && under !== barSec) {
+      barSec = under;
+      const c = getComputedStyle(under).backgroundColor.match(/[\d.]+/g).map(Number);
+      const bg = c.length > 3 && c[3] === 0 ? [11, 10, 9] : c.slice(0, 3);   // sections without their own colour sit on the ink page
+      const dark = (bg[0] * .299 + bg[1] * .587 + bg[2] * .114) < 128;
+      topbar.style.setProperty('--bar-bg', `rgba(${bg.join(',')},.88)`);
+      topbar.style.setProperty('--bar-line', dark ? 'rgba(241,237,230,.1)' : 'rgba(11,10,9,.08)');
+      nav.style.setProperty('--nav-fg', dark ? '#f1ede6' : '#0b0a09');
+    }
+  }
 
   // o ranch: the film frame widens from inset to full width as it reaches the middle
   const fr2 = rFrame.getBoundingClientRect();
