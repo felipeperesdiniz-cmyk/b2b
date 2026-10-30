@@ -1,0 +1,753 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>B2B Ranch · Quarter Horse</title>
+<meta name="description" content="B2B Ranch: criação e treinamento de cavalos Quarter Horse de alta performance para os Três Tambores.">
+<meta name="theme-color" content="#0b0a09">
+<!-- share previews (WhatsApp, Instagram, Facebook). Absolute URLs assume the site goes live at b2branch.com.br -->
+<link rel="canonical" href="https://b2branch.com.br/">
+<meta property="og:type" content="website">
+<meta property="og:locale" content="pt_BR">
+<meta property="og:site_name" content="B2B Ranch">
+<meta property="og:url" content="https://b2branch.com.br/">
+<meta property="og:title" content="B2B Ranch · Quarter Horse">
+<meta property="og:description" content="Apaixonados por grandes cavalos. Criação e treinamento de Quarter Horse de alta performance para os Três Tambores.">
+<meta property="og:image" content="https://b2branch.com.br/assets/og/home.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="B2B Lucius Ta Fame, garanhão zaino, com o escudo do B2B Ranch">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="assets/logo.webp">
+<link rel="preload" as="image" href="assets/tux-profile.webp" fetchpriority="high">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,300..900&family=Instrument+Sans:wght@400..600&display=swap">
+<style>
+/* Layout: quiet off-white hero → film manifesto → navy "O Ranch" → plantel as pinned full-screen panels that wipe over each other. */
+:root{
+  --paper:#ffffff;
+  --ink:#0b0a09;
+  --bone:#f1ede6;
+  --clay:#c4562f;       /* arena dirt */
+  --steel:#8f8a83;
+  --blue:#2b4f8f;       /* barrel / logo blue */
+  --line:rgba(241,237,230,.14);
+  --f-wide:"Archivo","Helvetica Neue",Arial,sans-serif;
+  --f-text:"Instrument Sans","Helvetica Neue",Arial,sans-serif;
+  --off:#f4f2ee;
+  --gut:max(20px,env(safe-area-inset-left,0px));
+  --gut-r:max(20px,env(safe-area-inset-right,0px));
+  color-scheme:dark;
+}
+*,*::before,*::after{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%;overflow-x:clip}
+body{margin:0;background:var(--ink);color:var(--bone);font-family:var(--f-wide);font-size:17px;line-height:1.6;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+img,video{display:block;max-width:100%}
+a{color:inherit}
+:focus-visible{outline:2px solid var(--clay);outline-offset:4px}
+.wide{font-stretch:125%;font-weight:900;letter-spacing:-.02em;line-height:.9;text-transform:uppercase}
+.eyebrow{font-stretch:110%;font-weight:600;font-size:.74rem;letter-spacing:.24em;text-transform:uppercase}
+.pad{padding-left:var(--gut);padding-right:var(--gut-r)}
+
+/* ---------- nav ---------- */
+.nav{position:fixed;inset:0 0 auto;z-index:50;display:flex;justify-content:flex-end;align-items:center;padding:calc(18px + env(safe-area-inset-top,0px)) var(--gut-r) 18px var(--gut);color:#fff;mix-blend-mode:difference;pointer-events:none}
+.nav a{pointer-events:auto;text-decoration:none}
+.brand{position:fixed;z-index:51;left:var(--gut);top:calc(12px + env(safe-area-inset-top,0px));display:block;line-height:0;opacity:0;transform:translateY(-8px);transition:opacity .9s ease,transform .9s cubic-bezier(.2,.7,.1,1)}
+.brand img{height:86px;width:auto;transition:height .5s cubic-bezier(.2,.7,.1,1);filter:drop-shadow(0 3px 10px rgba(0,0,0,.28))}
+.brand.in{opacity:1;transform:none}
+.brand.small img{height:62px}
+@media (max-width:640px){.brand img{height:60px}.brand.small img{height:48px}}
+.nav ul{display:flex;gap:30px;list-style:none;margin:0;padding:0}
+.nav ul a{font-stretch:110%;font-weight:600;font-size:.72rem;letter-spacing:.2em;text-transform:uppercase}
+.nav ul a:hover{text-decoration:underline;text-underline-offset:6px}
+.menu-btn{display:none;pointer-events:auto;background:none;border:0;color:inherit;font:inherit;font-weight:600;font-size:.72rem;letter-spacing:.2em;text-transform:uppercase;cursor:pointer;padding:10px 0 10px 14px;margin:-10px 0}
+.menu-btn i{display:inline-block;width:18px;height:7px;margin-left:10px;border-block:1.5px solid currentColor;vertical-align:middle}
+@media (max-width:720px){.nav ul{display:none}.menu-btn{display:block}}
+/* full-screen menu on phones */
+.menu{position:fixed;inset:0;z-index:60;background:#0e1a2e;color:#f1ede6;font-family:var(--f-text);display:flex;flex-direction:column;justify-content:space-between;padding:calc(24px + env(safe-area-inset-top,0px)) var(--gut-r) calc(28px + env(safe-area-inset-bottom,0px)) var(--gut);clip-path:inset(0 0 100% 0);visibility:hidden;transition:clip-path .7s cubic-bezier(.7,0,.2,1),visibility 0s .7s}
+.menu.open{clip-path:inset(0 0 0 0);visibility:visible;transition:clip-path .7s cubic-bezier(.7,0,.2,1)}
+.menu-top{display:flex;justify-content:space-between;align-items:center}
+.menu-top img{height:48px;width:auto}
+.menu-close{background:none;border:0;color:inherit;font:inherit;font-size:.72rem;letter-spacing:.2em;text-transform:uppercase;cursor:pointer;padding:12px 0 12px 14px}
+.menu ol{list-style:none;margin:0;padding:0;counter-reset:m}
+.menu li{border-top:1px solid rgba(241,237,230,.16);counter-increment:m}
+.menu li:last-child{border-bottom:1px solid rgba(241,237,230,.16)}
+.menu ol a{display:flex;justify-content:space-between;align-items:baseline;padding:14px 0;text-decoration:none;font-size:clamp(2rem,9vw,3rem);letter-spacing:-.03em;line-height:1.05;transform:translateY(16px);opacity:0;transition:transform .7s cubic-bezier(.2,.7,.1,1),opacity .5s}
+.menu ol a::after{content:"0" counter(m);font-size:.7rem;letter-spacing:.1em;color:rgba(241,237,230,.5)}
+.menu.open ol a{transform:none;opacity:1}
+.menu.open li:nth-child(2) a{transition-delay:.05s}.menu.open li:nth-child(3) a{transition-delay:.1s}.menu.open li:nth-child(4) a{transition-delay:.15s}.menu.open li:nth-child(5) a{transition-delay:.2s}
+.menu-foot{display:grid;gap:14px}
+.menu-foot .btn{justify-self:start;background:#f1ede6;color:#0b0a09}
+.menu-foot small{font-size:.78rem;color:rgba(241,237,230,.6)}
+
+/* ---------- hero: a quiet page, a row of work, and one frame that opens into the film ---------- */
+#hero{height:460vh;position:relative;background:var(--off)}
+#hero .stage{position:sticky;top:0;height:100vh;height:100svh;overflow:hidden;background:var(--off);color:var(--ink)}
+.hero-copy{position:absolute;left:var(--gut);right:var(--gut-r);top:max(92px,15svh);display:flex;flex-direction:column;gap:clamp(28px,6svh,64px);will-change:transform,opacity}
+.statement{margin:0 auto 0 0;max-width:46ch;font-family:var(--f-text);font-weight:400;font-size:clamp(1.55rem,3.1vw,3rem);line-height:1.14;letter-spacing:-.02em;text-wrap:balance;will-change:transform,opacity}
+.statement span{display:block;color:#9a958d}
+.statement b{font-weight:400}
+.studio{text-align:center;font-family:var(--f-text);font-size:.64rem;letter-spacing:.06em;text-transform:uppercase;line-height:1.5;color:var(--ink);will-change:opacity}
+.strip{position:absolute;left:0;bottom:max(28px,6svh);display:flex;gap:clamp(10px,1.2vw,18px);padding-left:var(--gut);will-change:transform}
+.strip figure{margin:0;flex:0 0 auto;height:min(40svh,62vw);aspect-ratio:4/5;overflow:hidden;background:#ddd8cf;will-change:opacity}
+.strip img{width:100%;height:100%;object-fit:cover}
+.strip .slot-film{background:transparent}
+.window{position:absolute;inset:0;clip-path:inset(50%);will-change:clip-path;z-index:2}
+.window video,.window img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;will-change:transform}
+.window .shade{position:absolute;inset:0;background:linear-gradient(180deg,rgba(11,10,9,.55),rgba(11,10,9,.25) 40%,rgba(11,10,9,.75));opacity:0}
+.manifesto{position:absolute;inset:0;z-index:3;margin:auto;height:max-content;max-width:min(1200px,92vw);text-align:center;font-size:clamp(2rem,5.6vw,5.4rem);text-wrap:balance;color:var(--bone);opacity:0;pointer-events:none}
+.manifesto span{opacity:.16;transition:opacity .25s linear}
+.intro-cap{position:absolute;left:var(--gut);right:var(--gut-r);bottom:calc(28px + env(safe-area-inset-bottom,0px));display:flex;justify-content:space-between;gap:16px;z-index:3;opacity:0;color:var(--bone)}
+.blackout{position:absolute;inset:0;z-index:4;background:#0e1a2e;opacity:0;pointer-events:none}
+.hint{position:absolute;right:var(--gut-r);bottom:calc(max(28px,6svh) + min(40svh,62vw) + 16px);font-family:var(--f-text);font-size:.64rem;letter-spacing:.06em;text-transform:uppercase;color:#9a958d}
+@media (max-width:640px){.hint{display:none}.studio{text-align:left}}
+
+/* ---------- o ranch: navy from the logo's ribbon, the haras on film, three plain statements ---------- */
+#ranch{--navy:#0e1a2e;background:var(--navy);color:var(--bone);padding-block:clamp(110px,18vh,200px) clamp(90px,14vh,160px);font-family:var(--f-text)}
+.r-wrap{max-width:1360px;margin:0 auto;display:grid;gap:clamp(64px,11vh,130px)}
+.r-label{font-size:.68rem;letter-spacing:.08em;text-transform:uppercase;color:rgba(241,237,230,.55)}
+.r-head{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,2.4fr);gap:clamp(24px,4vw,64px);align-items:start}
+.r-lead{margin:0;font-size:clamp(1.45rem,2.7vw,2.6rem);line-height:1.18;letter-spacing:-.02em;text-wrap:pretty}
+.r-lead span{color:rgba(241,237,230,.5)}
+.r-film{margin:0;display:grid;gap:14px}
+.r-film .frame{position:relative;aspect-ratio:16/9;overflow:hidden;background:#0a1322;clip-path:inset(0 6% round 2px);will-change:clip-path}
+.r-film video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;transform:scale(1.08);will-change:transform}
+.r-film figcaption{display:flex;justify-content:space-between;gap:16px;font-size:.68rem;letter-spacing:.08em;text-transform:uppercase;color:rgba(241,237,230,.55)}
+/* missão / valores / genética: a pinned photo on one side that changes with each chapter */
+.r-chapters{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.1fr);gap:clamp(32px,6vw,110px)}
+.r-media{position:sticky;top:12vh;height:76vh;overflow:hidden;background:#0a1322}
+.r-media img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;clip-path:inset(100% 0 0 0);transform:scale(1.12);transition:clip-path 1.1s cubic-bezier(.7,0,.2,1),transform 1.6s cubic-bezier(.2,.7,.1,1)}
+.r-media img.on{clip-path:inset(0 0 0 0);transform:none}
+.r-media img.was{clip-path:inset(0 0 0 0);transform:scale(1.04);transition:transform 1.6s ease}
+.r-media figcaption{position:absolute;z-index:2;left:18px;bottom:16px;right:18px;display:flex;justify-content:space-between;font-size:.68rem;letter-spacing:.08em;text-transform:uppercase;color:rgba(255,255,255,.85)}
+.r-ch{min-height:76vh;display:flex;flex-direction:column;justify-content:center;gap:22px;padding-block:6vh;opacity:.28;transition:opacity .8s ease}
+.r-ch.on{opacity:1}
+.r-ch .n{font-size:.68rem;letter-spacing:.1em;color:rgba(241,237,230,.5);display:flex;align-items:center;gap:14px}
+.r-ch .n::after{content:"";flex:0 0 56px;height:1px;background:rgba(241,237,230,.35)}
+.r-ch h3{margin:0;font-weight:400;font-size:clamp(2.6rem,5.2vw,5rem);line-height:.95;letter-spacing:-.04em}
+.r-ch p{margin:0;max-width:46ch;color:rgba(241,237,230,.76);font-size:1.12rem;line-height:1.6}
+.r-ch .big{font-size:clamp(1.25rem,1.9vw,1.6rem);line-height:1.35;color:var(--bone);letter-spacing:-.01em;max-width:30ch}
+.r-ch-img{display:none}
+.r-vals{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:0;border-top:1px solid rgba(241,237,230,.16)}
+.r-vals li{padding:18px 18px 18px 0;border-bottom:1px solid rgba(241,237,230,.16);min-width:0}
+.r-vals li:nth-child(odd){border-right:1px solid rgba(241,237,230,.16)}
+.r-vals li:nth-child(even){padding-left:18px}
+.r-vals b{display:block;font-weight:500;margin-bottom:6px;font-size:1.05rem}
+.r-vals span{color:rgba(241,237,230,.66);font-size:.95rem;line-height:1.5}
+@media (max-width:860px){
+  .r-head{grid-template-columns:1fr;gap:14px}
+  .r-chapters{grid-template-columns:1fr}
+  .r-media{display:none}
+  .r-ch{min-height:0;opacity:1;padding-block:28px}
+  .r-ch-img{display:block;width:100%;aspect-ratio:4/3;object-fit:cover}
+  .r-vals{grid-template-columns:1fr}
+  .r-vals li:nth-child(odd){border-right:0}
+  .r-vals li:nth-child(even){padding-left:0}
+  .r-film .frame{clip-path:none}
+}
+
+/* ---------- plantel: full-screen panels pinned in place, each wiping up over the last ---------- */
+#plantel{position:relative;background:var(--ink);font-family:var(--f-text)}
+.pl-head{max-width:1360px;margin:0 auto;padding-block:clamp(110px,18vh,190px) clamp(48px,8vh,90px);display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.3fr);gap:clamp(24px,4vw,64px);align-items:end}
+.pl-head h2{margin:0;font-weight:400;font-size:clamp(3rem,8vw,7.5rem);line-height:.92;letter-spacing:-.04em;text-transform:uppercase}
+.pl-head h2 span{display:block;padding-left:.9em}
+.pl-head p{margin:0 0 18px;max-width:40ch;color:rgba(241,237,230,.7);font-size:1.05rem;line-height:1.6}
+.pl-head a{font-size:.7rem;letter-spacing:.1em;text-transform:uppercase;text-decoration:none;border-bottom:1px solid rgba(241,237,230,.5);padding-bottom:4px}
+.pl-track{position:relative}
+.pl-stage{position:sticky;top:0;height:100vh;height:100svh;overflow:hidden}
+.pl-panel{position:absolute;inset:0;overflow:hidden;color:#fff;will-change:clip-path}
+.pl-panel + .pl-panel{clip-path:inset(100% 0 0 0)}   /* hidden until the scroll script reveals it */
+.pl-panel img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;will-change:transform,filter}
+.pl-panel::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(0,0,0,.38) 0%,rgba(0,0,0,0) 34%,rgba(0,0,0,0) 58%,rgba(0,0,0,.55) 100%);pointer-events:none}
+.pl-cat{position:absolute;z-index:2;left:var(--gut);right:var(--gut-r);top:clamp(96px,14vh,140px);margin:0;display:flex;justify-content:space-between;font-weight:400;font-size:clamp(3.4rem,13vw,13.5rem);line-height:1;letter-spacing:0;text-transform:uppercase;overflow:hidden;padding-block:.08em .02em}
+.pl-cat i{font-style:normal;display:block;will-change:transform}
+.pl-info{position:absolute;z-index:2;left:var(--gut);right:var(--gut-r);bottom:calc(clamp(28px,6vh,56px) + env(safe-area-inset-bottom,0px));display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:24px;align-items:end}
+.pl-info .ped{display:block;margin-bottom:10px;font-size:.7rem;letter-spacing:.1em;text-transform:uppercase;color:rgba(255,255,255,.75)}
+.pl-info h3{margin:0 0 14px;font-weight:400;font-size:clamp(1.5rem,2.6vw,2.4rem);line-height:1.02;letter-spacing:-.01em;text-transform:uppercase;max-width:14ch}
+.pl-info a{font-size:.7rem;letter-spacing:.1em;text-transform:uppercase;text-decoration:none;border-bottom:1px solid rgba(255,255,255,.6);padding-bottom:4px}
+.pl-stats{margin:0;justify-self:end;display:grid;grid-template-columns:repeat(3,minmax(0,13rem));gap:clamp(16px,2.4vw,40px)}
+.pl-stats div{border-top:1px solid rgba(255,255,255,.45);padding-top:12px;min-width:0}
+.pl-stats dt{font-size:clamp(1.2rem,2vw,1.9rem);letter-spacing:-.02em;line-height:1.1;margin-bottom:6px}
+.pl-stats dd{margin:0;font-size:.82rem;line-height:1.4;color:rgba(255,255,255,.8)}
+.pl-info p{margin:0;justify-self:end;max-width:36ch;font-size:.95rem;line-height:1.55;color:rgba(255,255,255,.86)}
+.pl-panel:nth-child(1) img{object-position:62% 50%}.pl-panel:nth-child(2) img{object-position:24% 50%}.pl-panel:nth-child(3) img{object-position:32% 30%}.pl-panel:nth-child(4) img{object-position:38% 50%}
+@media (max-width:760px) and (orientation:portrait){.pl-panel img{object-position:50% 50%!important}}
+.pl-count{position:absolute;z-index:3;right:var(--gut-r);top:calc(clamp(96px,14vh,140px) - 34px);font-size:.7rem;letter-spacing:.1em;color:rgba(255,255,255,.8);font-variant-numeric:tabular-nums}
+@media (max-width:760px){
+  .pl-head{grid-template-columns:1fr}
+  .pl-info{grid-template-columns:1fr}
+  .pl-info p,.pl-stats{justify-self:start}
+  .pl-stats{grid-template-columns:repeat(3,minmax(0,1fr));gap:12px}
+  .pl-stats dd{font-size:.72rem}
+}
+
+/* ---------- arena ---------- */
+#pista{padding-block:clamp(100px,16vh,180px)}
+#pista{font-family:var(--f-text)}
+.pista-head{max-width:1360px;margin:0 auto clamp(48px,8vh,90px);display:grid;grid-template-columns:minmax(0,1.3fr) minmax(0,1fr);gap:clamp(24px,4vw,64px);align-items:end}
+.pista-head h2{margin:0;font-weight:400;font-size:clamp(2.4rem,5.6vw,5.4rem);line-height:.96;letter-spacing:-.035em;max-width:12ch}
+.pista-head p{color:rgba(241,237,230,.7);margin:0;max-width:44ch;font-size:1.05rem;line-height:1.6}
+/* gallery: a loose 12-column rhythm, big and small frames alternating sides */
+.gal{max-width:1360px;margin:0 auto;display:grid;grid-template-columns:repeat(12,minmax(0,1fr));gap:clamp(48px,9vh,110px) clamp(12px,1.6vw,22px);align-items:end}
+.gal figure{margin:0;display:grid;gap:12px;min-width:0}
+.gal .ph{overflow:hidden;background:#17140f}
+.gal img{width:100%;height:100%;object-fit:cover;transform:scale(1.1);will-change:transform}
+.gal figcaption{font-size:.68rem;letter-spacing:.08em;text-transform:uppercase;color:rgba(241,237,230,.55)}
+.g1{grid-column:1/6}.g1 .ph{aspect-ratio:4/5}
+.g2{grid-column:7/13;align-self:center}.g2 .ph{aspect-ratio:3/2}
+.g3{grid-column:1/8}.g3 .ph{aspect-ratio:3/2}
+.g4{grid-column:9/13}.g4 .ph{aspect-ratio:2/3}
+.g5{grid-column:2/6}.g5 .ph{aspect-ratio:2/3}
+.g6{grid-column:7/13;align-self:start}.g6 .ph{aspect-ratio:3/2}
+.g7{grid-column:1/8}.g7 .ph{aspect-ratio:3/2}
+.g8{grid-column:9/13}.g8 .ph{aspect-ratio:3/4}
+.sheet{max-width:1280px;margin:clamp(70px,10vh,120px) auto 0;border-collapse:collapse;width:100%;font-variant-numeric:tabular-nums}
+.sheet caption{text-align:left;padding-bottom:16px;color:var(--steel)}
+.sheet th,.sheet td{text-align:left;padding:18px 16px 18px 0;border-top:1px solid var(--line);vertical-align:baseline}
+.sheet th{font-stretch:115%;font-weight:700;white-space:nowrap}
+.sheet td{color:rgba(241,237,230,.72)}
+.sheet td:last-child{text-align:right;padding-right:0;color:var(--bone);font-stretch:125%;font-weight:800;font-size:clamp(1.1rem,2vw,1.6rem);white-space:nowrap}
+@media (max-width:860px){
+  .pista-head{grid-template-columns:1fr}
+  .gal{row-gap:36px}
+  .gal figure{grid-column:1/-1}
+  .gal .g4,.gal .g8{grid-column:1/9}.gal .g5{grid-column:5/13}
+  .sheet th{white-space:normal}
+  .sheet td:nth-child(2){display:block;padding-top:0;border-top:0;font-size:.9rem}
+  .sheet tr{display:grid;grid-template-columns:1fr auto;border-top:1px solid var(--line)}
+  .sheet th,.sheet td{border-top:0}
+  .sheet td:nth-child(2){grid-column:1/-1;grid-row:2}
+}
+
+/* ---------- institutional film: a still and a button; YouTube only loads on click ---------- */
+#filme{padding-block:clamp(100px,16vh,180px);font-family:var(--f-text)}
+.film-head{max-width:1360px;margin:0 auto clamp(32px,5vh,56px);display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.3fr);gap:clamp(24px,4vw,64px);align-items:end}
+.film-head h2{margin:0;font-weight:400;font-size:clamp(2.4rem,5.6vw,5.4rem);line-height:.96;letter-spacing:-.035em}
+.film-head p{margin:0;max-width:44ch;color:rgba(241,237,230,.7);font-size:1.05rem;line-height:1.6}
+.films{max-width:1360px;margin:0 auto;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:clamp(16px,2vw,28px)}
+.film{margin:0;display:grid;gap:16px;align-content:start;min-width:0}
+.film figcaption{display:grid;gap:4px}
+.film figcaption b{font-weight:500;font-size:1.15rem;letter-spacing:-.01em}
+.film figcaption span{color:rgba(241,237,230,.66);font-size:.95rem;line-height:1.5;max-width:46ch}
+.yt{position:relative;aspect-ratio:16/9;overflow:hidden;background:#000}
+.yt img,.yt iframe{position:absolute;inset:0;width:100%;height:100%;border:0}
+.yt img{object-fit:contain;transition:transform 1.2s cubic-bezier(.2,.7,.1,1)}   /* the film is letterboxed; keep the whole frame */
+.yt::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(0,0,0,0) 45%,rgba(0,0,0,.55));pointer-events:none}
+.yt button{position:absolute;inset:0;z-index:2;width:100%;border:0;background:none;cursor:pointer;color:#fff;display:grid;place-items:center}
+.yt button span{width:clamp(84px,9vw,124px);aspect-ratio:1;border-radius:50%;display:grid;place-items:center;background:rgba(11,10,9,.32);border:1px solid rgba(255,255,255,.7);backdrop-filter:blur(6px);transition:transform .5s cubic-bezier(.2,.7,.1,1),background .3s}
+.yt button svg{width:26%;margin-left:8%}
+.yt button:hover span,.yt button:focus-visible span{transform:scale(1.08);background:rgba(11,10,9,.55)}
+.yt:hover img{transform:scale(1.03)}
+.yt small{position:absolute;z-index:2;left:clamp(16px,2vw,28px);bottom:clamp(14px,2vw,24px);font-size:.7rem;letter-spacing:.1em;text-transform:uppercase;color:rgba(255,255,255,.85);pointer-events:none}
+.yt.on::after,.yt.on small{display:none}
+.yt .yt-player{position:absolute;inset:0;z-index:3;width:100%;height:100%}
+.yt.on button{display:none}
+.yt-out{position:absolute;inset:0;z-index:2;display:grid;place-content:center;justify-items:center;gap:16px;color:#fff;text-decoration:none;background:rgba(0,0,0,.35)}
+.yt-out span{width:clamp(84px,9vw,124px);aspect-ratio:1;border-radius:50%;display:grid;place-items:center;background:rgba(11,10,9,.32);border:1px solid rgba(255,255,255,.7);backdrop-filter:blur(6px)}
+.yt-out svg{width:26%;margin-left:8%}
+.yt-out b{font-weight:500;font-size:.78rem;letter-spacing:.1em;text-transform:uppercase}
+@media (max-width:760px){.film-head{grid-template-columns:1fr}.films{grid-template-columns:1fr}}
+
+/* ---------- testimonials ---------- */
+#depoimentos{padding-block:clamp(100px,16vh,180px);font-family:var(--f-text)}
+.dep-head{max-width:1360px;margin:0 auto clamp(48px,8vh,90px);display:grid;grid-template-columns:minmax(0,1.3fr) minmax(0,1fr);gap:clamp(24px,4vw,64px);align-items:end}
+.dep-head h2{margin:0;font-weight:400;font-size:clamp(2.4rem,5.6vw,5.4rem);line-height:.96;letter-spacing:-.035em}
+.dep-head p{margin:0;max-width:40ch;color:rgba(241,237,230,.7);font-size:1.05rem;line-height:1.6}
+.quotes{max-width:1360px;margin:0 auto;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:clamp(24px,3vw,48px)}
+.quotes blockquote{margin:0;display:flex;flex-direction:column;justify-content:space-between;gap:36px;border-top:1px solid rgba(241,237,230,.3);padding-top:24px;min-width:0}
+.quotes p{margin:0;font-size:clamp(1.15rem,1.6vw,1.45rem);line-height:1.4;letter-spacing:-.01em}
+.quotes p::before{content:"“";display:block;font-size:3.2rem;line-height:.6;margin-bottom:10px;color:rgba(241,237,230,.45)}
+.quotes footer{display:grid;gap:2px}
+.quotes footer b{font-weight:500}
+.quotes footer span{font-size:.7rem;letter-spacing:.1em;text-transform:uppercase;color:rgba(241,237,230,.55)}
+@media (max-width:860px){.dep-head{grid-template-columns:1fr}.quotes{grid-template-columns:1fr}}
+
+/* ---------- contact: the same off-white the site opens with ---------- */
+#contato{background:var(--off);color:var(--ink);padding-block:clamp(100px,16vh,170px) 36px;font-family:var(--f-text)}
+.contact{max-width:1360px;margin:0 auto}
+.contact h2{margin:0 0 clamp(48px,8vh,90px);font-weight:400;font-size:clamp(3rem,9vw,9rem);line-height:.92;letter-spacing:-.045em;max-width:11ch}
+.c-label{display:block;font-size:.7rem;letter-spacing:.1em;text-transform:uppercase;color:#67625b;margin-bottom:12px}
+.contact-row{display:grid;grid-template-columns:minmax(0,1.4fr) minmax(0,1fr) minmax(0,1fr);gap:clamp(24px,4vw,64px);border-top:1px solid rgba(11,10,9,.16);padding-top:28px}
+.contact-row > div{min-width:0}
+.contact .phone{display:block;margin:0 0 22px;font-size:clamp(1.6rem,3vw,2.6rem);letter-spacing:-.02em;user-select:all;white-space:nowrap;font-variant-numeric:tabular-nums}
+.btn{display:inline-flex;align-items:center;gap:12px;padding:16px 26px;border-radius:999px;background:var(--ink);color:var(--off);text-decoration:none;font-family:var(--f-text);font-weight:500;font-size:.8rem;letter-spacing:.1em;text-transform:uppercase;transition:background .3s}
+.btn:hover{background:#0e1a2e}
+.links{list-style:none;margin:0;padding:0;display:grid;gap:8px}
+.links a{text-decoration:none;font-size:1.2rem;letter-spacing:-.01em;background:linear-gradient(currentColor,currentColor) 0 100%/0 1px no-repeat;transition:background-size .4s}
+.links a:hover{background-size:100% 1px}
+.foot{max-width:1360px;margin:clamp(80px,14vh,140px) auto 0;padding-top:24px;border-top:1px solid rgba(11,10,9,.16);display:flex;justify-content:space-between;align-items:center;gap:20px;flex-wrap:wrap}
+.foot img{height:64px;width:auto}
+.foot small{color:#67625b;font-size:.8rem}
+@media (max-width:860px){.contact-row{grid-template-columns:1fr}}
+
+</style>
+</head>
+<body>
+<script>document.documentElement.classList.add('js')</script>
+
+<a class="brand" id="brand" href="#hero" aria-label="B2B Ranch, início"><img src="assets/logo-mark.webp" alt="B2B Ranch Quarter Horse" width="372" height="240"></a>
+<nav class="nav" aria-label="Principal">
+  <button class="menu-btn" id="menuBtn" type="button" aria-expanded="false" aria-controls="menu">Menu<i aria-hidden="true"></i></button>
+  <ul>
+    <li><a href="#ranch">O Ranch</a></li>
+    <li><a href="#plantel">Plantel</a></li>
+    <li><a href="#pista">Na pista</a></li>
+    <li><a href="#filme">Filmes</a></li>
+    <li><a href="#contato">Contato</a></li>
+  </ul>
+</nav>
+<div class="menu" id="menu" role="dialog" aria-modal="true" aria-label="Menu">
+  <div class="menu-top"><img src="assets/logo-mark.webp" alt="B2B Ranch" width="372" height="240"><button class="menu-close" id="menuClose" type="button">Fechar</button></div>
+  <ol>
+    <li><a href="#ranch">O Ranch</a></li>
+    <li><a href="#plantel">Plantel</a></li>
+    <li><a href="#pista">Na pista</a></li>
+    <li><a href="#filme">Filmes</a></li>
+    <li><a href="#contato">Contato</a></li>
+  </ol>
+  <div class="menu-foot">
+    <a class="btn" href="https://wa.me/5524999442266?text=Ol%C3%A1%20B2B%20Ranch!%20Desejo%20saber%20algumas%20informa%C3%A7%C3%B5es." target="_blank" rel="noopener">Falar no WhatsApp <span aria-hidden="true">→</span></a>
+    <small>+55 (24) 99944-2266 · <a href="https://www.instagram.com/b2branch/" target="_blank" rel="noopener">@b2branch</a></small>
+  </div>
+</div>
+
+<main>
+<section id="hero" aria-label="B2B Ranch">
+  <div class="stage">
+    <div class="hero-copy" id="heroCopy">
+      <p class="statement"><span>Quarter Horse de alta performance.</span><b>Criados, treinados e preparados para os Três Tambores no B2B Ranch.</b></p>
+      <div class="studio">B2B Ranch · Quarter Horse<br>Criação, treinamento e genética</div>
+    </div>
+    <div class="hint" id="hint">Role</div>
+    <div class="strip" id="strip">
+      <figure><img src="assets/tux-profile.webp" alt="Tux N Rolls de perfil" width="1800" height="1209" fetchpriority="high"></figure>
+      <figure><img src="assets/arena-abqm.webp" alt="Conjunto contornando o tambor no Congresso ABQM" width="1800" height="1200"></figure>
+      <figure class="slot-film" id="filmSlot" aria-hidden="true"></figure>
+      <figure><img src="assets/morganna-rolls.webp" alt="B2B Morganna Rolls no pasto" width="1800" height="1197"></figure>
+      <figure><img src="assets/lucius-a.webp" alt="B2B Lucius Ta Fame na pista" width="1086" height="1600"></figure>
+      <figure><img src="assets/arena-gp-gabriela.webp" alt="Curva no tambor no Grand Prix" width="1800" height="1200"></figure>
+      <figure><img src="assets/tux-mov-03.webp" alt="Tux N Rolls galopando" width="1800" height="1062"></figure>
+    </div>
+    <div class="window" id="window">
+      <video src="assets/lucius-loop.mp4" poster="assets/lucius-loop-poster.jpg" muted loop playsinline autoplay preload="metadata"></video>
+      <div class="shade" id="winShade"></div>
+    </div>
+    <h1 class="manifesto wide" id="manifesto">Apaixonados por grandes cavalos. Atletas criados para a pista.</h1>
+    <div class="intro-cap eyebrow" id="introCap"><span>B2B Lucius Ta Fame</span><span>Aprovado ABQM</span></div>
+    <div class="blackout" id="blackout"></div>
+  </div>
+</section>
+
+<section id="ranch" class="pad" aria-label="O B2B Ranch">
+  <div class="r-wrap">
+    <header class="r-head">
+      <span class="r-label">O Ranch</span>
+      <p class="r-lead"><span>Um haras entre o lago e os morros.</span> Aqui nascem, crescem e são preparados os atletas Quarter Horse do B2B Ranch, com genética selecionada e manejo individual para cada cavalo.</p>
+    </header>
+
+    <figure class="r-film" id="rFilm">
+      <div class="frame"><video src="assets/haras.mp4" poster="assets/haras-poster.jpg" muted loop playsinline preload="none" aria-label="Vista aérea do haras: lago, pastos e morros"></video></div>
+      <figcaption><span>O haras</span><span>Lago, piquetes e pastagens</span></figcaption>
+    </figure>
+
+    <div class="r-chapters" id="rChapters">
+      <figure class="r-media" aria-hidden="true">
+        <img src="assets/haras-lago.webp" alt="" loading="lazy" decoding="async" width="2000" height="1333" class="on">
+        <img src="assets/lucius-cabresto.webp" alt="" loading="lazy" decoding="async" width="860" height="1080">
+        <img src="assets/lucius-frente.webp" alt="" loading="lazy" decoding="async" width="900" height="1080">
+        <figcaption><span id="rMediaCap">O haras</span><span id="rMediaNum">01 / 03</span></figcaption>
+      </figure>
+      <div>
+        <article class="r-ch on" data-cap="O haras">
+          <img class="r-ch-img" src="assets/haras-lago.webp" alt="Vista do haras com o lago e os morros" loading="lazy" decoding="async" width="2000" height="1333">
+          <span class="n">01 · Missão</span>
+          <h3>Referência nacional</h3>
+          <p class="big">Ser referência na criação de cavalos de alta performance no Brasil.</p>
+          <p>Pela inovação, pelos resultados em pista e pela confiança que inspiramos em nossos parceiros e clientes.</p>
+        </article>
+        <article class="r-ch" data-cap="B2B Lucius Ta Fame, no manejo diário">
+          <img class="r-ch-img" src="assets/lucius-cabresto.webp" alt="B2B Lucius Ta Fame conduzido no cabresto" loading="lazy" decoding="async" width="860" height="1080">
+          <span class="n">02 · Valores</span>
+          <h3>O que nos guia</h3>
+          <ul class="r-vals">
+            <li><b>Excelência</b><span>O mais alto padrão em genética, manejo e treinamento.</span></li>
+            <li><b>Compromisso</b><span>Transparência e dedicação com cada parceiro.</span></li>
+            <li><b>Respeito aos animais</b><span>Carinho, ética e atenção individualizada a cada cavalo.</span></li>
+            <li><b>Paixão</b><span>Amamos o que fazemos, e isso aparece em cada detalhe.</span></li>
+          </ul>
+        </article>
+        <article class="r-ch" data-cap="B2B Lucius Ta Fame · Tux N Rolls × KR The Black Pearl">
+          <img class="r-ch-img" src="assets/lucius-frente.webp" alt="B2B Lucius Ta Fame de frente" loading="lazy" decoding="async" width="900" height="1080">
+          <span class="n">03 · Genética</span>
+          <h3>Seleção criteriosa</h3>
+          <p class="big">Cada animal passa por uma seleção pensada na melhoria da raça e no desempenho esportivo.</p>
+          <p>Investimos em tecnologias reprodutivas de ponta, como transferência de embrião e inseminação artificial, para potencializar nossos resultados.</p>
+        </article>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<section id="plantel" aria-label="Plantel B2B">
+  <header class="pl-head pad">
+    <h2>Nosso <span>plantel</span></h2>
+    <div>
+      <p>Os garanhões e matrizes por trás da genética B2B: um recordista mundial, a base de toda a criação, o filho que leva a linhagem adiante e as éguas que formam a próxima geração.</p>
+      <a href="#contato">Falar sobre o plantel</a>
+    </div>
+  </header>
+  <div class="pl-track" id="plTrack">
+    <div class="pl-stage">
+      <article class="pl-panel">
+        <picture><source media="(max-width: 760px) and (orientation: portrait)" srcset="assets/m/adios-perfil.webp"><img src="assets/adios-perfil.webp" alt="Adios Pantalones, garanhão palomino com crina trançada" loading="lazy" decoding="async" width="1476" height="822"></picture>
+        <h2 class="pl-cat" aria-label="Garanhão">Garanhão</h2>
+        <div class="pl-info">
+          <div><span class="ped">Tres Seis × French Bar Belle · 2020</span><h3>Adios Pantalones</h3><a href="garanhoes/adios-pantalones.html">Conhecer o garanhão</a></div>
+          <dl class="pl-stats"><div><dt>US$ 1 mi+</dt><dd>Primeiro garanhão da história a passar de US$ 1 milhão em ganhos</dd></div><div><dt>10×</dt><dd>Campeão de futurities</dd></div><div><dt>BR</dt><dd>Genética no Brasil pelo Condomínio Adios Pantalones, com o B2B Ranch</dd></div></dl>
+        </div>
+      </article>
+      <article class="pl-panel">
+        <picture><source media="(max-width: 760px) and (orientation: portrait)" srcset="assets/m/tux-profile.webp"><img src="assets/tux-profile.webp" alt="Tux N Rolls, garanhão preto, de perfil" loading="lazy" decoding="async" width="1800" height="1209"></picture>
+        <h2 class="pl-cat" aria-label="Garanhão">Garanhão</h2>
+        <div class="pl-info">
+          <div><span class="ped">First Down Dash × Zevis Doll · 1999–2023</span><h3>Tux N Rolls</h3><a href="garanhoes/tux-n-rolls.html">Conhecer o garanhão</a></div>
+          <dl class="pl-stats"><div><dt>7.401</dt><dd>Pontos ABQM como reprodutor</dd></div><div><dt>R$ 4,6 mi+</dt><dd>Em produção no SGP</dd></div><div><dt>1ª</dt><dd>Pai da única tríplice coroada do Brasil</dd></div></dl>
+        </div>
+      </article>
+      <article class="pl-panel">
+        <picture><source media="(max-width: 760px) and (orientation: portrait)" srcset="assets/m/lucius-retrato.webp"><img src="assets/lucius-retrato.webp" alt="B2B Lucius Ta Fame, garanhão zaino, no piquete" loading="lazy" decoding="async" width="2000" height="1331"></picture>
+        <h2 class="pl-cat" aria-label="Garanhão">Garanhão</h2>
+        <div class="pl-info">
+          <div><span class="ped">Tux N Rolls × KR The Black Pearl · 2012</span><h3>B2B Lucius Ta Fame</h3><a href="garanhoes/lucius-ta-fame.html">Conhecer o garanhão</a></div>
+          <dl class="pl-stats"><div><dt>ABQM</dt><dd>Garanhão aprovado</dd></div><div><dt>Dash Ta Fame</dt><dd>Avô materno</dd></div><div><dt>B2B</dt><dd>Nascido e criado no ranch</dd></div></dl>
+        </div>
+      </article>
+      <article class="pl-panel">
+        <picture><source media="(max-width: 760px) and (orientation: portrait)" srcset="assets/m/morganna-rolls.webp"><img src="assets/morganna-rolls.webp" alt="B2B Morganna Rolls, égua palomino, no pasto" loading="lazy" decoding="async" width="1800" height="1197"></picture>
+        <h2 class="pl-cat" aria-label="Matriz">Matriz</h2>
+        <div class="pl-info">
+          <div><span class="ped">Tux N Rolls × Frenchmans Bulla</span><h3>B2B Morganna Rolls</h3><a href="#contato">Falar com o ranch</a></div>
+          <dl class="pl-stats"><div><dt>16 s</dt><dd>Corre na casa dos 16 segundos</dd></div><div><dt>Frenchmans Guy</dt><dd>Avô materno</dd></div><div><dt>Matriz</dt><dd>O filho dela também corre na casa dos 16 s</dd></div></dl>
+        </div>
+      </article>
+      <div class="pl-count" id="plCount" aria-hidden="true">01 / 04</div>
+    </div>
+  </div>
+</section>
+
+<section id="pista" class="pad" aria-label="Na pista">
+  <div class="pista-head">
+    <h2>Resultados medidos em segundos</h2>
+    <p>Congresso Brasileiro, Grand Prix, Barretos, Nacional ABQM. A genética do B2B Ranch corre nas principais provas de Três Tambores do país.</p>
+  </div>
+  <div class="gal">
+    <figure class="g1"><div class="ph"><img src="assets/arena-congresso.webp" alt="Conjunto em curva fechada no tambor do Congresso Brasileiro ABQM" loading="lazy" decoding="async" width="1800" height="1200" data-par="40"></div><figcaption>Congresso Brasileiro ABQM</figcaption></figure>
+    <figure class="g2"><div class="ph"><img src="assets/arena-gp-tordilho.webp" alt="Cavalo tordilho contornando o tambor no Grand Prix" loading="lazy" decoding="async" width="1600" height="1066" data-par="40"></div><figcaption>Grand Prix</figcaption></figure>
+    <figure class="g3"><div class="ph"><img src="assets/arena-abqm.webp" alt="Conjunto contornando o tambor no Congresso ABQM" loading="lazy" decoding="async" width="1800" height="1200" data-par="40"></div><figcaption>Congresso ABQM</figcaption></figure>
+    <figure class="g4"><div class="ph"><img src="assets/arena-keverson-pb.webp" alt="Cavaleiro comemora com o chapéu na mão, em preto e branco" loading="lazy" decoding="async" width="1200" height="1800" data-par="50"></div><figcaption>Keverson</figcaption></figure>
+    <figure class="g5"><div class="ph"><img src="assets/lucius-bebel.webp" alt="B2B Lucius Ta Fame montado por Bebel" loading="lazy" decoding="async" width="1197" height="1800" data-par="50"></div><figcaption>B2B Lucius Ta Fame e Bebel</figcaption></figure>
+    <figure class="g6"><div class="ph"><img src="assets/arena-gp-gabriela.webp" alt="Cavalo alazão em curva fechada no tambor do Grand Prix" loading="lazy" decoding="async" width="1800" height="1200" data-par="40"></div><figcaption>Grand Prix</figcaption></figure>
+    <figure class="g7"><div class="ph"><img src="assets/arena-grand-prix.webp" alt="Conjunto na prova de tambor em arena coberta" loading="lazy" decoding="async" width="1600" height="1066" data-par="40"></div><figcaption>Grand Prix</figcaption></figure>
+    <figure class="g8"><div class="ph"><img src="assets/lucius-a.webp" alt="B2B Lucius Ta Fame com a amazona comemorando na pista" loading="lazy" decoding="async" width="1086" height="1600" data-par="50"></div><figcaption>B2B Lucius Ta Fame</figcaption></figure>
+  </div>
+  <table class="sheet">
+    <caption class="eyebrow">Súmula</caption>
+    <tbody>
+      <tr><th scope="row">Mended Heart</th><td>Melhor tempo, 2024. Égua importada do plantel</td><td>16.401s</td></tr>
+      <tr><th scope="row">Mended Heart</th><td>Primeiras corridas</td><td>16.472 · 16.643 · 16.661</td></tr>
+      <tr><th scope="row">Tux N Rolls</th><td>Pontos ABQM como reprodutor</td><td>7.401</td></tr>
+      <tr><th scope="row">Tux N Rolls</th><td>Produção SGP</td><td>R$ 4,6 mi+</td></tr>
+      <tr><th scope="row">B2B Lovergirl Rolls</th><td>Tríplice coroa nos Três Tambores</td><td>Única do Brasil</td></tr>
+    </tbody>
+  </table>
+</section>
+
+<section id="filme" class="pad" aria-label="Filme institucional">
+  <header class="film-head">
+    <h2>Conheça o B2B&nbsp;Ranch</h2>
+    <p>Dois filmes sobre o haras, a criação e as pessoas por trás de cada cavalo. Toque para assistir.</p>
+  </header>
+  <div class="films">
+    <figure class="film">
+      <div class="yt" data-id="MRRADUUmitk">
+        <img src="assets/institucional-2-poster.webp" alt="Uma amazona abraça a cabeça de um cavalo, com o escudo do B2B Ranch: Apaixonados por grandes cavalos" loading="lazy" decoding="async" width="1600" height="901">
+        <button type="button" aria-label="Assistir ao filme B2B Ranch (YouTube, 6 min)"><span><svg viewBox="0 0 20 24" fill="currentColor" aria-hidden="true"><path d="M0 0l20 12L0 24z"/></svg></span></button>
+        <small>Filme · 6 min</small>
+      </div>
+      <figcaption><b>Apaixonados por grandes cavalos</b><span>O B2B Ranch em seis minutos: o haras, a criação e as pessoas por trás de cada cavalo.</span></figcaption>
+    </figure>
+    <figure class="film">
+      <div class="yt" data-id="4IPh_fbGn5g">
+        <img src="assets/institucional-poster.webp" alt="A equipe do B2B Ranch conversando e rindo na selaria do haras" loading="lazy" decoding="async" width="1447" height="606">
+        <button type="button" aria-label="Assistir ao filme institucional do B2B Ranch (YouTube)"><span><svg viewBox="0 0 20 24" fill="currentColor" aria-hidden="true"><path d="M0 0l20 12L0 24z"/></svg></span></button>
+        <small>Filme institucional</small>
+      </div>
+      <figcaption><b>Institucional</b><span>A equipe, a rotina do haras e os cavalos que levam o nome B2B às pistas.</span></figcaption>
+    </figure>
+  </div>
+</section>
+
+<section id="depoimentos" class="pad" aria-label="Depoimentos">
+  <div class="dep-head">
+    <h2>Quem conhece, confia</h2>
+    <p>Criadores, competidores e parceiros que já têm a genética B2B no plantel.</p>
+  </div>
+  <div class="quotes">
+    <blockquote><p>O B2B Ranch é sinônimo de qualidade e dedicação. Seus cavalos são excepcionais e refletem o compromisso da equipe com a excelência.</p><footer><b>Mariana Souza</b><span>Empresária</span></footer></blockquote>
+    <blockquote><p>Poder contar com os cavalos do B2B Ranch tem sido uma experiência enriquecedora. A paixão e o profissionalismo deles elevam o padrão da criação de cavalos no Brasil.</p><footer><b>Carlos Lima</b><span>Competidor de Três Tambores</span></footer></blockquote>
+    <blockquote><p>A linhagem de B2B Lucius Ta Fame tem feito a diferença no nosso plantel. Seus descendentes apresentam velocidade, inteligência e ótimo desempenho em pista.</p><footer><b>João Ricardo Mendes</b><span>Criador</span></footer></blockquote>
+  </div>
+</section>
+
+<section id="contato" class="pad" aria-label="Contato">
+  <div class="contact">
+    <h2>Venha conhecer o ranch</h2>
+    <div class="contact-row">
+      <div>
+        <span class="c-label">Telefone e WhatsApp</span>
+        <span class="phone">+55 (24) 99944-2266</span>
+        <a class="btn" href="https://wa.me/5524999442266?text=Ol%C3%A1%20B2B%20Ranch!%20Desejo%20saber%20algumas%20informa%C3%A7%C3%B5es." target="_blank" rel="noopener">Falar no WhatsApp <span aria-hidden="true">→</span></a>
+      </div>
+      <div>
+        <span class="c-label">Redes</span>
+        <ul class="links">
+          <li><a href="https://www.instagram.com/b2branch/" target="_blank" rel="noopener">Instagram · @b2branch</a></li>
+          <li><a href="https://www.facebook.com/people/B2B-Ranch/100050369475180/" target="_blank" rel="noopener">Facebook · B2B Ranch</a></li>
+        </ul>
+      </div>
+      <div>
+        <span class="c-label">Garanhões</span>
+        <ul class="links">
+          <li><a href="garanhoes/adios-pantalones.html">Adios Pantalones</a></li>
+          <li><a href="garanhoes/tux-n-rolls.html">Tux N Rolls</a></li>
+          <li><a href="garanhoes/lucius-ta-fame.html">B2B Lucius Ta Fame</a></li>
+        </ul>
+      </div>
+    </div>
+    <footer class="foot">
+      <img src="assets/logo-mark.webp" alt="B2B Ranch Quarter Horse" width="372" height="240" loading="lazy">
+      <small>© 2026 B2B Ranch · Apaixonados por grandes cavalos</small>
+    </footer>
+  </div>
+</section>
+</main>
+
+<script>
+(() => {
+const $ = s => document.querySelector(s);
+const clamp = (v, a = 0, b = 1) => Math.max(a, Math.min(b, v));
+const lerp = (a, b, t) => a + (b - a) * t;
+const sstep = (a, b, v) => { const t = clamp((v - a) / (b - a)); return t * t * (3 - 2 * t); };
+const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+let vw = innerWidth, vh = innerHeight, sy = scrollY;
+const sec = {};
+const ids = ['hero', 'pista'];
+
+/* ---------- hero ---------- */
+const heroCopy = $('#heroCopy'), hint = $('#hint');
+const strip = $('#strip'), filmSlot = $('#filmSlot'), stripCards = [...strip.children].filter(f => f !== filmSlot);
+const blackout = $('#blackout'), winShade = $('#winShade');
+let stripShift = 0;
+
+/* ---------- intro ---------- */
+const win = $('#window'), winVid = win.querySelector('video'), introCap = $('#introCap'), stage = $('#hero .stage');
+const man = $('#manifesto');
+// split manifesto into words, keep the <em>
+const words = [];
+[...man.childNodes].forEach(n => {
+  if (n.nodeType === 3) {
+    const frag = document.createDocumentFragment();
+    n.textContent.split(/(\s+)/).forEach(w => {
+      if (!w.trim()) { frag.append(w); return; }
+      const s = document.createElement('span'); s.textContent = w; frag.append(s); words.push(s);
+    });
+    n.replaceWith(frag);
+  } else { const s = document.createElement('span'); n.replaceWith(s); s.append(n); words.push(s); }
+});
+
+/* ---------- o ranch: the haras film opens out as it arrives ---------- */
+const rFilm = $('#rFilm'), rFrame = rFilm.querySelector('.frame'), rVid = rFilm.querySelector('video');
+new IntersectionObserver(([e]) => { if (e.isIntersecting) rVid.play().catch(() => {}); else rVid.pause(); }, { rootMargin: '200px 0px' }).observe(rFilm);
+
+/* ---------- chapters: the pinned photo follows whichever chapter is in the middle ---------- */
+const chapters = [...document.querySelectorAll('.r-ch')], chImgs = [...document.querySelectorAll('.r-media img')];
+const rMediaCap = $('#rMediaCap'), rMediaNum = $('#rMediaNum');
+let chOn = 0;
+const chObs = new IntersectionObserver(es => es.forEach(e => {
+  if (!e.isIntersecting) return;
+  const i = chapters.indexOf(e.target);
+  if (i === chOn) return;
+  chapters.forEach((c, k) => c.classList.toggle('on', k === i));
+  chImgs.forEach((im, k) => { im.classList.toggle('was', k === chOn); im.classList.toggle('on', k === i); im.style.zIndex = k === i ? 2 : k === chOn ? 1 : 0; });
+  chOn = i;
+  rMediaCap.textContent = e.target.dataset.cap;
+  rMediaNum.textContent = `0${i + 1} / 0${chapters.length}`;
+}), { rootMargin: '-45% 0px -45% 0px' });
+chapters.forEach(c => chObs.observe(c));
+
+/* ---------- phone menu ---------- */
+const menu = $('#menu'), menuBtn = $('#menuBtn');
+function setMenu(open) {
+  menu.classList.toggle('open', open);
+  menuBtn.setAttribute('aria-expanded', open);
+  document.documentElement.style.overflow = open ? 'hidden' : '';
+  if (open) $('#menuClose').focus(); else menuBtn.focus({ preventScroll: true });
+}
+menuBtn.addEventListener('click', () => setMenu(true));
+$('#menuClose').addEventListener('click', () => setMenu(false));
+menu.querySelectorAll('ol a').forEach(a => a.addEventListener('click', () => setMenu(false)));
+addEventListener('keydown', e => { if (e.key === 'Escape' && menu.classList.contains('open')) setMenu(false); });
+
+/* ---------- brand ---------- */
+const brand = $('#brand');
+requestAnimationFrame(() => brand.classList.add('in'));
+
+/* ---------- plantel panels ---------- */
+const plTrack = $('#plTrack'), plCount = $('#plCount');
+const panels = [...plTrack.querySelectorAll('.pl-panel')].map(el => {
+  const cat = el.querySelector('.pl-cat'), word = cat.textContent;
+  cat.textContent = '';
+  const letters = [...word].map(ch => { const i = document.createElement('i'); i.textContent = ch; i.setAttribute('aria-hidden', 'true'); cat.append(i); return i; });
+  return { el, img: el.querySelector('img'), letters };
+});
+plTrack.style.height = (panels.length * 100 + 40) + 'vh';   // a beat of rest on the last panel
+// the panels are lazy images inside a pinned stage; fetch them as the section approaches
+new IntersectionObserver(([e], o) => { if (e.isIntersecting) { panels.forEach(p => p.img.loading = 'eager'); o.disconnect(); } }, { rootMargin: '100% 0px' }).observe(plTrack);
+
+/* ---------- arena parallax ---------- */
+const parImgs = [...document.querySelectorAll('[data-par]')];
+
+/* ---------- measure ---------- */
+function measure() {
+  vw = innerWidth; vh = innerHeight;
+  strip.style.transform = 'none';
+  const fr = filmSlot.getBoundingClientRect();
+  stripShift = Math.max(0, fr.left + fr.width / 2 - vw / 2);
+  ids.forEach(id => { const el = document.getElementById(id); sec[id] = { top: el.getBoundingClientRect().top + scrollY, h: el.offsetHeight }; });
+}
+addEventListener('resize', () => { clearTimeout(measure.t); measure.t = setTimeout(measure, 120); });
+addEventListener('load', measure);
+document.fonts && document.fonts.ready.then(measure);
+measure();
+
+/* ---------- main loop ---------- */
+let last = performance.now();
+function frame(now) {
+  const dt = Math.min(.05, (now - last) / 1000); last = now;
+  const target = scrollY;
+  sy = reduce ? target : lerp(sy, target, 1 - Math.pow(.0005, dt));
+  if (Math.abs(sy - target) < .3) sy = target;
+
+  // hero: the row slides until the film frame is centred, the frame opens to full bleed,
+  // then the manifesto lights up word by word over the film
+  const H = sec.hero, p = clamp((sy - H.top) / (H.h - vh));
+  const slide = sstep(0, .26, p);
+  strip.style.transform = `translate3d(${(-stripShift * slide).toFixed(1)}px,0,0)`;
+  const g = sstep(.26, .5, p);
+  const lift = sstep(.18, .42, p);
+  heroCopy.style.transform = `translate3d(0,${(-lift * 60).toFixed(1)}px,0)`;
+  heroCopy.style.opacity = (1 - lift).toFixed(3);
+  hint.style.opacity = (1 - sstep(0, .06, p)).toFixed(3);
+  stripCards.forEach(c => c.style.opacity = (1 - sstep(.3, .44, p)).toFixed(3));
+  const fr = filmSlot.getBoundingClientRect();
+  const sh = stage.getBoundingClientRect();
+  const it = lerp(fr.top - sh.top, 0, g), il = lerp(fr.left - sh.left, 0, g);
+  const ib = lerp(sh.bottom - fr.bottom, 0, g), ir = lerp(sh.right - fr.right, 0, g);
+  win.style.clipPath = `inset(${it.toFixed(1)}px ${ir.toFixed(1)}px ${ib.toFixed(1)}px ${il.toFixed(1)}px)`;
+  winVid.style.transform = `scale(${lerp(1.25, 1, g).toFixed(4)})`;
+  const q = clamp((p - .5) / .5);
+  winShade.style.opacity = sstep(.42, .55, p).toFixed(3);
+  man.style.opacity = (sstep(.5, .56, p) * (1 - sstep(.9, .97, p))).toFixed(3);
+  words.forEach((w, i) => { const a = .04 + (i / words.length) * .62; w.style.opacity = (.16 + .84 * sstep(a, a + .08, q)).toFixed(3); });
+  introCap.style.opacity = (sstep(.6, .7, p) * (1 - sstep(.9, .97, p))).toFixed(3);
+  blackout.style.opacity = sstep(.9, .99, p).toFixed(3);
+
+  brand.classList.toggle('small', sy > 40);
+
+  // o ranch: the film frame widens from inset to full width as it reaches the middle
+  const fr2 = rFrame.getBoundingClientRect();
+  if (fr2.bottom > 0 && fr2.top < vh && vw > 860) {
+    const o = sstep(vh, vh * .35, fr2.top + fr2.height * .2);
+    rFrame.style.clipPath = `inset(0 ${lerp(6, 0, o).toFixed(2)}% round 2px)`;
+    rVid.style.transform = `scale(${lerp(1.08, 1, o).toFixed(4)})`;
+  }
+
+  // plantel: each panel wipes up over the one before; the category letters rise in a stagger
+  const pt = plTrack.getBoundingClientRect();
+  if (pt.bottom > 0 && pt.top < vh) {
+    const u = (-pt.top) / vh;                            // 0 when the stage pins, 1 per panel after
+    panels.forEach((pn, i) => {
+      const r = i === 0 ? 1 : clamp(u - (i - 1));
+      const enter = i === 0 ? clamp((vh - pt.top) / (vh * .9)) : r;
+      const next = i < panels.length - 1 ? clamp(u - i) : 0;
+      pn.el.style.clipPath = i === 0 ? 'none' : `inset(${((1 - r) * 100).toFixed(2)}% 0 0 0)`;
+      pn.img.style.transform = `translate3d(0,${(next * -6).toFixed(2)}vh,0) scale(${(lerp(1.14, 1, sstep(0, 1, enter)) + next * .06).toFixed(4)})`;
+      pn.img.style.filter = next > 0 ? `brightness(${(1 - next * .45).toFixed(3)})` : '';
+      const n = pn.letters.length;
+      pn.letters.forEach((l, j) => {
+        const a = .15 + (j / n) * .45;
+        l.style.transform = `translate3d(0,${((1 - sstep(a, a + .35, enter)) * 105).toFixed(1)}%,0)`;
+      });
+    });
+    plCount.textContent = `0${Math.min(panels.length, 1 + Math.floor(u + .5))} / 0${panels.length}`;
+  }
+
+  // arena parallax
+  parImgs.forEach(img => {
+    const r = img.parentNode.getBoundingClientRect();
+    if (r.bottom < 0 || r.top > vh) return;
+    const c = (r.top + r.height / 2 - vh / 2) / vh;
+    img.style.transform = `translate3d(0,${(-c * +img.dataset.par).toFixed(1)}px,0) scale(1.12)`;
+  });
+
+  requestAnimationFrame(frame);
+}
+requestAnimationFrame(frame);
+
+// pause the background loop when off screen
+new IntersectionObserver(([e]) => { e.isIntersecting ? winVid.play().catch(() => {}) : winVid.pause(); }).observe(win);
+
+/* ---------- films: swap a still for the YouTube player only when asked ---------- */
+// If YouTube refuses to play one here (embedding off or a rights restriction on that video),
+// that frame falls back to a clean link instead of YouTube's error screen.
+function ytFallback(yt) {
+  yt.classList.remove('on');
+  yt.querySelector('.yt-player')?.remove();
+  yt.querySelector('button')?.remove();
+  if (!yt.querySelector('.yt-out')) yt.insertAdjacentHTML('beforeend', `<a class="yt-out" href="https://www.youtube.com/watch?v=${yt.dataset.id}" target="_blank" rel="noopener"><span><svg viewBox="0 0 20 24" fill="currentColor" aria-hidden="true"><path d="M0 0l20 12L0 24z"/></svg></span><b>Assistir no YouTube</b></a>`);
+}
+const ytPlayers = [];
+function ytPlay(yt) {
+  ytPlayers.forEach(pl => pl.pauseVideo && pl.pauseVideo());   // one film at a time
+  const host = document.createElement('div');
+  host.className = 'yt-player';
+  yt.append(host);
+  yt.classList.add('on');
+  ytPlayers.push(new YT.Player(host, {
+    videoId: yt.dataset.id,
+    playerVars: { autoplay: 1, rel: 0, playsinline: 1, origin: location.origin },
+    events: { onReady: e => e.target.playVideo(), onError: () => ytFallback(yt) }
+  }));
+}
+let ytApi;
+function loadYtApi() {
+  return ytApi ||= new Promise((ok, fail) => {
+    if (window.YT && YT.Player) return ok();
+    window.onYouTubeIframeAPIReady = ok;
+    const sc = document.createElement('script');
+    sc.src = 'https://www.youtube.com/iframe_api';
+    sc.onerror = fail;
+    document.head.append(sc);
+  });
+}
+document.querySelectorAll('.yt').forEach(yt => yt.querySelector('button').addEventListener('click', () => {
+  loadYtApi().then(() => ytPlay(yt), () => ytFallback(yt));
+}));
+})();
+</script>
+</body>
+</html>
