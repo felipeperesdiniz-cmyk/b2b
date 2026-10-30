@@ -38,6 +38,11 @@ a{color:inherit}
 .g-hero.in h1 i{transform:none}
 .g-hero .ped{font-size:clamp(.95rem,1.4vw,1.2rem);color:rgba(255,255,255,.88)}
 
+/* a stallion's own logo, when he has one */
+.g-logo{padding-top:clamp(80px,12vh,140px);display:flex;justify-content:center}
+.g-logo img{width:min(520px,78vw);height:auto}
+.g-logo + .g-intro{padding-top:clamp(50px,7vh,80px)}
+
 /* intro + sheet */
 .g-intro{padding-block:clamp(90px,14vh,160px) clamp(60px,9vh,110px);display:grid;grid-template-columns:minmax(0,1fr) minmax(0,2.2fr);gap:clamp(24px,4vw,64px)}
 .g-intro p{margin:0;font-size:clamp(1.45rem,2.7vw,2.5rem);line-height:1.2;letter-spacing:-.02em;text-wrap:pretty}
@@ -103,6 +108,9 @@ a{color:inherit}
   .g-sheet{grid-template-columns:repeat(2,minmax(0,1fr))}
   .g-marks ol{grid-template-columns:repeat(2,minmax(0,1fr))}
   .g-photos .a,.g-photos .b,.g-photos.single .a{grid-column:1/-1;padding-bottom:0}
+  /* phones: show each photo whole, at its own shape, never cropped to a fixed box */
+  .g-photos .ph,.g-photos .a .ph,.g-photos .b .ph,.g-photos.single .a .ph{aspect-ratio:auto!important;max-height:none!important}
+  .g-photos img{height:auto;transform:none!important}
   .g-family li{grid-template-columns:1fr;gap:4px}
 }
 /* phones held upright get the vertical files, already framed on the horse */

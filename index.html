@@ -64,7 +64,7 @@ a{color:inherit}
 .nav ul a:hover{text-decoration:underline;text-underline-offset:6px}
 .menu-btn{display:none;pointer-events:auto;background:none;border:0;color:inherit;font:inherit;font-weight:600;font-size:.72rem;letter-spacing:.2em;text-transform:uppercase;cursor:pointer;padding:10px 0 10px 14px;margin:-10px 0}
 .menu-btn i{display:inline-block;width:18px;height:7px;margin-left:10px;border-block:1.5px solid currentColor;vertical-align:middle}
-@media (max-width:720px){.nav ul{display:none}.menu-btn{display:block}}
+@media (max-width:900px){.nav ul{display:none}.menu-btn{display:block}}
 /* full-screen menu on phones */
 .menu{position:fixed;inset:0;z-index:60;background:#0e1a2e;color:#f1ede6;font-family:var(--f-text);display:flex;flex-direction:column;justify-content:space-between;padding:calc(24px + env(safe-area-inset-top,0px)) var(--gut-r) calc(28px + env(safe-area-inset-bottom,0px)) var(--gut);clip-path:inset(0 0 100% 0);visibility:hidden;transition:clip-path .7s cubic-bezier(.7,0,.2,1),visibility 0s .7s}
 .menu.open{clip-path:inset(0 0 0 0);visibility:visible;transition:clip-path .7s cubic-bezier(.7,0,.2,1)}
@@ -74,10 +74,10 @@ a{color:inherit}
 .menu ol{list-style:none;margin:0;padding:0;counter-reset:m}
 .menu li{border-top:1px solid rgba(241,237,230,.16);counter-increment:m}
 .menu li:last-child{border-bottom:1px solid rgba(241,237,230,.16)}
-.menu ol a{display:flex;justify-content:space-between;align-items:baseline;padding:14px 0;text-decoration:none;font-size:clamp(2rem,9vw,3rem);letter-spacing:-.03em;line-height:1.05;transform:translateY(16px);opacity:0;transition:transform .7s cubic-bezier(.2,.7,.1,1),opacity .5s}
+.menu ol a{display:flex;justify-content:space-between;align-items:baseline;padding:12px 0;text-decoration:none;font-size:clamp(2rem,9vw,3rem);letter-spacing:-.03em;line-height:1.05;transform:translateY(16px);opacity:0;transition:transform .7s cubic-bezier(.2,.7,.1,1),opacity .5s}
 .menu ol a::after{content:"0" counter(m);font-size:.7rem;letter-spacing:.1em;color:rgba(241,237,230,.5)}
 .menu.open ol a{transform:none;opacity:1}
-.menu.open li:nth-child(2) a{transition-delay:.05s}.menu.open li:nth-child(3) a{transition-delay:.1s}.menu.open li:nth-child(4) a{transition-delay:.15s}.menu.open li:nth-child(5) a{transition-delay:.2s}
+.menu.open li:nth-child(2) a{transition-delay:.05s}.menu.open li:nth-child(3) a{transition-delay:.1s}.menu.open li:nth-child(4) a{transition-delay:.15s}.menu.open li:nth-child(5) a{transition-delay:.2s}.menu.open li:nth-child(6) a{transition-delay:.25s}
 .menu-foot{display:grid;gap:14px}
 .menu-foot .btn{justify-self:start;background:#f1ede6;color:#0b0a09}
 .menu-foot small{font-size:.78rem;color:rgba(241,237,230,.6)}
@@ -203,6 +203,29 @@ a{color:inherit}
   .pl-stats dd{font-size:.72rem}
 }
 
+/* ---------- matrizes: light page after the dark stallions; Morganna pinned beside the list ---------- */
+#matrizes{background:var(--off);color:var(--ink);padding-block:clamp(100px,16vh,180px);font-family:var(--f-text)}
+.mz-head{max-width:1360px;margin:0 auto clamp(48px,8vh,90px);display:grid;grid-template-columns:minmax(0,1.3fr) minmax(0,1fr);gap:clamp(24px,4vw,64px);align-items:end}
+.mz-head h2{margin:0;font-weight:400;font-size:clamp(2.6rem,6.4vw,6.2rem);line-height:.92;letter-spacing:-.04em}
+.mz-head p{margin:0;max-width:40ch;color:#4a4640;font-size:1.05rem;line-height:1.6}
+.mz{max-width:1360px;margin:0 auto;display:grid;grid-template-columns:minmax(0,5fr) minmax(0,7fr);gap:clamp(32px,5vw,90px);align-items:start}
+.mz-feature{margin:0;position:sticky;top:12vh;display:grid;gap:14px}
+.mz-feature .ph{aspect-ratio:4/5;max-height:72vh;overflow:hidden;background:#ddd8cf}
+.mz-feature img{width:100%;height:100%;object-fit:cover;object-position:30% 50%}
+.mz-feature figcaption{display:grid;gap:2px}
+.mz-feature figcaption b{font-weight:500}
+.mz-feature figcaption span,.mz-list span{font-size:.7rem;letter-spacing:.1em;text-transform:uppercase;color:#67625b}
+.mz-list{list-style:none;margin:0;padding:0;counter-reset:mz;border-top:1px solid rgba(11,10,9,.16)}
+.mz-list li{counter-increment:mz;display:grid;grid-template-columns:3.2rem minmax(0,1fr);column-gap:12px;row-gap:4px;padding-block:22px;border-bottom:1px solid rgba(11,10,9,.16)}
+.mz-list li::before{content:counter(mz,decimal-leading-zero);grid-row:1/span 3;font-size:.7rem;letter-spacing:.1em;color:#67625b;padding-top:.5em}
+.mz-list b{font-weight:400;font-size:clamp(1.3rem,2vw,1.75rem);letter-spacing:-.02em;line-height:1.15}
+.mz-list p{margin:6px 0 0;color:#2c2925;font-size:1rem;line-height:1.55;max-width:56ch}
+@media (max-width:860px){
+  .mz-head,.mz{grid-template-columns:1fr}
+  .mz-feature{position:static}
+  .mz-feature .ph{max-height:none}
+}
+
 /* ---------- arena ---------- */
 #pista{padding-block:clamp(100px,16vh,180px)}
 #pista{font-family:var(--f-text)}
@@ -274,7 +297,7 @@ a{color:inherit}
 .dep-head{max-width:1360px;margin:0 auto clamp(48px,8vh,90px);display:grid;grid-template-columns:minmax(0,1.3fr) minmax(0,1fr);gap:clamp(24px,4vw,64px);align-items:end}
 .dep-head h2{margin:0;font-weight:400;font-size:clamp(2.4rem,5.6vw,5.4rem);line-height:.96;letter-spacing:-.035em}
 .dep-head p{margin:0;max-width:40ch;color:rgba(241,237,230,.7);font-size:1.05rem;line-height:1.6}
-.quotes{max-width:1360px;margin:0 auto;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:clamp(24px,3vw,48px)}
+.quotes{max-width:1360px;margin:0 auto;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:clamp(24px,3vw,48px)}
 .quotes blockquote{margin:0;display:flex;flex-direction:column;justify-content:space-between;gap:36px;border-top:1px solid rgba(241,237,230,.3);padding-top:24px;min-width:0}
 .quotes p{margin:0;font-size:clamp(1.15rem,1.6vw,1.45rem);line-height:1.4;letter-spacing:-.01em}
 .quotes p::before{content:"“";display:block;font-size:3.2rem;line-height:.6;margin-bottom:10px;color:rgba(241,237,230,.45)}
@@ -312,6 +335,7 @@ a{color:inherit}
   <ul>
     <li><a href="#ranch">O Ranch</a></li>
     <li><a href="#plantel">Plantel</a></li>
+    <li><a href="#matrizes">Matrizes</a></li>
     <li><a href="#pista">Na pista</a></li>
     <li><a href="#filme">Filmes</a></li>
     <li><a href="#contato">Contato</a></li>
@@ -322,6 +346,7 @@ a{color:inherit}
   <ol>
     <li><a href="#ranch">O Ranch</a></li>
     <li><a href="#plantel">Plantel</a></li>
+    <li><a href="#matrizes">Matrizes</a></li>
     <li><a href="#pista">Na pista</a></li>
     <li><a href="#filme">Filmes</a></li>
     <li><a href="#contato">Contato</a></li>
@@ -407,9 +432,9 @@ a{color:inherit}
 
 <section id="plantel" aria-label="Plantel B2B">
   <header class="pl-head pad">
-    <h2>Nosso <span>plantel</span></h2>
+    <h2>Nossos <span>garanhões</span></h2>
     <div>
-      <p>Os garanhões e matrizes por trás da genética B2B: um recordista mundial, a base de toda a criação, o filho que leva a linhagem adiante e as éguas que formam a próxima geração.</p>
+      <p>Os garanhões por trás da genética B2B: um recordista mundial, a base de toda a criação e o filho que leva a linhagem adiante.</p>
       <a href="#contato">Falar sobre o plantel</a>
     </div>
   </header>
@@ -428,7 +453,7 @@ a{color:inherit}
         <h2 class="pl-cat" aria-label="Garanhão">Garanhão</h2>
         <div class="pl-info">
           <div><span class="ped">First Down Dash × Zevis Doll · 1999–2023</span><h3>Tux N Rolls</h3><a href="garanhoes/tux-n-rolls.html">Conhecer o garanhão</a></div>
-          <dl class="pl-stats"><div><dt>7.401</dt><dd>Pontos ABQM como reprodutor</dd></div><div><dt>R$ 4,6 mi+</dt><dd>Em produção no SGP</dd></div><div><dt>1ª</dt><dd>Pai da única tríplice coroada do Brasil</dd></div></dl>
+          <dl class="pl-stats"><div><dt>7.672</dt><dd>Pontos ABQM como reprodutor</dd></div><div><dt>R$ 5,01 mi</dt><dd>Em ganhos dos seus filhos pelo SGP</dd></div><div><dt>1ª</dt><dd>Pai da única tríplice coroada do Brasil</dd></div></dl>
         </div>
       </article>
       <article class="pl-panel">
@@ -436,19 +461,36 @@ a{color:inherit}
         <h2 class="pl-cat" aria-label="Garanhão">Garanhão</h2>
         <div class="pl-info">
           <div><span class="ped">Tux N Rolls × KR The Black Pearl · 2012</span><h3>B2B Lucius Ta Fame</h3><a href="garanhoes/lucius-ta-fame.html">Conhecer o garanhão</a></div>
-          <dl class="pl-stats"><div><dt>ABQM</dt><dd>Garanhão aprovado</dd></div><div><dt>Dash Ta Fame</dt><dd>Avô materno</dd></div><div><dt>B2B</dt><dd>Nascido e criado no ranch</dd></div></dl>
+          <dl class="pl-stats"><div><dt>Top 3</dt><dd>B2B Brave Rolls, sua filha, no Potro do Futuro ABQM 2026</dd></div><div><dt>16.671</dt><dd>Menor tempo de B2B Aphrodite Rolls, sua filha</dd></div><div><dt>B2B</dt><dd>Nascido e criado no ranch</dd></div></dl>
         </div>
       </article>
-      <article class="pl-panel">
-        <picture><source media="(max-width: 760px) and (orientation: portrait)" srcset="assets/m/morganna-rolls.webp"><img src="assets/morganna-rolls.webp" alt="B2B Morganna Rolls, égua palomino, no pasto" loading="lazy" decoding="async" width="1800" height="1197"></picture>
-        <h2 class="pl-cat" aria-label="Matriz">Matriz</h2>
-        <div class="pl-info">
-          <div><span class="ped">Tux N Rolls × Frenchmans Bulla</span><h3>B2B Morganna Rolls</h3><a href="#contato">Falar com o ranch</a></div>
-          <dl class="pl-stats"><div><dt>16 s</dt><dd>Corre na casa dos 16 segundos</dd></div><div><dt>Frenchmans Guy</dt><dd>Avô materno</dd></div><div><dt>Matriz</dt><dd>O filho dela também corre na casa dos 16 s</dd></div></dl>
-        </div>
-      </article>
-      <div class="pl-count" id="plCount" aria-hidden="true">01 / 04</div>
+      <div class="pl-count" id="plCount" aria-hidden="true">01 / 03</div>
     </div>
+  </div>
+</section>
+
+<section id="matrizes" class="pad" aria-label="Matrizes">
+  <div class="mz-head">
+    <h2>Matrizes</h2>
+    <p>As éguas que formam cada geração do B2B Ranch: importadas, campeãs e mães de campeões.</p>
+  </div>
+  <div class="mz">
+    <figure class="mz-feature">
+      <div class="ph"><picture><source media="(max-width: 760px) and (orientation: portrait)" srcset="assets/m/morganna-rolls.webp"><img src="assets/morganna-rolls.webp" alt="B2B Morganna Rolls, égua palomino, no pasto" loading="lazy" decoding="async" width="1800" height="1197"></picture></div>
+      <figcaption><b>B2B Morganna Rolls</b><span>Tux N Rolls × Frenchmans Bulla</span></figcaption>
+    </figure>
+    <ol class="mz-list">
+        <li><b>B2B Morganna Rolls</b><span>Tux N Rolls × Frenchmans Bulla</span><p>Criada no B2B Ranch. Corre na casa dos 16 segundos, e o filho dela também.</p></li>
+        <li><b>Mended Heart</b><span>Heart Of The Cartel</span><p>Importada, única filha de Heart Of The Cartel no Brasil. Melhor tempo de 16.401 s em 2024; mãe de B2B Darwin Bar Belle, com Lucius.</p></li>
+        <li><b>Three Carat Diamond</b><span>Tres Seis × Dangle A Carat</span><p>Importada. R$ 119 mil como atleta e R$ 393 mil como matriz; mãe de B2B Noa Carat Rolls.</p></li>
+        <li><b>Magnolia Shady FF</b><span>Shady Leo × Bifriend Lady FF</span><p>Mais de R$ 621 mil em produção. Mãe da tríplice coroada B2B Lovergirl Rolls.</p></li>
+        <li><b>B2B Secretlover Tux</b><span>Tux N Rolls × Magnolia Shady FF</span><p>Irmã própria de Lovergirl. Produção de R$ 613 mil+ no SGP e 933 pontos ABQM.</p></li>
+        <li><b>Simply Epic</b><span>Epic Leader × A Girl Needs Cash</span><p>Importada. Mãe de B2B Simply Rolls, B2B Triumph Rolls e B2B Star Famous Epic.</p></li>
+        <li><b>Custom Made Kat</b><span>Custom Crome × Princessontheprowl</span><p>Importada e versátil, neta de High Brow Cat. Mãe de B2B Apollo Rolls.</p></li>
+        <li><b>HP Stoli My Jet</b><span>Blazin Jetolena × Im Chica Stoli</span><p>Irmã própria de Steal Money, que ganhou mais de US$ 710 mil nos Três Tambores.</p></li>
+        <li><b>HP Boom Shockalocka</b><span>Boom Goes The Fame</span><p>Importada. Mãe de B2B Theodora Rolls, com mais de R$ 16 mil no SGP.</p></li>
+        <li><b>B2B Movidas Guy</b><span>Frenchmans Guy × Docs Little Movida</span><p>Mãe de B2B Quaker Tux Guy. Irmã própria de A Smooth Guy, garanhão com mais de US$ 5 milhões em produção.</p></li>
+    </ol>
   </div>
 </section>
 
@@ -471,8 +513,9 @@ a{color:inherit}
     <tbody>
       <tr><th scope="row">Mended Heart</th><td>Melhor tempo, 2024. Égua importada do plantel</td><td>16.401s</td></tr>
       <tr><th scope="row">Mended Heart</th><td>Primeiras corridas</td><td>16.472 · 16.643 · 16.661</td></tr>
-      <tr><th scope="row">Tux N Rolls</th><td>Pontos ABQM como reprodutor</td><td>7.401</td></tr>
-      <tr><th scope="row">Tux N Rolls</th><td>Produção SGP</td><td>R$ 4,6 mi+</td></tr>
+      <tr><th scope="row">Tux N Rolls</th><td>Pontos ABQM como reprodutor</td><td>7.672</td></tr>
+      <tr><th scope="row">Tux N Rolls</th><td>Ganhos dos filhos pelo SGP</td><td>R$ 5.018.420,75</td></tr>
+      <tr><th scope="row">B2B Brave Rolls</th><td>Top 3 na final do Potro do Futuro ABQM 2026 · filha de Lucius</td><td>R$ 50.958</td></tr>
       <tr><th scope="row">B2B Lovergirl Rolls</th><td>Tríplice coroa nos Três Tambores</td><td>Única do Brasil</td></tr>
     </tbody>
   </table>
@@ -511,7 +554,6 @@ a{color:inherit}
   <div class="quotes">
     <blockquote><p>O B2B Ranch é sinônimo de qualidade e dedicação. Seus cavalos são excepcionais e refletem o compromisso da equipe com a excelência.</p><footer><b>Mariana Souza</b><span>Empresária</span></footer></blockquote>
     <blockquote><p>Poder contar com os cavalos do B2B Ranch tem sido uma experiência enriquecedora. A paixão e o profissionalismo deles elevam o padrão da criação de cavalos no Brasil.</p><footer><b>Carlos Lima</b><span>Competidor de Três Tambores</span></footer></blockquote>
-    <blockquote><p>A linhagem de B2B Lucius Ta Fame tem feito a diferença no nosso plantel. Seus descendentes apresentam velocidade, inteligência e ótimo desempenho em pista.</p><footer><b>João Ricardo Mendes</b><span>Criador</span></footer></blockquote>
   </div>
 </section>
 

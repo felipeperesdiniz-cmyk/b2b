@@ -54,7 +54,7 @@
   <ol><li><b>US$ 1 mi+</b><span>Primeiro e único garanhão a ultrapassar US$ 1 milhão em ganhos nos Três Tambores.</span></li><li><b>US$ 558 mil</b><span>Maior ganhador de futurities de todos os tempos, em uma única temporada (2024).</span></li><li><b>10×</b><span>Campeão de futurities, além de cinco vezes reservado campeão.</span></li><li><b>NFR 2025</b><span>Eleito AQHA Fan Favorite na Wrangler National Finals Rodeo.</span></li></ol>
 </section>
 
-<div class="pad"><div class="g-photos single wrap"><figure class="a"><div class="ph" style="aspect-ratio:auto;max-height:90vh"><img src="../assets/adios-retrato.webp" alt="Retrato de Adios Pantalones sobre fundo preto" loading="lazy" decoding="async" width="766" height="984" data-par style="object-fit:contain;background:#000"></div><figcaption class="label">Retrato · Foto: Samantha Daum</figcaption></figure></div></div>
+<div class="pad"><div class="g-photos single wrap"><figure class="a"><div class="ph" style="aspect-ratio:auto;max-height:90vh"><img src="../assets/adios-retrato.webp" alt="Retrato de Adios Pantalones sobre fundo preto" loading="lazy" decoding="async" width="766" height="984" data-par style="object-fit:contain;background:#000"></div><figcaption class="label">Adios Pantalones · Foto: Samantha Daum</figcaption></figure></div></div>
 
 <section class="g-story wrap pad" aria-label="História">
   <span class="label">História</span>
@@ -99,7 +99,7 @@
     brand.classList.toggle('small', y > 40);
     if (reduce) return;
     if (y < vh) heroImg.style.transform = `translate3d(0,${(y * .25).toFixed(1)}px,0) scale(${(1.08 - Math.min(y / vh, 1) * .04).toFixed(4)})`;
-    par.forEach(img => {
+    if (innerWidth > 860) par.forEach(img => {
       const r = img.parentNode.getBoundingClientRect();
       if (r.bottom < 0 || r.top > vh) return;
       const c = (r.top + r.height / 2 - vh / 2) / vh;
