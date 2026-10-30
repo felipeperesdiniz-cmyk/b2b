@@ -212,6 +212,29 @@ a{color:inherit}
   .pl-stats dd{font-size:.72rem}
 }
 
+/* ---------- nossa história: founders, origin and the horses that made the name ---------- */
+#historia{background:var(--off);color:var(--ink);padding-block:clamp(100px,16vh,180px);font-family:var(--f-text)}
+.hs{max-width:1360px;margin:0 auto;display:grid;grid-template-columns:minmax(0,5fr) minmax(0,7fr);gap:clamp(32px,6vw,110px);align-items:start}
+.hs-photo{margin:0;position:sticky;top:14vh;display:grid;gap:14px}
+.hs-photo img{width:100%;height:auto;max-height:76vh;object-fit:cover;background:#ddd8cf}
+.hs-photo figcaption{font-size:.7rem;letter-spacing:.1em;text-transform:uppercase;color:#67625b}
+.hs-copy{display:grid;gap:clamp(22px,3.4vh,34px);max-width:62ch}
+.hs-copy .eyebrow{font-size:.7rem;letter-spacing:.1em;text-transform:uppercase;color:#67625b}
+.hs-copy h2{margin:0;font-weight:400;font-size:clamp(2.6rem,5.6vw,5.4rem);line-height:.95;letter-spacing:-.04em;text-wrap:balance}
+.hs-lead{margin:0;font-size:clamp(1.3rem,2.1vw,1.75rem);line-height:1.35;letter-spacing:-.015em;text-wrap:pretty}
+.hs-copy > p{margin:0;font-size:1.06rem;line-height:1.7;color:#2c2925}
+.hs-copy h3{margin:clamp(18px,3vh,30px) 0 0;font-weight:400;font-size:.72rem;letter-spacing:.1em;text-transform:uppercase;color:#67625b}
+.hs-marks{list-style:none;margin:0;padding:0;border-top:1px solid rgba(11,10,9,.16)}
+.hs-marks li{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.6fr);gap:6px 24px;padding-block:20px;border-bottom:1px solid rgba(11,10,9,.16)}
+.hs-marks b{font-weight:400;font-size:1.25rem;letter-spacing:-.01em;line-height:1.2}
+.hs-marks span{color:#4a4640;line-height:1.55}
+@media (max-width:860px){
+  .hs{grid-template-columns:1fr}
+  .hs-photo{position:static}
+  .hs-photo img{max-height:none}
+  .hs-marks li{grid-template-columns:1fr}
+}
+
 /* ---------- matrizes: light page after the dark stallions; one mare pinned beside the list ---------- */
 #matrizes{background:var(--off);color:var(--ink);padding-block:clamp(100px,16vh,180px);font-family:var(--f-text)}
 .mz-head{max-width:1360px;margin:0 auto clamp(48px,8vh,90px);display:grid;grid-template-columns:minmax(0,1.3fr) minmax(0,1fr);gap:clamp(24px,4vw,64px);align-items:end}
@@ -468,6 +491,29 @@ time{font-size:.7rem;letter-spacing:.1em;text-transform:uppercase;color:#67625b}
       </div>
     </div>
 
+  </div>
+</section>
+
+<section id="historia" class="pad" aria-label="Nossa história">
+  <div class="hs">
+    <figure class="hs-photo">
+      <picture><source media="(max-width: 760px)" srcset="assets/m/historia-bebel.webp"><img src="assets/historia-bebel.webp" alt="Uma amazona beija a cabeça de um cavalo escuro de cabresto, em preto e branco" loading="lazy" decoding="async" width="1008" height="1481"></picture>
+      <figcaption>Apaixonados por grandes cavalos</figcaption>
+    </figure>
+    <div class="hs-copy">
+      <span class="eyebrow">Nossa história</span>
+      <h2>Fundado por Odilon e Bebel Diniz</h2>
+      <p class="hs-lead">Tudo começou com um sonho: criar e treinar cavalos de alta performance, unindo paixão, dedicação e respeito pelos animais.</p>
+      <p>Em Três Rios, na região serrana do Rio de Janeiro, o B2B Ranch foi construído em harmonia com a natureza, um ambiente pensado para o desenvolvimento de cada cavalo. São mais de 16 anos no meio equestre, com infraestrutura de ponta e uma equipe que acompanha cada etapa, da escolha dos cruzamentos ao treinamento na pista.</p>
+      <p>O resultado aparece onde importa: em animais que levam o nome B2B aos pódios das principais provas de Três Tambores do país.</p>
+      <h3>Marcos</h3>
+      <ul class="hs-marks">
+        <li><b>B2B Lovergirl Rolls</b><span>Tux N Rolls × Magnolia Shady FF. Tríplice coroada em 2017, campeã do Congresso Brasileiro ABQM no amador e na aberta, do Potro do Futuro ABQM, do Nacional ABQM e do Grand Prix Haras Raphaela.</span></li>
+        <li><b>B2B Noa Carat Rolls</b><span>Campeã do Rodeio Internacional de Barretos 2023 e vice em 2024, campeã do Grand Slam Cutter, do Nacional ABQM e do Grand Prix Haras Raphaela.</span></li>
+        <li><b>Leilão B2B Ranch &amp; Amigos</b><span>Mais de 17 edições apresentando ao mercado a genética e os campeões do haras.</span></li>
+        <li><b>Vetnil Equinos</b><span>Parceria e patrocínio em suplementação, pelo bem-estar e o desempenho de cada animal.</span></li>
+      </ul>
+    </div>
   </div>
 </section>
 
