@@ -158,6 +158,7 @@ a{color:inherit}
 .r-ch p{margin:0;max-width:46ch;color:rgba(241,237,230,.76);font-size:1.12rem;line-height:1.6}
 .r-ch .big{font-size:clamp(1.25rem,1.9vw,1.6rem);line-height:1.35;color:var(--bone);letter-spacing:-.01em;max-width:30ch}
 .r-ch-img{display:none}
+.r-ch-img img{width:100%;height:auto;display:block}
 .r-vals{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:0;border-top:1px solid rgba(241,237,230,.16)}
 .r-vals li{padding:18px 18px 18px 0;border-bottom:1px solid rgba(241,237,230,.16);min-width:0}
 .r-vals li:nth-child(odd){border-right:1px solid rgba(241,237,230,.16)}
@@ -170,6 +171,7 @@ a{color:inherit}
   .r-media{display:none}
   .r-ch{min-height:0;opacity:1;padding-block:28px}
   .r-ch-img{display:block;width:100%;aspect-ratio:4/3;object-fit:cover}
+  picture.r-ch-img{aspect-ratio:auto;max-height:70vh;overflow:hidden}
   .r-vals{grid-template-columns:1fr}
   .r-vals li:nth-child(odd){border-right:0}
   .r-vals li:nth-child(even){padding-left:0}
@@ -210,29 +212,6 @@ a{color:inherit}
   .pl-info p,.pl-stats{justify-self:start}
   .pl-stats{grid-template-columns:repeat(3,minmax(0,1fr));gap:12px}
   .pl-stats dd{font-size:.72rem}
-}
-
-/* ---------- nossa história: founders, origin and the horses that made the name ---------- */
-#historia{background:var(--off);color:var(--ink);padding-block:clamp(100px,16vh,180px);font-family:var(--f-text)}
-.hs{max-width:1360px;margin:0 auto;display:grid;grid-template-columns:minmax(0,5fr) minmax(0,7fr);gap:clamp(32px,6vw,110px);align-items:start}
-.hs-photo{margin:0;position:sticky;top:14vh;display:grid;gap:14px}
-.hs-photo img{width:100%;height:auto;max-height:76vh;object-fit:cover;background:#ddd8cf}
-.hs-photo figcaption{font-size:.7rem;letter-spacing:.1em;text-transform:uppercase;color:#67625b}
-.hs-copy{display:grid;gap:clamp(22px,3.4vh,34px);max-width:62ch}
-.hs-copy .eyebrow{font-size:.7rem;letter-spacing:.1em;text-transform:uppercase;color:#67625b}
-.hs-copy h2{margin:0;font-weight:400;font-size:clamp(2.6rem,5.6vw,5.4rem);line-height:.95;letter-spacing:-.04em;text-wrap:balance}
-.hs-lead{margin:0;font-size:clamp(1.3rem,2.1vw,1.75rem);line-height:1.35;letter-spacing:-.015em;text-wrap:pretty}
-.hs-copy > p{margin:0;font-size:1.06rem;line-height:1.7;color:#2c2925}
-.hs-copy h3{margin:clamp(18px,3vh,30px) 0 0;font-weight:400;font-size:.72rem;letter-spacing:.1em;text-transform:uppercase;color:#67625b}
-.hs-marks{list-style:none;margin:0;padding:0;border-top:1px solid rgba(11,10,9,.16)}
-.hs-marks li{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.6fr);gap:6px 24px;padding-block:20px;border-bottom:1px solid rgba(11,10,9,.16)}
-.hs-marks b{font-weight:400;font-size:1.25rem;letter-spacing:-.01em;line-height:1.2}
-.hs-marks span{color:#4a4640;line-height:1.55}
-@media (max-width:860px){
-  .hs{grid-template-columns:1fr}
-  .hs-photo{position:static}
-  .hs-photo img{max-height:none}
-  .hs-marks li{grid-template-columns:1fr}
 }
 
 /* ---------- matrizes: light page after the dark stallions; one mare pinned beside the list ---------- */
@@ -276,6 +255,21 @@ a{color:inherit}
   #matrizes .mz-feature,#atletas .mz-feature{display:none}
   .mz-inl{display:block;margin:14px 0 4px;overflow:hidden;background:#ddd8cf}
   .mz-inl img{width:100%;height:auto}
+}
+
+/* phones: each list becomes a row of cards you swipe sideways, photo first, instead of a long stack */
+.mz-swipe{display:none}
+.mz > *{min-width:0}   /* lets the swipe rows scroll inside their column instead of widening the page */
+@media (max-width:860px){
+  .mz-swipe{display:block;margin-top:14px;font-size:.7rem;letter-spacing:.1em;text-transform:uppercase;opacity:.6}
+  #matrizes .mz-list,#atletas .mz-list{display:flex;gap:14px;overflow-x:auto;overscroll-behavior-x:contain;scroll-snap-type:x mandatory;scroll-padding-inline:var(--gut);margin-inline:calc(var(--gut) * -1);padding:0 var(--gut) 6px;border-top:0;scrollbar-width:none}
+  #matrizes .mz-list::-webkit-scrollbar,#atletas .mz-list::-webkit-scrollbar{display:none}
+  #matrizes .mz-list li,#atletas .mz-list li{flex:0 0 78%;display:flex;flex-direction:column;gap:4px;padding:0 0 16px;border-bottom:1px solid currentColor;border-color:rgba(127,127,127,.25);scroll-snap-align:start;min-width:0}
+  #matrizes .mz-list li::before,#atletas .mz-list li::before{content:none}
+  #matrizes .mz-inl,#atletas .mz-inl{order:-1;margin:0 0 12px}
+  #matrizes .mz-inl img,#atletas .mz-inl img{max-height:54vh;object-fit:cover}
+  #matrizes .mz-list p,#atletas .mz-list p{font-size:.95rem;margin-top:6px}
+  #atletas .mz-sub{margin:40px 0 14px}
 }
 
 /* ---------- atletas: same index as the mares, dark, photo on the right ---------- */
@@ -353,19 +347,6 @@ time{font-size:.7rem;letter-spacing:.1em;text-transform:uppercase;color:#67625b}
 .yt-out b{font-weight:500;font-size:.78rem;letter-spacing:.1em;text-transform:uppercase}
 @media (max-width:760px){.film-head{grid-template-columns:1fr}.films{grid-template-columns:1fr}}
 
-/* ---------- testimonials ---------- */
-#depoimentos{padding-block:clamp(100px,16vh,180px);font-family:var(--f-text)}
-.dep-head{max-width:1360px;margin:0 auto clamp(48px,8vh,90px);display:grid;grid-template-columns:minmax(0,1.3fr) minmax(0,1fr);gap:clamp(24px,4vw,64px);align-items:end}
-.dep-head h2{margin:0;font-weight:400;font-size:clamp(2.4rem,5.6vw,5.4rem);line-height:.96;letter-spacing:-.035em}
-.dep-head p{margin:0;max-width:40ch;color:rgba(241,237,230,.7);font-size:1.05rem;line-height:1.6}
-.quotes{max-width:1360px;margin:0 auto;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:clamp(24px,3vw,48px)}
-.quotes blockquote{margin:0;display:flex;flex-direction:column;justify-content:space-between;gap:36px;border-top:1px solid rgba(241,237,230,.3);padding-top:24px;min-width:0}
-.quotes p{margin:0;font-size:clamp(1.15rem,1.6vw,1.45rem);line-height:1.4;letter-spacing:-.01em}
-.quotes p::before{content:"“";display:block;font-size:3.2rem;line-height:.6;margin-bottom:10px;color:rgba(241,237,230,.45)}
-.quotes footer{display:grid;gap:2px}
-.quotes footer b{font-weight:500}
-.quotes footer span{font-size:.7rem;letter-spacing:.1em;text-transform:uppercase;color:rgba(241,237,230,.55)}
-@media (max-width:860px){.dep-head{grid-template-columns:1fr}.quotes{grid-template-columns:1fr}}
 
 /* ---------- contact: the same off-white the site opens with ---------- */
 #contato{background:var(--off);color:var(--ink);padding-block:clamp(100px,16vh,170px) 36px;font-family:var(--f-text)}
@@ -437,7 +418,7 @@ time{font-size:.7rem;letter-spacing:.1em;text-transform:uppercase;color:#67625b}
       <video poster="assets/lucius-loop-poster.webp" muted loop playsinline autoplay preload="metadata"><source media="(max-width: 760px) and (orientation: portrait)" src="assets/m/lucius-loop.mp4" type="video/mp4"><source src="assets/lucius-loop.mp4" type="video/mp4"></video>
       <div class="shade" id="winShade"></div>
     </div>
-    <h1 class="manifesto wide" id="manifesto">Apaixonados por grandes cavalos. Atletas criados para a pista.</h1>
+    <h1 class="manifesto wide" id="manifesto">Genética selecionada. Atletas criados para a pista.</h1>
     <div class="intro-cap eyebrow" id="introCap"><span>B2B Lucius Ta Fame</span><span>Aprovado ABQM</span></div>
     <div class="blackout" id="blackout"></div>
   </div>
@@ -457,18 +438,19 @@ time{font-size:.7rem;letter-spacing:.1em;text-transform:uppercase;color:#67625b}
 
     <div class="r-chapters" id="rChapters">
       <figure class="r-media" aria-hidden="true">
-        <img src="assets/haras-lago.webp" alt="" loading="lazy" decoding="async" width="2000" height="1333" class="on">
+        <img src="assets/historia-bebel.webp" alt="" loading="lazy" decoding="async" width="1008" height="1481" class="on" style="object-position:50% 30%">
         <img src="assets/lucius-cabresto.webp" alt="" loading="lazy" decoding="async" width="860" height="1080">
         <img src="assets/lucius-frente.webp" alt="" loading="lazy" decoding="async" width="900" height="1080">
-        <figcaption><span id="rMediaCap">O haras</span><span id="rMediaNum">01 / 03</span></figcaption>
+        <img src="assets/haras-lago.webp" alt="" loading="lazy" decoding="async" width="2000" height="1333">
+        <figcaption><span id="rMediaCap">Nossa história</span><span id="rMediaNum">01 / 04</span></figcaption>
       </figure>
       <div>
-        <article class="r-ch on" data-cap="O haras">
-          <img class="r-ch-img" src="assets/haras-lago.webp" alt="Vista do haras com o lago e os morros" loading="lazy" decoding="async" width="2000" height="1333">
-          <span class="n">01 · Missão</span>
-          <h3>Referência nacional</h3>
-          <p class="big">Ser referência na criação de cavalos de alta performance no Brasil.</p>
-          <p>Pela inovação, pelos resultados em pista e pela confiança que inspiramos em nossos parceiros e clientes.</p>
+        <article class="r-ch on" data-cap="Nossa história">
+          <picture class="r-ch-img"><source media="(max-width: 760px)" srcset="assets/m/historia-bebel.webp"><img src="assets/historia-bebel.webp" alt="Uma amazona beija a cabeça de um cavalo escuro de cabresto, em preto e branco" loading="lazy" decoding="async" width="1008" height="1481"></picture>
+          <span class="n">01 · Nossa história</span>
+          <h3>Odilon e Bebel Diniz</h3>
+          <p class="big">Tudo começou com um sonho: criar e treinar cavalos de alta performance, com paixão e respeito pelos animais.</p>
+          <p>Em Três Rios, na região serrana do Rio de Janeiro, são mais de 16 anos no meio equestre, com infraestrutura de ponta e uma equipe que acompanha cada cavalo, da escolha do cruzamento ao treinamento na pista.</p>
         </article>
         <article class="r-ch" data-cap="B2B Lucius Ta Fame, no manejo diário">
           <img class="r-ch-img" src="assets/lucius-cabresto.webp" alt="B2B Lucius Ta Fame conduzido no cabresto" loading="lazy" decoding="async" width="860" height="1080">
@@ -488,32 +470,20 @@ time{font-size:.7rem;letter-spacing:.1em;text-transform:uppercase;color:#67625b}
           <p class="big">Cada animal passa por uma seleção pensada na melhoria da raça e no desempenho esportivo.</p>
           <p>Investimos em tecnologias reprodutivas de ponta, como transferência de embrião e inseminação artificial, para potencializar nossos resultados.</p>
         </article>
+        <article class="r-ch" data-cap="O haras">
+          <img class="r-ch-img" src="assets/haras-lago.webp" alt="Vista do haras com o lago e os morros" loading="lazy" decoding="async" width="2000" height="1333">
+          <span class="n">04 · Marcos</span>
+          <h3>O nome nos pódios</h3>
+          <ul class="r-vals">
+            <li><b>B2B Lovergirl Rolls</b><span>Tríplice coroada em 2017, campeã do Congresso Brasileiro, do Potro do Futuro e do Nacional ABQM.</span></li>
+            <li><b>B2B Noa Carat Rolls</b><span>Campeã do Rodeio Internacional de Barretos 2023 e vice em 2024.</span></li>
+            <li><b>Leilão B2B Ranch &amp; Amigos</b><span>Mais de 17 edições levando a genética do haras ao mercado.</span></li>
+            <li><b>Vetnil Equinos</b><span>Parceria em suplementação, pelo bem-estar de cada animal.</span></li>
+          </ul>
+        </article>
       </div>
     </div>
 
-  </div>
-</section>
-
-<section id="historia" class="pad" aria-label="Nossa história">
-  <div class="hs">
-    <figure class="hs-photo">
-      <picture><source media="(max-width: 760px)" srcset="assets/m/historia-bebel.webp"><img src="assets/historia-bebel.webp" alt="Uma amazona beija a cabeça de um cavalo escuro de cabresto, em preto e branco" loading="lazy" decoding="async" width="1008" height="1481"></picture>
-      <figcaption>Apaixonados por grandes cavalos</figcaption>
-    </figure>
-    <div class="hs-copy">
-      <span class="eyebrow">Nossa história</span>
-      <h2>Fundado por Odilon e Bebel Diniz</h2>
-      <p class="hs-lead">Tudo começou com um sonho: criar e treinar cavalos de alta performance, unindo paixão, dedicação e respeito pelos animais.</p>
-      <p>Em Três Rios, na região serrana do Rio de Janeiro, o B2B Ranch foi construído em harmonia com a natureza, um ambiente pensado para o desenvolvimento de cada cavalo. São mais de 16 anos no meio equestre, com infraestrutura de ponta e uma equipe que acompanha cada etapa, da escolha dos cruzamentos ao treinamento na pista.</p>
-      <p>O resultado aparece onde importa: em animais que levam o nome B2B aos pódios das principais provas de Três Tambores do país.</p>
-      <h3>Marcos</h3>
-      <ul class="hs-marks">
-        <li><b>B2B Lovergirl Rolls</b><span>Tux N Rolls × Magnolia Shady FF. Tríplice coroada em 2017, campeã do Congresso Brasileiro ABQM no amador e na aberta, do Potro do Futuro ABQM, do Nacional ABQM e do Grand Prix Haras Raphaela.</span></li>
-        <li><b>B2B Noa Carat Rolls</b><span>Campeã do Rodeio Internacional de Barretos 2023 e vice em 2024, campeã do Grand Slam Cutter, do Nacional ABQM e do Grand Prix Haras Raphaela.</span></li>
-        <li><b>Leilão B2B Ranch &amp; Amigos</b><span>Mais de 17 edições apresentando ao mercado a genética e os campeões do haras.</span></li>
-        <li><b>Vetnil Equinos</b><span>Parceria e patrocínio em suplementação, pelo bem-estar e o desempenho de cada animal.</span></li>
-      </ul>
-    </div>
   </div>
 </section>
 
@@ -559,7 +529,7 @@ time{font-size:.7rem;letter-spacing:.1em;text-transform:uppercase;color:#67625b}
 <section id="matrizes" class="pad" aria-label="Matrizes">
   <div class="mz-head">
     <h2>Matrizes</h2>
-    <p>As éguas que formam cada geração do B2B Ranch: importadas, de linhagens raras, e algumas ainda em pista.</p>
+    <p>As éguas que formam cada geração do B2B Ranch: importadas, de linhagens raras, e algumas ainda em pista.<span class="mz-swipe">Deslize para ver todas →</span></p>
   </div>
   <div class="mz">
     <figure class="mz-feature mz-stack" id="mzStack">
@@ -591,20 +561,15 @@ time{font-size:.7rem;letter-spacing:.1em;text-transform:uppercase;color:#67625b}
 <section id="atletas" class="pad" aria-label="Atletas">
   <div class="mz-head">
     <h2>Atletas</h2>
-    <p>A genética B2B medida em segundos, nas principais provas de Três Tambores do país.</p>
+    <p>A genética B2B medida em segundos, nas principais provas de Três Tambores do país. As matrizes que também correm estão marcadas em Matrizes.<span class="mz-swipe">Deslize para ver todos →</span></p>
   </div>
   <div class="mz">
     <figure class="mz-feature mz-stack" id="atStack">
-      <div class="ph"><img src="assets/at/oprah-rolls.webp" alt="B2B Oprah Rolls contornando o tambor no Campeonato Heringer Ranch" loading="lazy" decoding="async" width="1800" height="1200" data-for="oprah-rolls"><img src="assets/at/bulla-guy.webp" alt="B2B Bulla Guy, palomino, contornando o tambor" loading="lazy" decoding="async" width="1800" height="1200" data-for="bulla-guy"><img src="assets/mz/hp-stoli-my-jet.webp" alt="HP Stoli My Jet, égua alazã, no piquete" loading="lazy" decoding="async" width="1800" height="1200" data-for="hp-stoli-my-jet"><img src="assets/at/quaker-tux-guy.webp" alt="B2B Quaker Tux Guy contornando o tambor no Grand Prix" loading="lazy" decoding="async" width="1800" height="1200" data-for="quaker-tux-guy"><img src="assets/at/poseidon-rolls.webp" alt="B2B Poseidon Rolls contornando o tambor" loading="lazy" decoding="async" width="1800" height="1200" data-for="poseidon-rolls"><img src="assets/at/darwin-bar-belle.webp" alt="B2B Darwin Bar Belle, potro, no piquete" loading="lazy" decoding="async" width="1800" height="1200" data-for="darwin-bar-belle"><img src="assets/at/bullet-fool.webp" alt="B2B Bullet Fool, tordilho, contornando o tambor" loading="lazy" decoding="async" width="1800" height="1200" data-for="bullet-fool"><img src="assets/at/brave-rolls.webp" alt="B2B Brave Rolls contornando o tambor" loading="lazy" decoding="async" width="1600" height="1066" data-for="brave-rolls"><img src="assets/at/bethania-fiesta.webp" alt="B2B Bethania Fiesta contornando o tambor" loading="lazy" decoding="async" width="1600" height="1066" data-for="bethania-fiesta"><img src="assets/at/anitta-french.webp" alt="B2B Anitta French, palomino, contornando o tambor" loading="lazy" decoding="async" width="1800" height="1200" data-for="anitta-french"><img src="assets/mz/mended-heart.webp" alt="Mended Heart contornando o tambor no Congresso Brasileiro" loading="lazy" decoding="async" width="1280" height="854" data-for="mended-heart"><img src="assets/morganna-rolls.webp" alt="B2B Morganna Rolls, égua palomino, no pasto" loading="lazy" decoding="async" width="1800" height="1197" data-for="morganna-rolls"><img src="assets/mz/reality-zorrero.webp" alt="B2B Reality Zorrero, égua tordilha, montada na pista" loading="lazy" decoding="async" width="1800" height="1200" data-for="reality-zorrero"><img src="assets/mjp-epic-sis.webp" alt="MJP Epic Sis, égua tordilha, galopando no piquete" loading="lazy" decoding="async" width="1800" height="1200" data-for="mjp-epic-sis"><img src="assets/at/tapdancer-rolls.webp" alt="B2B Tapdancer Rolls, tordilha, contornando o tambor no Heringer Ranch" loading="lazy" decoding="async" width="1800" height="1200" data-for="tapdancer-rolls"><img src="assets/at/tiberius-rolls.webp" alt="B2B Tiberius Rolls contornando o tambor na Copa" loading="lazy" decoding="async" width="1280" height="853" data-for="tiberius-rolls"><img src="assets/at/tristan-streak.webp" alt="B2B Tristan Streak, tordilho, contornando o tambor no GP" loading="lazy" decoding="async" width="1280" height="854" data-for="tristan-streak"></div>
-      <figcaption id="atCap"><b>B2B Morganna Rolls</b><span>Tux N Rolls × Frenchmans Bulla</span></figcaption>
+      <div class="ph"><img src="assets/at/oprah-rolls.webp" alt="B2B Oprah Rolls contornando o tambor no Campeonato Heringer Ranch" loading="lazy" decoding="async" width="1800" height="1200" data-for="oprah-rolls"><img src="assets/at/bulla-guy.webp" alt="B2B Bulla Guy, palomino, contornando o tambor" loading="lazy" decoding="async" width="1800" height="1200" data-for="bulla-guy"><img src="assets/at/quaker-tux-guy.webp" alt="B2B Quaker Tux Guy contornando o tambor no Grand Prix" loading="lazy" decoding="async" width="1800" height="1200" data-for="quaker-tux-guy"><img src="assets/at/poseidon-rolls.webp" alt="B2B Poseidon Rolls contornando o tambor" loading="lazy" decoding="async" width="1800" height="1200" data-for="poseidon-rolls"><img src="assets/at/darwin-bar-belle.webp" alt="B2B Darwin Bar Belle, potro, no piquete" loading="lazy" decoding="async" width="1800" height="1200" data-for="darwin-bar-belle"><img src="assets/at/bullet-fool.webp" alt="B2B Bullet Fool, tordilho, contornando o tambor" loading="lazy" decoding="async" width="1800" height="1200" data-for="bullet-fool"><img src="assets/at/brave-rolls.webp" alt="B2B Brave Rolls contornando o tambor" loading="lazy" decoding="async" width="1600" height="1066" data-for="brave-rolls"><img src="assets/at/bethania-fiesta.webp" alt="B2B Bethania Fiesta contornando o tambor" loading="lazy" decoding="async" width="1600" height="1066" data-for="bethania-fiesta"><img src="assets/at/anitta-french.webp" alt="B2B Anitta French, palomino, contornando o tambor" loading="lazy" decoding="async" width="1800" height="1200" data-for="anitta-french"><img src="assets/at/tapdancer-rolls.webp" alt="B2B Tapdancer Rolls, tordilha, contornando o tambor no Heringer Ranch" loading="lazy" decoding="async" width="1800" height="1200" data-for="tapdancer-rolls"><img src="assets/at/tiberius-rolls.webp" alt="B2B Tiberius Rolls contornando o tambor na Copa" loading="lazy" decoding="async" width="1280" height="853" data-for="tiberius-rolls"><img src="assets/at/tristan-streak.webp" alt="B2B Tristan Streak, tordilho, contornando o tambor no GP" loading="lazy" decoding="async" width="1280" height="854" data-for="tristan-streak"></div>
+      <figcaption id="atCap"><b>B2B Quaker Tux Guy</b><span>Tux N Rolls × B2B Movidas Guy</span></figcaption>
     </figure>
     <div>
       <ol class="mz-list">
-      <li data-mz="morganna-rolls"><b>B2B Morganna Rolls</b><span>Tux N Rolls × Frenchmans Bulla</span><div class="mz-inl"><picture><source media="(max-width: 760px)" srcset="assets/m/morganna-rolls.webp"><img src="assets/morganna-rolls.webp" alt="B2B Morganna Rolls, égua palomino, no pasto" loading="lazy" decoding="async" width="1800" height="1197"></picture></div><p>Corre na casa dos 16 segundos e já é doadora, com filho também correndo nos 16.</p></li>
-      <li data-mz="mended-heart"><b>Mended Heart</b><span>Heart Of The Cartel × French Bar Belle</span><div class="mz-inl"><picture><source media="(max-width: 760px)" srcset="assets/m/mz-mended-heart.webp"><img src="assets/mz/mended-heart.webp" alt="Mended Heart contornando o tambor no Congresso Brasileiro" loading="lazy" decoding="async" width="1280" height="854"></picture></div><p>Melhor tempo de 16.401 s, já nas primeiras corridas, em 2024.</p></li>
-      <li data-mz="reality-zorrero"><b>B2B Reality Zorrero</b><span>El Shady Zorrero × Julie Tux Failas B2B</span><div class="mz-inl"><picture><source media="(max-width: 760px)" srcset="assets/m/at-reality-zorrero.webp"><img src="assets/mz/reality-zorrero.webp" alt="B2B Reality Zorrero, égua tordilha, montada na pista" loading="lazy" decoding="async" width="1800" height="1200"></picture></div><p>Tordilha com menor tempo de 16.688 s e diversos títulos.</p></li>
-      <li data-mz="mjp-epic-sis"><b>MJP Epic Sis</b><span>Epic Leader</span><div class="mz-inl"><picture><source media="(max-width: 760px)" srcset="assets/m/at-mjp-epic-sis.webp"><img src="assets/mjp-epic-sis.webp" alt="MJP Epic Sis, égua tordilha, galopando no piquete" loading="lazy" decoding="async" width="1800" height="1200"></picture></div><p>O DNA dos melhores do mundo nos Três Tambores, em pista no Brasil.</p></li>
-      <li data-mz="hp-stoli-my-jet"><b>HP Stoli My Jet</b><span>Blazin Jetolena × Im Chica Stoli</span><div class="mz-inl"><picture><source media="(max-width: 760px)" srcset="assets/m/mz-hp-stoli-my-jet.webp"><img src="assets/mz/hp-stoli-my-jet.webp" alt="HP Stoli My Jet, égua alazã, no piquete" loading="lazy" decoding="async" width="1800" height="1200"></picture></div><p>A terceira Blazin Jetolena a desembarcar no Brasil. Em sociedade: B2B Ranch e Haras WV.</p></li>
       <li data-mz="quaker-tux-guy"><b>B2B Quaker Tux Guy</b><span>Tux N Rolls × B2B Movidas Guy</span><div class="mz-inl"><picture><source media="(max-width: 760px)" srcset="assets/m/at-quaker-tux-guy.webp"><img src="assets/at/quaker-tux-guy.webp" alt="B2B Quaker Tux Guy contornando o tambor no Grand Prix" loading="lazy" decoding="async" width="1800" height="1200"></picture></div><p>Títulos no Congresso Brasileiro, Grand Slam Cutter, PF e Copa WV. Menor tempo de 16.656 s.</p></li>
       <li data-mz="poseidon-rolls"><b>B2B Poseidon Rolls</b><span>Tux N Rolls × Glisten Failas KRB</span><div class="mz-inl"><picture><source media="(max-width: 760px)" srcset="assets/m/at-poseidon-rolls.webp"><img src="assets/at/poseidon-rolls.webp" alt="B2B Poseidon Rolls contornando o tambor" loading="lazy" decoding="async" width="1800" height="1200"></picture></div><p>Diversos tempos na casa dos 16 segundos, com constância nas competições.</p></li>
       <li data-mz="oprah-rolls"><b>B2B Oprah Rolls</b><div class="mz-inl"><picture><source media="(max-width: 760px)" srcset="assets/m/at-oprah-rolls.webp"><img src="assets/at/oprah-rolls.webp" alt="B2B Oprah Rolls contornando o tambor no Campeonato Heringer Ranch" loading="lazy" decoding="async" width="1800" height="1200"></picture></div><p>Em pista pelo B2B Ranch nos Três Tambores.</p></li>
@@ -681,7 +646,7 @@ time{font-size:.7rem;letter-spacing:.1em;text-transform:uppercase;color:#67625b}
         <button type="button" aria-label="Assistir ao filme B2B Ranch (YouTube, 6 min)"><span><svg viewBox="0 0 20 24" fill="currentColor" aria-hidden="true"><path d="M0 0l20 12L0 24z"/></svg></span></button>
         <small>Filme · 6 min</small>
       </div>
-      <figcaption><b>Apaixonados por grandes cavalos</b><span>O B2B Ranch em seis minutos: o haras, a criação e as pessoas por trás de cada cavalo.</span></figcaption>
+      <figcaption><b>B2B Ranch, o filme</b><span>Seis minutos sobre o haras, a criação e as pessoas por trás de cada cavalo.</span></figcaption>
     </figure>
     <figure class="film">
       <div class="yt" data-id="4IPh_fbGn5g">
@@ -691,17 +656,6 @@ time{font-size:.7rem;letter-spacing:.1em;text-transform:uppercase;color:#67625b}
       </div>
       <figcaption><b>Institucional</b><span>A equipe, a rotina do haras e os cavalos que levam o nome B2B às pistas.</span></figcaption>
     </figure>
-  </div>
-</section>
-
-<section id="depoimentos" class="pad" aria-label="Depoimentos">
-  <div class="dep-head">
-    <h2>Quem conhece, confia</h2>
-    <p>Criadores, competidores e parceiros que já têm a genética B2B no plantel.</p>
-  </div>
-  <div class="quotes">
-    <blockquote><p>O B2B Ranch é sinônimo de qualidade e dedicação. Seus cavalos são excepcionais e refletem o compromisso da equipe com a excelência.</p><footer><b>Mariana Souza</b><span>Empresária</span></footer></blockquote>
-    <blockquote><p>Poder contar com os cavalos do B2B Ranch tem sido uma experiência enriquecedora. A paixão e o profissionalismo deles elevam o padrão da criação de cavalos no Brasil.</p><footer><b>Carlos Lima</b><span>Competidor de Três Tambores</span></footer></blockquote>
   </div>
 </section>
 
