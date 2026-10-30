@@ -25,7 +25,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,300..900&family=Instrument+Sans:wght@400..600&display=swap">
 <style>
-/* Layout: quiet off-white hero → film manifesto → navy "O Ranch" → plantel as pinned full-screen panels that wipe over each other. */
+/* Layout: off-white hero ("B2B" | film card | "RANCH") → film manifesto → navy "O Ranch" → plantel as pinned full-screen panels that wipe over each other. */
 :root{
   --paper:#ffffff;
   --ink:#0b0a09;
@@ -82,18 +82,40 @@ a{color:inherit}
 .menu-foot .btn{justify-self:start;background:#f1ede6;color:#0b0a09}
 .menu-foot small{font-size:.78rem;color:rgba(241,237,230,.6)}
 
-/* ---------- hero: a quiet page, a row of work, and one frame that opens into the film ---------- */
+/* ---------- hero: "B2B" and "RANCH" either side of a portrait card of the Lucius film; a few photos
+   around it like a contact sheet. Scrolling parts the words and opens the card to full screen. ---------- */
 #hero{height:460vh;position:relative;background:var(--off)}
-#hero .stage{position:sticky;top:0;height:100vh;height:100svh;overflow:hidden;background:var(--off);color:var(--ink)}
-.hero-copy{position:absolute;left:var(--gut);right:var(--gut-r);top:max(92px,15svh);display:flex;flex-direction:column;gap:clamp(28px,6svh,64px);will-change:transform,opacity}
-.statement{margin:0 auto 0 0;max-width:46ch;font-family:var(--f-text);font-weight:400;font-size:clamp(1.55rem,3.1vw,3rem);line-height:1.14;letter-spacing:-.02em;text-wrap:balance;will-change:transform,opacity}
-.statement span{display:block;color:#9a958d}
-.statement b{font-weight:400}
-.studio{text-align:center;font-family:var(--f-text);font-size:.64rem;letter-spacing:.06em;text-transform:uppercase;line-height:1.5;color:var(--ink);will-change:opacity}
-.strip{position:absolute;left:0;bottom:max(28px,6svh);display:flex;gap:clamp(10px,1.2vw,18px);padding-left:var(--gut);will-change:transform}
-.strip figure{margin:0;flex:0 0 auto;height:min(40svh,62vw);aspect-ratio:4/5;overflow:hidden;background:#ddd8cf;will-change:opacity}
-.strip img{width:100%;height:100%;object-fit:cover}
-.strip .slot-film{background:transparent}
+#hero .stage{position:sticky;top:0;height:100vh;height:100svh;overflow:hidden;background:var(--off);color:var(--ink);
+  --cw:min(30vw,42svh);--ch:calc(var(--cw)*4/3);--fs:min(9.6vw,15.5svh);--gap:clamp(14px,2vw,34px)}
+.card{position:absolute;left:50%;top:50%;width:var(--cw);height:var(--ch);transform:translate(-50%,-50%);pointer-events:none}
+.hw{position:absolute;top:50%;margin:0;font-family:var(--f-text);font-weight:400;font-size:var(--fs);line-height:.8;letter-spacing:-.05em;text-transform:uppercase;color:var(--ink);white-space:nowrap;overflow:hidden;padding:.06em .02em .02em;transform:translateY(-50%);will-change:transform,opacity}
+.hw span{display:inline-block;transform:translateY(110%);transition:transform 1.3s cubic-bezier(.2,.75,.1,1)}
+.hw-l{right:calc(50% + var(--cw)/2 + var(--gap))}
+.hw-r{left:calc(50% + var(--cw)/2 + var(--gap))}
+.ready .hw span{transform:none}
+.ready .hw-r span{transition-delay:.12s}
+.hp{position:absolute;margin:0;overflow:hidden;background:#ddd8cf;aspect-ratio:4/5;opacity:0;transform:translateY(24px);transition:opacity 1.2s ease,transform 1.4s cubic-bezier(.2,.75,.1,1);will-change:transform,opacity}
+.hp img{width:100%;height:100%;object-fit:cover;transform:scale(1.06)}   /* trims the thin border baked into some originals */
+.ready .hp{opacity:1;transform:none}
+.hp1{left:7vw;top:16svh;width:9.5vw}
+.hp2{right:9vw;top:12svh;width:8vw;transition-delay:.15s}
+.hp3{left:15vw;bottom:9svh;width:8vw;transition-delay:.3s}
+.hp4{right:6vw;bottom:12svh;width:10vw;transition-delay:.45s}
+.hp3 img{object-position:30% 50%}.hp4 img{object-position:80% 40%}
+.hcap{position:absolute;left:var(--gut);bottom:calc(26px + env(safe-area-inset-bottom,0px));margin:0;font-family:var(--f-text);font-size:.68rem;letter-spacing:.08em;text-transform:uppercase;line-height:1.6;color:var(--ink);will-change:opacity}
+.hcap span{color:#8a847b}
+.hint{position:absolute;right:var(--gut-r);bottom:calc(26px + env(safe-area-inset-bottom,0px));display:flex;align-items:center;gap:12px;font-family:var(--f-text);font-size:.68rem;letter-spacing:.08em;text-transform:uppercase;color:var(--ink)}
+.hint i{width:1px;height:38px;background:var(--ink);transform-origin:top;animation:drip 2s cubic-bezier(.6,0,.3,1) infinite}
+@keyframes drip{0%{transform:scaleY(0)}50%{transform:scaleY(1);transform-origin:top}50.1%{transform-origin:bottom}100%{transform:scaleY(0);transform-origin:bottom}}
+@media (max-width:760px){
+  #hero .stage{--cw:62vw;--fs:21vw;--gap:14px}
+  .hw{left:0;right:0;text-align:center;transform:none}
+  .hw-l{top:auto;bottom:calc(50% + var(--ch)/2 + var(--gap))}
+  .hw-r{top:calc(50% + var(--ch)/2 + var(--gap))}
+  .hp{display:none}
+  .hint{display:none}
+}
+@media (prefers-reduced-motion:reduce){.hw span,.hp{transition:none}.hint i{animation:none}}
 .window{position:absolute;inset:0;clip-path:inset(50%);will-change:clip-path;z-index:2}
 .window video,.window img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;will-change:transform}
 .window .shade{position:absolute;inset:0;background:linear-gradient(180deg,rgba(11,10,9,.55),rgba(11,10,9,.25) 40%,rgba(11,10,9,.75));opacity:0}
@@ -101,8 +123,6 @@ a{color:inherit}
 .manifesto span{opacity:.16;transition:opacity .25s linear}
 .intro-cap{position:absolute;left:var(--gut);right:var(--gut-r);bottom:calc(28px + env(safe-area-inset-bottom,0px));display:flex;justify-content:space-between;gap:16px;z-index:3;opacity:0;color:var(--bone)}
 .blackout{position:absolute;inset:0;z-index:4;background:#0e1a2e;opacity:0;pointer-events:none}
-.hint{position:absolute;right:var(--gut-r);bottom:calc(max(28px,6svh) + min(40svh,62vw) + 16px);font-family:var(--f-text);font-size:.64rem;letter-spacing:.06em;text-transform:uppercase;color:#9a958d}
-@media (max-width:640px){.hint{display:none}.studio{text-align:left}}
 
 /* ---------- o ranch: navy from the logo's ribbon, the haras on film, three plain statements ---------- */
 #ranch{--navy:#0e1a2e;background:var(--navy);color:var(--bone);padding-block:clamp(110px,18vh,200px) clamp(90px,14vh,160px);font-family:var(--f-text)}
@@ -315,20 +335,15 @@ a{color:inherit}
 <main>
 <section id="hero" aria-label="B2B Ranch">
   <div class="stage">
-    <div class="hero-copy" id="heroCopy">
-      <p class="statement"><span>Quarter Horse de alta performance.</span><b>Criados, treinados e preparados para os Três Tambores no B2B Ranch.</b></p>
-      <div class="studio">B2B Ranch · Quarter Horse<br>Criação, treinamento e genética</div>
-    </div>
-    <div class="hint" id="hint">Role</div>
-    <div class="strip" id="strip">
-      <figure><img src="assets/tux-profile.webp" alt="Tux N Rolls de perfil" width="1800" height="1209" fetchpriority="high"></figure>
-      <figure><img src="assets/arena-abqm.webp" alt="Conjunto contornando o tambor no Congresso ABQM" width="1800" height="1200"></figure>
-      <figure class="slot-film" id="filmSlot" aria-hidden="true"></figure>
-      <figure><img src="assets/morganna-rolls.webp" alt="B2B Morganna Rolls no pasto" width="1800" height="1197"></figure>
-      <figure><img src="assets/lucius-a.webp" alt="B2B Lucius Ta Fame na pista" width="1086" height="1600"></figure>
-      <figure><img src="assets/arena-gp-gabriela.webp" alt="Curva no tambor no Grand Prix" width="1800" height="1200"></figure>
-      <figure><img src="assets/tux-mov-03.webp" alt="Tux N Rolls galopando" width="1800" height="1062"></figure>
-    </div>
+    <figure class="hp hp1" data-dx="-1" data-dy="-.6"><img src="assets/tux-profile.webp" alt="Tux N Rolls de perfil" width="1800" height="1209" fetchpriority="high"></figure>
+    <figure class="hp hp2" data-dx="1" data-dy="-.7"><img src="assets/arena-congresso.webp" alt="Conjunto no tambor do Congresso Brasileiro ABQM" width="1800" height="1200"></figure>
+    <figure class="hp hp3" data-dx="-1" data-dy=".7"><img src="assets/morganna-rolls.webp" alt="B2B Morganna Rolls no pasto" width="1800" height="1197"></figure>
+    <figure class="hp hp4" data-dx="1" data-dy=".6"><img src="assets/adios-perfil.webp" alt="Adios Pantalones, garanhão palomino" width="1680" height="936"></figure>
+    <div class="card" id="filmSlot" aria-hidden="true"></div>
+    <p class="hw hw-l" aria-hidden="true"><span>B2B</span></p>
+    <p class="hw hw-r" aria-hidden="true"><span>Ranch</span></p>
+    <p class="hcap" id="hcap">Quarter Horse de alta performance<br><span>Criação · Treinamento · Genética</span></p>
+    <div class="hint" id="hint"><i aria-hidden="true"></i>Role para entrar</div>
     <div class="window" id="window">
       <video src="assets/lucius-loop.mp4" poster="assets/lucius-loop-poster.jpg" muted loop playsinline autoplay preload="metadata"></video>
       <div class="shade" id="winShade"></div>
@@ -546,10 +561,12 @@ const sec = {};
 const ids = ['hero', 'pista'];
 
 /* ---------- hero ---------- */
-const heroCopy = $('#heroCopy'), hint = $('#hint');
-const strip = $('#strip'), filmSlot = $('#filmSlot'), stripCards = [...strip.children].filter(f => f !== filmSlot);
+const hint = $('#hint'), hcap = $('#hcap'), filmSlot = $('#filmSlot');
+const hwL = $('.hw-l'), hwR = $('.hw-r'), heroPhotos = [...document.querySelectorAll('.hp')];
 const blackout = $('#blackout'), winShade = $('#winShade');
-let stripShift = 0;
+// on load the card opens upward from its baseline while the words rise
+let introStart = 0;
+requestAnimationFrame(t => { introStart = t; $('#hero').classList.add('ready'); });
 
 /* ---------- intro ---------- */
 const win = $('#window'), winVid = win.querySelector('video'), introCap = $('#introCap'), stage = $('#hero .stage');
@@ -625,9 +642,6 @@ const parImgs = [...document.querySelectorAll('[data-par]')];
 /* ---------- measure ---------- */
 function measure() {
   vw = innerWidth; vh = innerHeight;
-  strip.style.transform = 'none';
-  const fr = filmSlot.getBoundingClientRect();
-  stripShift = Math.max(0, fr.left + fr.width / 2 - vw / 2);
   ids.forEach(id => { const el = document.getElementById(id); sec[id] = { top: el.getBoundingClientRect().top + scrollY, h: el.offsetHeight }; });
 }
 addEventListener('resize', () => { clearTimeout(measure.t); measure.t = setTimeout(measure, 120); });
@@ -643,23 +657,24 @@ function frame(now) {
   sy = reduce ? target : lerp(sy, target, 1 - Math.pow(.0005, dt));
   if (Math.abs(sy - target) < .3) sy = target;
 
-  // hero: the row slides until the film frame is centred, the frame opens to full bleed,
+  // hero: the words part and the photos drift off while the card opens to full screen,
   // then the manifesto lights up word by word over the film
   const H = sec.hero, p = clamp((sy - H.top) / (H.h - vh));
-  const slide = sstep(0, .26, p);
-  strip.style.transform = `translate3d(${(-stripShift * slide).toFixed(1)}px,0,0)`;
-  const g = sstep(.26, .5, p);
-  const lift = sstep(.18, .42, p);
-  heroCopy.style.transform = `translate3d(0,${(-lift * 60).toFixed(1)}px,0)`;
-  heroCopy.style.opacity = (1 - lift).toFixed(3);
-  hint.style.opacity = (1 - sstep(0, .06, p)).toFixed(3);
-  stripCards.forEach(c => c.style.opacity = (1 - sstep(.3, .44, p)).toFixed(3));
+  const open = reduce ? 1 : sstep(0, 1, clamp((now - introStart) / 1400));
+  const part = sstep(0, .3, p), fade = 1 - sstep(.08, .3, p);
+  const phone = vw <= 760;
+  hwL.style.transform = phone ? `translate3d(0,${(-part * 30).toFixed(1)}vh,0)` : `translate3d(${(-part * 45).toFixed(2)}vw,-50%,0)`;
+  hwR.style.transform = phone ? `translate3d(0,${(part * 30).toFixed(1)}vh,0)` : `translate3d(${(part * 45).toFixed(2)}vw,-50%,0)`;
+  hwL.style.opacity = hwR.style.opacity = fade.toFixed(3);
+  heroPhotos.forEach(ph => { ph.style.translate = `${(+ph.dataset.dx * part * 30).toFixed(2)}vw ${(+ph.dataset.dy * part * 30).toFixed(2)}vh`; ph.style.opacity = open < 1 ? '' : fade.toFixed(3); });
+  hint.style.opacity = hcap.style.opacity = (1 - sstep(0, .08, p)).toFixed(3);
+  const g = sstep(.16, .48, p);
   const fr = filmSlot.getBoundingClientRect();
   const sh = stage.getBoundingClientRect();
-  const it = lerp(fr.top - sh.top, 0, g), il = lerp(fr.left - sh.left, 0, g);
+  const it = lerp(fr.top - sh.top + (1 - open) * fr.height, 0, g), il = lerp(fr.left - sh.left, 0, g);
   const ib = lerp(sh.bottom - fr.bottom, 0, g), ir = lerp(sh.right - fr.right, 0, g);
   win.style.clipPath = `inset(${it.toFixed(1)}px ${ir.toFixed(1)}px ${ib.toFixed(1)}px ${il.toFixed(1)}px)`;
-  winVid.style.transform = `scale(${lerp(1.25, 1, g).toFixed(4)})`;
+  winVid.style.transform = `scale(${lerp(1.12, 1, g).toFixed(4)})`;
   const q = clamp((p - .5) / .5);
   winShade.style.opacity = sstep(.42, .55, p).toFixed(3);
   man.style.opacity = (sstep(.5, .56, p) * (1 - sstep(.9, .97, p))).toFixed(3);
