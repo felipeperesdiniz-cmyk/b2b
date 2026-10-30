@@ -43,7 +43,7 @@
 }
 *,*::before,*::after{box-sizing:border-box}
 html{-webkit-text-size-adjust:100%;overflow-x:clip}
-body{margin:0;background:var(--ink);color:var(--bone);font-family:var(--f-wide);font-size:17px;line-height:1.6;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+body{margin:0;background:var(--ink);color:var(--bone);font-family:var(--f-wide);font-size:17px;line-height:1.6;-webkit-font-smoothing:antialiased}
 img,video{display:block;max-width:100%}
 a{color:inherit}
 :focus-visible{outline:2px solid var(--clay);outline-offset:4px}
@@ -576,6 +576,9 @@ new IntersectionObserver(([e]) => { if (e.isIntersecting) rVid.play().catch(() =
 /* ---------- chapters: the pinned photo follows whichever chapter is in the middle ---------- */
 const chapters = [...document.querySelectorAll('.r-ch')], chImgs = [...document.querySelectorAll('.r-media img')];
 const rMediaCap = $('#rMediaCap'), rMediaNum = $('#rMediaNum');
+// the pinned photos start fully clipped, and browsers never lazy-load a fully clipped image,
+// so fetch them as the chapters approach
+new IntersectionObserver(([e], o) => { if (e.isIntersecting) { chImgs.forEach(im => im.loading = 'eager'); o.disconnect(); } }, { rootMargin: '100% 0px' }).observe($('#rChapters'));
 let chOn = 0;
 const chObs = new IntersectionObserver(es => es.forEach(e => {
   if (!e.isIntersecting) return;
