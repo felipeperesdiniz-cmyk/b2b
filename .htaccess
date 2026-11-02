@@ -1,0 +1,34 @@
+# Old WordPress addresses -> new pages
+RedirectMatch 404 ^/tools/
+Redirect 301 /o-b2b-ranch/ /sobre.html
+Redirect 301 /contato/ /contato.html
+Redirect 301 /plantel-b2b/ /garanhoes.html
+Redirect 301 /b2b-noticias/ /noticias.html
+Redirect 301 /17o-leilao-b2b-ranch-amigos/ /leiloes.html
+Redirect 301 /b2b-brave-rolls-conquista-top-3-na-final-do-potro-do-futuro-e-coloca-a-genetica-b2b-ranch-entre-os-destaques-da-competicao/ /noticias/brave-rolls-top-3-potro-do-futuro.html
+Redirect 301 /mjp-epic-sis-genetica-para-o-futuro-do-seu-plantel/ /matrizes/mjp-epic-sis.html
+Redirect 301 /elas-entraram-em-pista-para-fazer-acontecer-e-fizeram/ /noticias/elas-em-pista.html
+Redirect 301 /b2b-ranch-se-destaca-na-1a-etapa-do-vii-campeonato-heringer-ranch/ /noticias/heringer-ranch-1a-etapa.html
+Redirect 301 /vice-campea-final-ouro-potro-do-futuro-pf-e-copa-wv-2026/ /noticias/vice-campea-final-ouro-potro-do-futuro-pf-copa-wv-2026.html
+Redirect 301 /barretos-o-palco-onde-grandes-historias-sao-escritas/ /noticias/barretos.html
+Redirect 301 /resultados-que-comprovam-a-forca-da-b2b-ranch/ /noticias/1a-etapa-xli-campeonato-rjqm-rancho-gabriela.html
+Redirect 301 /b2b-brave-rolls-o-futuro-dos-tres-tambores/ /noticias/b2b-brave-rolls-o-futuro-dos-tres-tambores.html
+Redirect 301 /prova-selecao-nacional-2026/ /noticias/prova-selecao-nacional-2026.html
+Redirect 301 /apaixonados-por-grandes-cavalos/ /sobre.html
+Redirect 301 /b2b-ranch-impoe-excelencia-na-abertura-da-temporada-2026/ /noticias/abertura-temporada-2026-copa-organnact.html
+Redirect 301 /encerramento-da-temporada-2025-na-rjqm-destaca-excelencia-da-criacao-b2b-ranch/ /noticias/encerramento-temporada-2025-rjqm.html
+Redirect 301 /fim-de-semana-de-conquistas-no-v-grand-slam-cutter-no-haras-raphaela/ /noticias/v-grand-slam-cutter-haras-raphaela.html
+Redirect 301 /destaque-b2b-ranch-no-46o-potro-do-futuro-da-raca-quarto-de-milha-2025-18o-copa-dos-campeoes-e-11o-derby-da-raca-quarto-de-milha/ /noticias/46-potro-do-futuro-2025.html
+Redirect 301 /criacao-b2b-ranch-campeoes-em-pistas-durante-a-1a-etapa-do-vi-campeonato-heringer-ranch/ /noticias/1a-etapa-vi-campeonato-heringer-ranch.html
+Redirect 301 /3o-leilao-virtual-rancho-3d-convidado-especial-b2b-ranch/ /leiloes.html
+Redirect 301 /programa-de-incentivo-b2b-ranch-e-rancho-3d-no-campeonato-rjqm-de-2025-2026-a-2029-2030/ /noticias/programa-de-incentivo-rjqm-2025-2030.html
+Redirect 301 /destaques-do-b2b-ranch-na-4a-etapa-do-xxv-campeonato-regional-oeste/ /noticias/4a-etapa-xxv-campeonato-regional-oeste.html
+Redirect 301 /agradecimento-especial/ /leiloes.html
+Redirect 301 /agradecimentos-e-novidades-do-nosso-criatorio/ /noticias/novidades-do-criatorio-maio-2025.html
+Redirect 301 /b2b-ranch-em-destaque-na-5a-etapa-do-xxxix-campeonato-estadual-rjqm/ /noticias/5a-etapa-xxxix-campeonato-estadual-rjqm.html
+Redirect 301 /oferta-especial-do-embriao-a-ser-realizado-da-mended-heart/ /matrizes/mended-heart.html
+Redirect 301 /b2b-the-fling-french-ganhou-mais-de-8mil-dolares-na-houston-qualifiers-1d-winners-copy-copy/ /noticias/3o-grand-prix-rancho-gabriela.html
+Redirect 301 /b2b-the-fling-french-ganhou-mais-de-8mil-dolares-na-houston-qualifiers-1d-winners-copy/ /noticias/3o-grand-prix-rancho-gabriela.html
+Redirect 301 /b2b-the-fling-french-ganhou-mais-de-8mil-dolares-na-houston-qualifiers-1d-winners/ /noticias/b2b-the-fling-french-houston.html
+Redirect 301 /17o-leilao-b2b-ranch/ /noticias/17o-leilao-b2b-ranch-amigos.html
+ErrorDocument 404 /404.html

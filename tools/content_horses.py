@@ -1,0 +1,45 @@
+# Horses that are not in the home page lists but have published facts. Mares and athletes shown on the
+# home page are read from index.html by build.py; their English text lives in content_i18n.T.
+EXTRA_HORSES = [
+    {'name': 'B2B Lovergirl Rolls', 'sire': 'Tux N Rolls', 'dam': 'Magnolia Shady FF', 'extra': True,
+     'text': 'A única tríplice coroada do Brasil nos Três Tambores. Tríplice coroada em 2017, campeã do Congresso Brasileiro ABQM com amador e com aberta, do Potro do Futuro ABQM, do Nacional ABQM e do Grand Prix Haras Raphaela.',
+     'text_en': 'The only Triple Crown winner in Brazilian barrel racing. Triple Crown in 2017, champion of the ABQM Brazilian Congress in both amateur and open, of the ABQM Potro do Futuro, the ABQM National and the Haras Raphaela Grand Prix.'},
+    {'name': 'B2B Noa Carat Rolls', 'sire': 'Tux N Rolls', 'dam': 'Three Carat Diamond', 'extra': True,
+     'text': 'Campeã do Rodeio Internacional de Barretos 2023 e vice-campeã em 2024. Também campeã do Grand Slam Cutter, do Nacional ABQM e do Grand Prix Haras Raphaela.',
+     'text_en': 'Champion of the Barretos International Rodeo in 2023 and runner-up in 2024. Also champion of the Grand Slam Cutter, the ABQM National and the Haras Raphaela Grand Prix.'},
+    {'name': 'B2B Madeleine Rolls', 'sire': 'Tux N Rolls', 'dam': 'Magnolia Shady FF', 'extra': True,
+     'text': 'Irmã própria de B2B Lovergirl Rolls. Subiu ao pódio em Barretos com Yasmin de Matteo e venceu na categoria Amador com 16s549.',
+     'text_en': 'Full sister to B2B Lovergirl Rolls. Reached the podium at Barretos with Yasmin de Matteo and won in the Amateur category in 16.549.'},
+    {'name': 'B2B Maximus Rolls', 'sire': 'Tux N Rolls', 'dam': 'KR The Black Pearl', 'extra': True,
+     'text': 'Cavalo do Ano de 2018 e irmão próprio do garanhão B2B Lucius Ta Fame.',
+     'text_en': 'Horse of the Year in 2018 and full brother to the stallion B2B Lucius Ta Fame.'},
+    {'name': 'B2B Aphrodite Rolls', 'sire': 'B2B Lucius Ta Fame', 'dam': 'Three Carat Diamond', 'extra': True,
+     'text': 'Uma das primeiras gerações de B2B Lucius Ta Fame a se provar em pista, com menor tempo de 16.671 s.',
+     'text_en': 'One of the first generations by B2B Lucius Ta Fame to prove itself in competition, with a best time of 16.671 s.'},
+    {'name': 'B2B Apollo Rolls', 'sire': 'Tux N Rolls', 'dam': 'Custom Made Kat', 'extra': True,
+     'text': 'Filho de Tux N Rolls com Custom Made Kat, competitivo nos Três Tambores e nas Seis Balizas.',
+     'text_en': 'By Tux N Rolls out of Custom Made Kat, competitive in both barrel racing and pole bending.'},
+    {'name': 'B2B Three Blackpearl', 'sire': 'Tres Seis', 'dam': 'KR The Black Pearl', 'extra': True,
+     'text': 'Filha de Tres Seis com KR The Black Pearl. Venceu a Final Prata do Potro do Futuro no 3º Grand Prix Rancho Gabriela com 17.184.',
+     'text_en': 'By Tres Seis out of KR The Black Pearl. Won the Potro do Futuro Silver Final at the 3rd Rancho Gabriela Grand Prix in 17.184.'},
+    {'name': 'B2B The Fling French', 'sire': 'Frenchmans Guy', 'dam': 'Fling N Delight', 'extra': True,
+     'text': 'Exportada depois de adquirida no 15º Leilão B2B Ranch & Amigos, ganhou mais de US$ 8 mil na Houston Qualifiers & 1D Winners.',
+     'text_en': 'Exported after being bought at the 15th B2B Ranch & Friends Auction, she earned over US$8,000 at the Houston Qualifiers & 1D Winners.'},
+    {'name': 'B2B Alaska French', 'sire': 'Tux N Rolls', 'dam': 'B2B Movidas Guy', 'extra': True,
+     'text': 'Filha de Tux N Rolls com B2B Movidas Guy, irmã própria de B2B Quaker Tux Guy. Correu o Potro do Futuro em 2025.',
+     'text_en': 'By Tux N Rolls out of B2B Movidas Guy, full sister to B2B Quaker Tux Guy. Ran the Potro do Futuro in 2025.'},
+]
+
+# Extra sentence on a profile, from what the ranch has published.
+HORSE_NOTES = {
+    'Mended Heart': ('Competindo com Keverson de Souza, foi vice-campeã da Aberta Sênior no 3º Grand Prix Rancho Gabriela (16.659) e na 4ª etapa do XXV Campeonato Regional Oeste (16.660).',
+                     'Ridden by Keverson de Souza, she placed second in Open Senior at the 3rd Rancho Gabriela Grand Prix (16.659) and at round 4 of the 25th Western Regional Championship (16.660).'),
+    'HP Boom Shockalocka': ('Vendida no 15º Leilão B2B Ranch & Amigos em 2023, foi recomprada pelo B2B Ranch em maio de 2025.',
+                            'Sold at the 15th B2B Ranch & Friends Auction in 2023, she was bought back by B2B Ranch in May 2025.'),
+    'B2B Quaker Tux Guy': ('Em 2026 venceu o GP ABQM da 1ª Etapa da Copa Organnact com 16.489 e a Aberta Sênior da 1ª Etapa do XLI Campeonato RJQM com 16.556.',
+                           'In 2026 he won the ABQM GP at round 1 of the Copa Organnact in 16.489 and Open Senior at round 1 of the 41st RJQM Championship in 16.556.'),
+    'B2B Brave Rolls': ('Foi vice-campeã da Final Ouro do Potro do Futuro PF & Copa WV 2026 e marcou 16.788 na sua quarta apresentação, durante o Congresso.',
+                        'She was runner-up in the Gold Final of the 2026 PF & Copa WV Potro do Futuro and clocked 16.788 in her fourth run, at the Congress.'),
+    'B2B Oprah Rolls': ('Compete nas Seis Balizas com Odilon Diniz, fundador do B2B Ranch.',
+                        'She competes in pole bending with Odilon Diniz, founder of B2B Ranch.'),
+}
