@@ -21,6 +21,8 @@
 <meta name="twitter:card" content="summary_large_image">
 <link rel="icon" href="assets/logo.webp">
 <link rel="preload" as="image" href="assets/tux-profile.webp" fetchpriority="high">
+<link rel="preload" as="image" href="assets/horse/d/000.webp" media="not all and (max-width: 760px) and (orientation: portrait)">
+<link rel="preload" as="image" href="assets/horse/m/000.webp" media="(max-width: 760px) and (orientation: portrait)">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,300..900&family=Instrument+Sans:wght@400..600&display=swap">
@@ -126,6 +128,10 @@ a{color:inherit}
 @media (prefers-reduced-motion:reduce){.hw span,.hp{transition:none}.hint i{animation:none}}
 .window{position:absolute;inset:0;clip-path:inset(50%);will-change:clip-path;z-index:2}
 .window video,.window img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;will-change:transform}
+.window canvas{position:absolute;display:block}
+.h-bg{inset:0;width:100%;height:100%;object-fit:cover;filter:blur(22px) saturate(1.05);transform:scale(1.18)}   /* the footage's own soft background, extended to the screen edges; it never zooms, so only the horse comes closer */
+.h-fg{left:0;top:0;transform-origin:0 0;will-change:transform;-webkit-mask-image:linear-gradient(90deg,transparent,#000 9%,#000 91%,transparent);mask-image:linear-gradient(90deg,transparent,#000 9%,#000 91%,transparent)}
+@media (max-width:760px) and (orientation:portrait){.h-fg{-webkit-mask-image:none;mask-image:none}}
 .window .shade{position:absolute;inset:0;background:linear-gradient(180deg,rgba(11,10,9,.55),rgba(11,10,9,.25) 40%,rgba(11,10,9,.75));opacity:0}
 .manifesto{position:absolute;inset:0;z-index:3;margin:auto;height:max-content;max-width:min(1200px,92vw);text-align:center;font-size:clamp(2rem,5.6vw,5.4rem);text-wrap:balance;color:var(--bone);opacity:0;pointer-events:none}
 .manifesto span{opacity:.16;transition:opacity .25s linear}
@@ -415,7 +421,8 @@ time{font-size:.7rem;letter-spacing:.1em;text-transform:uppercase;color:#67625b}
     <p class="hcap" id="hcap">Cavalo Quarto de Milha<br><span>Apaixonados por grandes cavalos</span></p>
     <div class="hint" id="hint"><i aria-hidden="true"></i>Role para entrar</div>
     <div class="window" id="window">
-      <video poster="assets/lucius-loop-poster.webp" muted loop playsinline autoplay preload="metadata"><source media="(max-width: 760px) and (orientation: portrait)" src="assets/m/lucius-loop.mp4" type="video/mp4"><source src="assets/lucius-loop.mp4" type="video/mp4"></video>
+      <canvas class="h-bg" id="hBg" width="54" height="96" aria-hidden="true"></canvas>
+      <canvas class="h-fg" id="hFg" role="img" aria-label="B2B Lucius Ta Fame vindo a trote em direção à câmera"></canvas>
       <div class="shade" id="winShade"></div>
     </div>
     <h1 class="manifesto wide" id="manifesto">Genética selecionada. Atletas criados para a pista.</h1>
@@ -711,7 +718,57 @@ let introStart = 0;
 requestAnimationFrame(t => { introStart = t; $('#hero').classList.add('ready'); });
 
 /* ---------- intro ---------- */
-const win = $('#window'), winVid = win.querySelector('video'), introCap = $('#introCap'), stage = $('#hero .stage');
+/* the horse: 136 frames drawn to canvas. He always keeps moving on his own; scrolling drives him forward, and he grows faster the closer he gets */
+const hFg = $('#hFg'), hBg = $('#hBg'), hFgC = hFg.getContext('2d'), hBgC = hBg.getContext('2d');
+const H_N = 136, H_DIR = matchMedia('(max-width: 760px) and (orientation: portrait)').matches ? 'm' : 'd';
+const hFrames = new Array(H_N).fill(null);
+hFg.width = H_DIR === 'm' ? 540 : 576; hFg.height = H_DIR === 'm' ? 960 : 1024;
+{
+  // every 8th frame first, then fill in, so any scroll position already has a frame close by
+  const order = [], seen = new Set(), saveData = navigator.connection && navigator.connection.saveData;
+  for (const st of saveData ? [8, 4] : [8, 4, 2, 1]) for (let i = 0; i < H_N; i += st) if (!seen.has(i)) { seen.add(i); order.push(i); }
+  let next = 0;
+  const pump = () => {
+    if (next >= order.length) return;
+    const i = order[next++], im = new Image();
+    im.src = `assets/horse/${H_DIR}/${String(i).padStart(3, '0')}.webp`;
+    const done = () => { hFrames[i] = im; pump(); };
+    (im.decode ? im.decode() : new Promise((ok, no) => { im.onload = ok; im.onerror = no; })).then(done, pump);
+  };
+  for (let k = 0; k < 6; k++) pump();
+}
+let hBase = 0, hDrawn = -1, hLast = 0;
+function horse(now, p, card, sh, wTop, wBot) {
+  const dt = Math.min(.1, (now - hLast) / 1000); hLast = now;
+  const x = clamp(p / .74);
+  const target = x * (H_N - 1);
+  hBase = reduce ? target : lerp(hBase, target, 1 - Math.pow(.002, dt));
+  // trotting in place while you wait: about real speed, forward and back over a few frames
+  const t = (now / 1300) % 1, tri = t < .5 ? t * 2 : 2 - t * 2;
+  const want = clamp(Math.round(hBase + (reduce ? 0 : 7 * (1 - x) * tri)), 0, H_N - 1);
+  let idx = -1;
+  for (let d = 0; d < H_N && idx < 0; d++) { if (hFrames[want - d]) idx = want - d; else if (hFrames[want + d]) idx = want + d; }
+  if (idx >= 0 && idx !== hDrawn) {
+    hDrawn = idx;
+    hFgC.drawImage(hFrames[idx], 0, 0, hFg.width, hFg.height);
+    // the side fill uses only the outer strips of the frame, so it reads as more of the background and not a giant blurred horse
+    const im = hFrames[idx], sw = im.naturalWidth * .13, sh2 = im.naturalHeight;
+    hBgC.drawImage(im, 0, 0, sw, sh2, 0, 0, 27, 96);
+    hBgC.drawImage(im, im.naturalWidth - sw, 0, sw, sh2, 27, 0, 27, 96);
+  }
+  // apparent size follows perspective: slow while he is far, rushing at the end
+  const loom = x * x * (.5 + .5 * x);
+  const fw = hFg.width, fh = hFg.height;
+  const s0 = Math.max(card.width / fw, card.height / fh) * 1.22;   // a little over the card, so the soft side edges stay hidden until the window opens
+  const s1 = H_DIR === 'm' ? (sh.height / fh) * 1.42 : (sh.height / fh) * 1.8;
+  const S = Math.max(lerp(s0, s1, loom), (wBot - wTop) / fh * 1.03);   // always tall enough to fill the open window
+  const ay = lerp(.3, .58, x);                                   // the head sits lower in the frame as he gets closer
+  const cy = lerp(card.top - sh.top + card.height / 2, sh.height * .46, loom);
+  const bob = reduce ? 0 : Math.sin(hBase * 1.05) * (1.5 + 11 * loom);   // his stride reaches the viewer more as he nears
+  const y = clamp(cy - fh * S * ay + bob, wBot - fh * S, wTop);
+  hFg.style.transform = `translate3d(${(sh.width / 2 - fw * S / 2).toFixed(1)}px,${y.toFixed(1)}px,0) scale(${S.toFixed(4)})`;
+}
+const win = $('#window'), introCap = $('#introCap'), stage = $('#hero .stage');
 const man = $('#manifesto');
 // split manifesto into words, keep the <em>
 const words = [];
@@ -805,25 +862,25 @@ function frame(now) {
   // then the manifesto lights up word by word over the film
   const H = sec.hero, p = clamp((sy - H.top) / (H.h - vh));
   const open = reduce ? 1 : sstep(0, 1, clamp((now - introStart) / 1400));
-  const part = sstep(0, .3, p), fade = 1 - sstep(.08, .3, p);
+  const part = sstep(0, .36, p), fade = 1 - sstep(.14, .36, p);
   const phone = vw <= 760;
   hwL.style.transform = phone ? `translate3d(0,${(-part * 30).toFixed(1)}vh,0)` : `translate3d(${(-part * 45).toFixed(2)}vw,-50%,0)`;
   hwR.style.transform = phone ? `translate3d(0,${(part * 30).toFixed(1)}vh,0)` : `translate3d(${(part * 45).toFixed(2)}vw,-50%,0)`;
   hwL.style.opacity = hwR.style.opacity = fade.toFixed(3);
   heroPhotos.forEach(ph => { ph.style.translate = `${(+ph.dataset.dx * part * 30).toFixed(2)}vw ${(+ph.dataset.dy * part * 30).toFixed(2)}vh`; ph.style.opacity = open < 1 ? '' : fade.toFixed(3); });
   hint.style.opacity = hcap.style.opacity = (1 - sstep(0, .08, p)).toFixed(3);
-  const g = sstep(.16, .48, p);
+  const g = sstep(.05, .46, p);
   const fr = filmSlot.getBoundingClientRect();
   const sh = stage.getBoundingClientRect();
   const it = lerp(fr.top - sh.top + (1 - open) * fr.height, 0, g), il = lerp(fr.left - sh.left, 0, g);
   const ib = lerp(sh.bottom - fr.bottom, 0, g), ir = lerp(sh.right - fr.right, 0, g);
   win.style.clipPath = `inset(${it.toFixed(1)}px ${ir.toFixed(1)}px ${ib.toFixed(1)}px ${il.toFixed(1)}px)`;
-  winVid.style.transform = `scale(${lerp(1.12, 1, g).toFixed(4)})`;
-  const q = clamp((p - .5) / .5);
-  winShade.style.opacity = sstep(.42, .55, p).toFixed(3);
-  man.style.opacity = (sstep(.5, .56, p) * (1 - sstep(.9, .97, p))).toFixed(3);
+  if (p < 1) horse(now, p, fr, sh, it, sh.height - ib);
+  const q = clamp((p - .68) / .32);
+  winShade.style.opacity = sstep(.62, .73, p).toFixed(3);
+  man.style.opacity = (sstep(.68, .74, p) * (1 - sstep(.92, .98, p))).toFixed(3);
   words.forEach((w, i) => { const a = .04 + (i / words.length) * .62; w.style.opacity = (.16 + .84 * sstep(a, a + .08, q)).toFixed(3); });
-  introCap.style.opacity = (sstep(.6, .7, p) * (1 - sstep(.9, .97, p))).toFixed(3);
+  introCap.style.opacity = (sstep(.72, .78, p) * (1 - sstep(.92, .98, p))).toFixed(3);
   blackout.style.opacity = sstep(.9, .99, p).toFixed(3);
 
   brand.classList.toggle('small', sy > 40);
@@ -885,7 +942,6 @@ function frame(now) {
 requestAnimationFrame(frame);
 
 // pause the background loop when off screen
-new IntersectionObserver(([e]) => { e.isIntersecting ? winVid.play().catch(() => {}) : winVid.pause(); }).observe(win);
 
 /* ---------- films: swap a still for the YouTube player only when asked ---------- */
 // If YouTube refuses to play one here (embedding off or a rights restriction on that video),
