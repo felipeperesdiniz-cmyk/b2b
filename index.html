@@ -21,7 +21,7 @@
 <meta name="twitter:card" content="summary_large_image">
 <link rel="icon" href="assets/logo.webp">
 <link rel="preload" as="image" href="assets/tux-profile.webp" fetchpriority="high">
-<link rel="preload" as="image" href="assets/horse/d/000.webp" media="not all and (max-width: 760px) and (orientation: portrait)">
+<link rel="preload" as="image" href="assets/horse/w/000.webp" media="not all and (max-width: 760px) and (orientation: portrait)">
 <link rel="preload" as="image" href="assets/horse/m/000.webp" media="(max-width: 760px) and (orientation: portrait)">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -129,9 +129,7 @@ a{color:inherit}
 .window{position:absolute;inset:0;clip-path:inset(50%);will-change:clip-path;z-index:2}
 .window video,.window img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;will-change:transform}
 .window canvas{position:absolute;display:block}
-.h-bg{inset:0;width:100%;height:100%;object-fit:cover;filter:blur(22px) saturate(1.05);transform:scale(1.18)}   /* the footage's own soft background, extended to the screen edges; it never zooms, so only the horse comes closer */
-.h-fg{left:0;top:0;transform-origin:0 0;will-change:transform;-webkit-mask-image:linear-gradient(90deg,transparent,#000 9%,#000 91%,transparent);mask-image:linear-gradient(90deg,transparent,#000 9%,#000 91%,transparent)}
-@media (max-width:760px) and (orientation:portrait){.h-fg{-webkit-mask-image:none;mask-image:none}}
+.h-fg{left:0;top:0;transform-origin:0 0;will-change:transform;}
 .window .shade{position:absolute;inset:0;background:linear-gradient(180deg,rgba(11,10,9,.55),rgba(11,10,9,.25) 40%,rgba(11,10,9,.75));opacity:0}
 .manifesto{position:absolute;inset:0;z-index:3;margin:auto;height:max-content;max-width:min(1200px,92vw);text-align:center;font-size:clamp(2rem,5.6vw,5.4rem);text-wrap:balance;color:var(--bone);opacity:0;pointer-events:none}
 .manifesto span{opacity:.16;transition:opacity .25s linear}
@@ -179,7 +177,7 @@ a{color:inherit}
   .r-ch-img{display:block;width:100%;height:auto;aspect-ratio:1/1;object-fit:cover}
   .r-ch-img[src*="lucius-cabresto"]{object-position:50% 0}
   .r-ch-img[src*="lucius-frente"]{object-position:50% 12%}
-  .r-ch-img[src*="haras-lago"]{aspect-ratio:3/2}
+  .r-ch-img[src*="haras-lago"]{aspect-ratio:16/10}
   picture.r-ch-img{aspect-ratio:auto;max-height:70vh;overflow:hidden}
   .r-vals{grid-template-columns:1fr}
   .r-vals li:nth-child(odd){border-right:0}
@@ -424,7 +422,6 @@ time{font-size:.7rem;letter-spacing:.1em;text-transform:uppercase;color:#67625b}
     <p class="hcap" id="hcap">Cavalo Quarto de Milha<br><span>Apaixonados por grandes cavalos</span></p>
     <div class="hint" id="hint"><i aria-hidden="true"></i>Role para entrar</div>
     <div class="window" id="window">
-      <canvas class="h-bg" id="hBg" width="54" height="96" aria-hidden="true"></canvas>
       <canvas class="h-fg" id="hFg" role="img" aria-label="B2B Lucius Ta Fame vindo a trote em direção à câmera"></canvas>
       <div class="shade" id="winShade"></div>
     </div>
@@ -451,7 +448,7 @@ time{font-size:.7rem;letter-spacing:.1em;text-transform:uppercase;color:#67625b}
         <img src="assets/historia-bebel.webp" alt="" loading="lazy" decoding="async" width="1008" height="1481" class="on" style="object-position:50% 30%">
         <img src="assets/lucius-cabresto.webp" alt="" loading="lazy" decoding="async" width="1122" height="1402">
         <img src="assets/lucius-frente.webp" alt="" loading="lazy" decoding="async" width="1145" height="1374">
-        <img src="assets/haras-lago.webp" alt="" loading="lazy" decoding="async" width="2000" height="1333">
+        <img src="assets/haras-lago.webp" alt="" loading="lazy" decoding="async" width="1672" height="941">
         <figcaption><span id="rMediaCap">Nossa história</span><span id="rMediaNum">01 / 04</span></figcaption>
       </figure>
       <div>
@@ -481,7 +478,7 @@ time{font-size:.7rem;letter-spacing:.1em;text-transform:uppercase;color:#67625b}
           <p>Investimos em tecnologias reprodutivas de ponta, como transferência de embrião e inseminação artificial, para potencializar nossos resultados.</p>
         </article>
         <article class="r-ch" data-cap="O haras">
-          <img class="r-ch-img" src="assets/haras-lago.webp" alt="Vista do haras com o lago e os morros" loading="lazy" decoding="async" width="2000" height="1333">
+          <img class="r-ch-img" src="assets/haras-lago.webp" srcset="assets/m/haras-lago.webp 1100w, assets/haras-lago.webp 1672w" sizes="90vw" alt="Vista aérea do haras ao pôr do sol, com o lago, os piquetes e os morros" loading="lazy" decoding="async" width="1672" height="941">
           <span class="n">04 · Marcos</span>
           <h3>O nome nos pódios</h3>
           <ul class="r-vals">
@@ -722,10 +719,10 @@ requestAnimationFrame(t => { introStart = t; $('#hero').classList.add('ready'); 
 
 /* ---------- intro ---------- */
 /* the horse: 136 frames drawn to canvas. He always keeps moving on his own; scrolling drives him forward, and he grows faster the closer he gets */
-const hFg = $('#hFg'), hBg = $('#hBg'), hFgC = hFg.getContext('2d'), hBgC = hBg.getContext('2d');
-const H_N = 136, H_DIR = matchMedia('(max-width: 760px) and (orientation: portrait)').matches ? 'm' : 'd';
+const hFg = $('#hFg'), hFgC = hFg.getContext('2d');
+const H_DIR = matchMedia('(max-width: 760px) and (orientation: portrait)').matches ? 'm' : 'w', H_N = H_DIR === 'm' ? 136 : 103;
 const hFrames = new Array(H_N).fill(null);
-hFg.width = H_DIR === 'm' ? 540 : 576; hFg.height = H_DIR === 'm' ? 960 : 1024;
+hFg.width = H_DIR === 'm' ? 540 : 1600; hFg.height = H_DIR === 'm' ? 960 : 900;   // vertical footage on phones, horizontal on computers
 {
   // every 8th frame first, then fill in, so any scroll position already has a frame close by
   const order = [], seen = new Set(), saveData = navigator.connection && navigator.connection.saveData;
@@ -748,24 +745,20 @@ function horse(now, p, card, sh, wTop, wBot) {
   hBase = reduce ? target : lerp(hBase, target, 1 - Math.pow(.002, dt));
   // trotting in place while you wait: about real speed, forward and back over a few frames
   const t = (now / 1300) % 1, tri = t < .5 ? t * 2 : 2 - t * 2;
-  const want = clamp(Math.round(hBase + (reduce ? 0 : 7 * (1 - x) * tri)), 0, H_N - 1);
+  const want = clamp(Math.round(hBase + (reduce ? 0 : H_N * .05 * (1 - x) * tri)), 0, H_N - 1);
   let idx = -1;
   for (let d = 0; d < H_N && idx < 0; d++) { if (hFrames[want - d]) idx = want - d; else if (hFrames[want + d]) idx = want + d; }
   if (idx >= 0 && idx !== hDrawn) {
     hDrawn = idx;
     hFgC.drawImage(hFrames[idx], 0, 0, hFg.width, hFg.height);
-    // the side fill uses only the outer strips of the frame, so it reads as more of the background and not a giant blurred horse
-    const im = hFrames[idx], sw = im.naturalWidth * .13, sh2 = im.naturalHeight;
-    hBgC.drawImage(im, 0, 0, sw, sh2, 0, 0, 27, 96);
-    hBgC.drawImage(im, im.naturalWidth - sw, 0, sw, sh2, 27, 0, 27, 96);
   }
   // apparent size follows perspective: slow while he is far, rushing at the end
   const loom = x * x * (.5 + .5 * x);
   const fw = hFg.width, fh = hFg.height;
-  const s0 = Math.max(card.width / fw, card.height / fh) * 1.22;   // a little over the card, so the soft side edges stay hidden until the window opens
-  const s1 = H_DIR === 'm' ? (sh.height / fh) * 1.42 : (sh.height / fh) * 1.8;
-  const S = Math.max(lerp(s0, s1, loom), (wBot - wTop) / fh * 1.03);   // always tall enough to fill the open window
-  const ay = lerp(.3, .58, x);                                   // the head sits lower in the frame as he gets closer
+  const s0 = Math.max(card.width / fw, card.height / fh) * 1.22;
+  const s1 = H_DIR === 'm' ? (sh.height / fh) * 1.42 : (sh.height / fh) * 2.4;
+  const S = Math.max(lerp(s0, s1, loom), (wBot - wTop) / fh * 1.03, (sh.width - 2 * lerp(card.left - sh.left, 0, sstep(.05, .46, p))) / (fw * (H_DIR === 'w' ? .6 : 1)));   // always big enough to fill the open window; on computers, also to keep the logos in the footage's top corners out of frame
+  const ay = H_DIR === 'w' ? lerp(.3, .5, x) : lerp(.3, .58, x);                                   // the head sits lower in the frame as he gets closer
   const cy = lerp(card.top - sh.top + card.height / 2, sh.height * .46, loom);
   const bob = reduce ? 0 : Math.sin(hBase * 1.05) * (1.5 + 11 * loom);   // his stride reaches the viewer more as he nears
   const y = clamp(cy - fh * S * ay + bob, wBot - fh * S, wTop);
