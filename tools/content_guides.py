@@ -154,7 +154,7 @@ GUIDES = [
          lede=('Agilidade, controle e explosão em uma prova técnica, disputada em zigue-zague entre seis balizas.', 'Agility, control and explosive speed in a technical event, run in a weaving pattern between six poles.'),
          desc=('O que são as Seis Balizas: percurso, o que a prova exige do conjunto e como os cavalos da criação B2B Ranch competem na modalidade.',
                'What pole bending, or Seis Balizas, is in Brazil: the pattern, what it demands of horse and rider, and how B2B Ranch horses compete in it.'),
-         img='assets/at/oprah-rolls.webp', alt=('B2B Oprah Rolls em prova', 'B2B Oprah Rolls in competition'),
+         img='assets/seis-balizas.webp', img_style='max-height:none', alt=('Cavaleiro contorna a baliza em prova de Seis Balizas no Rancho Gabriela', 'Rider turning a pole in a pole bending run at Rancho Gabriela'),
          body=[('h', 'O que é', 'What it is'),
                ('p', 'Nas Seis Balizas, o conjunto corre até o fim de uma linha de seis balizas, volta em zigue-zague entre elas, faz o mesmo percurso no sentido contrário e dispara até a chegada. Vence o menor tempo, e derrubar balizas gera penalidade conforme o regulamento.',
                 'In pole bending, horse and rider run to the far end of a line of six poles, weave back through them, repeat the pattern in the opposite direction and sprint to the finish. The fastest time wins, and knocking down poles is penalized according to the rulebook.'),

@@ -653,7 +653,7 @@ def build_guides():
             more = '<section class="p-links wrap pad"><h2>' + L(lang, 'more_guides') + '</h2><ul>' + ''.join(
                 f'<li><a href="{rel(path, SECTIONS["guides"][i] + "/" + t2(o["slug"], lang) + ".html")}">{E(t2(o["nav"], lang))}</a></li>' for o in others) + '</ul></section>'
             body = (f'<main>{crumbs_html(path, crumb)}<article><header class="n-head wrap pad" style="padding-top:clamp(24px,4vh,48px)"><span class="label">{L(lang, "nav_guides")}</span><h1>{E(h1)}</h1><p>{E(lede)}</p></header>'
-                    f'<figure class="n-hero wrap pad"><img src="{rel(path, g["img"])}" alt="{E(t2(g["alt"], lang))}" width="{w}" height="{h}" fetchpriority="high" style="--pos:50% 40%"></figure>'
+                    f'<figure class="n-hero wrap pad"><img src="{rel(path, g["img"])}" alt="{E(t2(g["alt"], lang))}" width="{w}" height="{h}" fetchpriority="high" style="{g.get("img_style", "--pos:50% 40%")}"></figure>'
                     f'<div class="n-body pad">{rich(g["body"], path, lang)}</div></article>{more}' + cta(lang, L(lang, 'cta_general'), L(lang, 'wa_general')) + '</main>')
             page(path, lang, title, t2(g['desc'], lang), body, img=g['img'], kind='article', img_alt=t2(g['alt'], lang),
                  nodes=[crumbs_ld(crumb), {'@type': 'Article', 'headline': h1[:110], 'description': t2(g['desc'], lang), 'inLanguage': HTML_LANG[lang], 'mainEntityOfPage': url(path), 'image': BASE + '/' + g['img'], 'dateModified': TODAY, 'author': {'@id': BASE + '/#org'}, 'publisher': {'@id': BASE + '/#org'}}])
