@@ -9,14 +9,14 @@ The English home and stallion pages are made from the Portuguese files plus the 
 tools/content_i18n.py. If a Portuguese text changes and has no translation, the build stops and
 lists it, so the two languages cannot drift apart silently.
 """
-import datetime, html, json, os, posixpath, re, struct, subprocess, sys, urllib.parse
+import datetime, hashlib, html, json, os, posixpath, re, struct, subprocess, sys, urllib.parse
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 from content_i18n import T, KEEP, COAT, CAT, UI
 from content_horses import EXTRA_HORSES, HORSE_NOTES
 from content_news import NEWS, OLD_URLS
-from content_guides import GUIDES, FAQ, ABOUT, BREEDING, AUCTIONS, GLOSSARY
+from content_guides import GUIDES, FAQ, ABOUT, BREEDING, AUCTIONS, GLOSSARY, SALE, TRAINING
 
 BASE = 'https://b2branch.com.br'
 TODAY = datetime.date.today().isoformat()
@@ -31,6 +31,9 @@ OG_LOCALE = {'pt': 'pt_BR', 'en': 'en_US'}
 MONTHS = {'pt': 'jan fev mar abr mai jun jul ago set out nov dez'.split(),
           'en': 'Jan Feb Mar Apr May Jun Jul Aug Sep Oct Nov Dec'.split()}
 DEFAULT_OG = 'assets/og/home.jpg'
+GSC_VERIFICATION = ''   # paste the Google Search Console HTML-tag token here to verify the site
+VERCEL_ANALYTICS = False   # turn on after enabling Web Analytics for the project in Vercel
+LASTMOD_FILE = os.path.join(ROOT, 'tools', 'lastmod.json')
 
 SECTIONS = {  # section -> (pt folder, en folder)
     'stallions': ('garanhoes', 'en/stallions'), 'mares': ('matrizes', 'en/broodmares'),
@@ -42,7 +45,8 @@ HUBS = {  # key -> (pt path, en path)
     'about': ('sobre.html', 'en/about.html'), 'contact': ('contato.html', 'en/contact.html'),
     'films': ('filmes.html', 'en/films.html'), 'faq': ('perguntas-frequentes.html', 'en/faq.html'),
     'breeding': ('genetica-e-coberturas.html', 'en/genetics-and-breeding.html'),
-    'auctions': ('leiloes.html', 'en/auctions.html'), 'glossary': ('glossario.html', 'en/glossary.html')}
+    'auctions': ('leiloes.html', 'en/auctions.html'), 'glossary': ('glossario.html', 'en/glossary.html'),
+    'sale': ('cavalos-a-venda.html', 'en/horses-for-sale.html'), 'training': ('treinamento-de-cavalos.html', 'en/horse-training.html')}
 NAV = ['about', 'stallions', 'mares', 'athletes', 'news', 'guides', 'contact']
 E = html.escape
 
@@ -69,7 +73,56 @@ def url(path):
 
 
 def rel(frm, to):
+    # home pages are linked by their clean address, the one the canonical tag names
+    if to == 'index.html' or to.endswith('/index.html'):
+        return posixpath.relpath(posixpath.dirname(to) or '.', posixpath.dirname(frm) or '.') + '/'
     return posixpath.relpath(to, posixpath.dirname(frm) or '.')
+
+
+def fit_desc(*parts, limit=158):
+    """Joins whole sentences up to the limit, so a description never ends mid-thought."""
+    out = ''
+    for p in parts:
+        for sent in re.findall(r'.+?[.!?](?=\s+[A-ZÀ-Ý0-9]|$)', re.sub(r'\s+', ' ', p).strip()) or [p]:
+            sent = sent.strip()
+            if len(out) + len(sent) + 1 <= limit:
+                out = (out + ' ' + sent).strip()
+    return out
+
+
+def small_version(img):
+    """A smaller copy of a photo with the same shape: an existing phone file when it matches, otherwise made once."""
+    w, h = webp_size(img)
+    if w <= 900:
+        return None
+    name = img[len('assets/'):-len('.webp')]
+    for cand in (f'assets/m/{name.replace("/", "-")}.webp', f'assets/m/at-{name}.webp'):
+        if os.path.exists(os.path.join(ROOT, cand)):
+            cw, ch = webp_size(cand)
+            if cw < w and abs(cw / ch - w / h) < .02:
+                return cand
+    out = f'assets/m/card-{name.replace("/", "-")}.webp'
+    full = os.path.join(ROOT, out)
+    if not os.path.exists(full):
+        try:
+            from PIL import Image
+        except ImportError:
+            return None
+        im = Image.open(os.path.join(ROOT, img)).convert('RGB')
+        im.thumbnail((900, 900 * h // w), Image.LANCZOS)
+        im.save(full, 'WEBP', quality=78, method=6)
+    return out
+
+
+def img_set(img, path, sizes):
+    small = small_version(img)
+    if not small:
+        return ''
+    return f' srcset="{rel(path, small)} {webp_size(small)[0]}w, {rel(path, img)} {webp_size(img)[0]}w" sizes="{sizes}"'
+
+
+CARD_SIZES = '(max-width: 520px) 100vw, (max-width: 860px) 50vw, 33vw'
+PAGE_SIZES = '(max-width: 1400px) 100vw, 1360px'
 
 
 def fmt_date(iso, lang):
@@ -173,7 +226,7 @@ def sitemap_links(path, lang):
     stallions = [(n, f'{SECTIONS["stallions"][i]}/{s}.html') for n, s in (('Tux N Rolls', 'tux-n-rolls'), ('B2B Lucius Ta Fame', 'lucius-ta-fame'), ('Adios Pantalones', 'adios-pantalones'))]
     guides = [(t2(g['nav'], lang), f'{SECTIONS["guides"][i]}/{t2(g["slug"], lang)}.html') for g in GUIDES]
     return ('<div class="s-map">'
-            + col(L(lang, 'foot_ranch'), [hub(k) for k in ('home', 'about', 'breeding', 'auctions', 'films', 'news', 'contact')])
+            + col(L(lang, 'foot_ranch'), [hub(k) for k in ('home', 'about', 'breeding', 'sale', 'training', 'auctions', 'films', 'news', 'contact')])
             + col(L(lang, 'nav_stallions'), stallions + [hub('mares'), hub('athletes')])
             + col(L(lang, 'nav_guides'), guides + [hub('glossary'), hub('faq')])
             + '</div>')
@@ -201,9 +254,18 @@ def crumbs_html(path, items):
     return f'<nav class="s-crumbs wrap pad" aria-label="Breadcrumb"><ol>{out}</ol></nav>'
 
 
-def page(path, lang, title, desc, body, img=None, kind='website', nodes=(), css=('garanhao', 'noticia', 'pagina', 'flag'), published=None, img_alt=''):
-    if len(desc) > 165:
-        problems.append(f'{path}: description is {len(desc)} chars')
+def extra_head():
+    out = []
+    if GSC_VERIFICATION:
+        out.append(f'<meta name="google-site-verification" content="{GSC_VERIFICATION}">')
+    return out
+
+
+def analytics():
+    return '<script defer src="/_vercel/insights/script.js"></script>' if VERCEL_ANALYTICS else ''
+
+
+def page(path, lang, title, desc, body, img=None, kind='website', nodes=(), css=('fonts', 'garanhao', 'noticia', 'pagina', 'flag'), published=None, img_alt=''):
     og = og_for(img)
     d = '../' * path.count('/')
     head = [
@@ -220,12 +282,11 @@ def page(path, lang, title, desc, body, img=None, kind='website', nodes=(), css=
     if published:
         head.append(f'<meta property="article:published_time" content="{published}">')
     head += ['<meta name="twitter:card" content="summary_large_image">', f'<link rel="icon" href="{d}assets/logo.webp">',
-             '<link rel="preconnect" href="https://fonts.googleapis.com">', '<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>',
-             '<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@400..600&display=swap">']
+             f'<link rel="preload" as="font" type="font/woff2" href="{d}assets/fonts/instrument-latin.woff2" crossorigin>'] + extra_head()
     head += [f'<link rel="stylesheet" href="{d}assets/{c}.css">' for c in css]
     head += [ld_script([org_ld()] + list(nodes)), '</head>', '<body>', top(path, lang), body, foot(path, lang),
              "<script>addEventListener('scroll',()=>document.getElementById('brand').classList.toggle('small',scrollY>40),{passive:true})</script>",
-             LANG_JS, '</body>', '</html>', '']
+             LANG_JS, analytics(), '</body>', '</html>', '']
     write(path, '\n'.join(head))
 
 
@@ -383,7 +444,7 @@ def build_horse(h, results):
         fig = ''
         if h['img']:
             w, hh = webp_size(h['img'])
-            fig = f'<figure class="p-photo wrap pad"><img src="{rel(path, h["img"])}" alt="{E(alt)}" width="{w}" height="{hh}" fetchpriority="high"></figure>'
+            fig = f'<figure class="p-photo wrap pad"><img src="{rel(path, h["img"])}"{img_set(h["img"], path, PAGE_SIZES)} alt="{E(alt)}" width="{w}" height="{hh}" fetchpriority="high"></figure>'
         sheet = [(L(lang, 'sire'), h['sire']), (L(lang, 'dam'), h['dam'])]
         if coat:
             sheet.append((L(lang, 'coat'), coat if lang == 'pt' else COAT[coat]))
@@ -425,10 +486,8 @@ def build_horse(h, results):
         title = f'{name}: {L(lang, "title_mare" if h["section"] == "mares" else "title_athlete")} {pedigree} · B2B Ranch'
         if len(title) > 70:
             title = f'{name} ({L(lang, "title_mare" if h["section"] == "mares" else "title_athlete")}) · B2B Ranch'
-        short = re.sub(r'\s+', ' ', text)
-        desc = f'{name} ({pedigree}). {short}'
-        if len(desc) > 160:
-            desc = desc[:157].rsplit(' ', 1)[0] + '…'
+        who = L(lang, 'desc_mare' if h['section'] == 'mares' else 'desc_athlete')
+        desc = fit_desc(f'{name}, {who} ({pedigree}).', text, L(lang, 'desc_more'))
         page(path, lang, title, desc, body, img=h['img'], kind='article', img_alt=alt,
              nodes=[crumbs_ld(crumb), {'@type': 'WebPage', '@id': url(path), 'url': url(path), 'name': title, 'inLanguage': HTML_LANG[lang], 'about': {'@type': 'Thing', 'name': name, 'description': f'American Quarter Horse. {pedigree}'}, 'publisher': {'@id': BASE + '/#org'}}])
 
@@ -440,7 +499,7 @@ def news_path(n, lang):
 
 def news_card(n, lang, path):
     w, h = webp_size(n['img'])
-    return (f'<a class="n-card" href="{rel(path, news_path(n, lang))}"><span class="ph"><img src="{rel(path, n["img"])}" alt="" width="{w}" height="{h}" loading="lazy" decoding="async"></span>'
+    return (f'<a class="n-card" href="{rel(path, news_path(n, lang))}"><span class="ph"><img src="{rel(path, n["img"])}"{img_set(n["img"], path, CARD_SIZES)} alt="{E(t2(n["alt"], lang))}" width="{w}" height="{h}" loading="lazy" decoding="async"></span>'
             f'<time datetime="{n["date"]}">{fmt_date(n["date"], lang)}</time><b>{E(t2(n["title"], lang))}</b></a>')
 
 
@@ -475,13 +534,12 @@ def build_news():
             w, h = webp_size(n['img'])
             body = (f'<main>{crumbs_html(path, crumb)}<article><header class="n-head wrap pad" style="padding-top:clamp(24px,4vh,48px)"><time class="label" datetime="{n["date"]}">{fmt_date(n["date"], lang)}</time>'
                     f'<h1>{E(title)}</h1><p>{E(lede)}</p></header>'
-                    f'<figure class="n-hero wrap pad"><img src="{rel(path, n["img"])}" alt="{E(alt)}" width="{w}" height="{h}" fetchpriority="high" style="--pos:50% 40%"></figure>'
+                    f'<figure class="n-hero wrap pad"><img src="{rel(path, n["img"])}"{img_set(n["img"], path, PAGE_SIZES)} alt="{E(alt)}" width="{w}" height="{h}" fetchpriority="high" style="--pos:50% 40%"></figure>'
                     f'<div class="n-body pad">{"".join(out)}<p class="n-sign">B2B Ranch · {L(lang, "slogan")}</p></div></article>'
                     f'<section class="n-more wrap pad" aria-label="{L(lang, "more_news")}"><h2 class="label">{L(lang, "more_news")}</h2><div class="n-grid">{"".join(news_card(o, lang, path) for o in more)}</div></section></main>')
-            full = f'{title} · B2B Ranch'
-            if len(full) > 70:
-                full = title if len(title) <= 70 else title[:67].rsplit(' ', 1)[0] + '…'
-            page(path, lang, full, lede[:157].rsplit(' ', 1)[0] + '…' if len(lede) > 160 else lede, body, img=n['img'], kind='article', img_alt=alt, published=n['date'],
+            full = t2(n['seo'], lang) if n.get('seo') else title
+            full = f'{full} · B2B Ranch' if len(full) <= 47 else full
+            page(path, lang, full, t2(n['desc'], lang) if n.get('desc') else fit_desc(lede), body, img=n['img'], kind='article', img_alt=alt, published=n['date'],
                  nodes=[crumbs_ld(crumb), {'@type': 'NewsArticle', '@id': url(path) + '#article', 'mainEntityOfPage': url(path), 'headline': title[:110], 'description': lede, 'inLanguage': HTML_LANG[lang],
                                            'datePublished': n['date'], 'dateModified': n['date'], 'image': BASE + '/' + n['img'], 'author': {'@id': BASE + '/#org'}, 'publisher': {'@id': BASE + '/#org'}}])
 
@@ -490,7 +548,12 @@ def build_news():
 def rich(blocks, path, lang):
     """blocks: ('p', pt, en) ('h', pt, en) ('l', [(pt, en), ...]) ('dl', [((pt, en), (pt, en)), ...])"""
     out = []
-    blocks = [tuple(x.replace('href="MATRIZES"', f'href="{rel(path, HUBS["mares"][LANGS.index(lang)])}"') if isinstance(x, str) else x for x in b) for b in blocks]
+    i = LANGS.index(lang)
+    places = {'MATRIZES': HUBS['mares'][i], 'LEILOES': HUBS['auctions'][i], 'GENETICA': HUBS['breeding'][i], 'VENDA': HUBS['sale'][i],
+              'GUIA_TAMBORES': f'{SECTIONS["guides"][i]}/{("tres-tambores", "barrel-racing-in-brazil")[i]}.html', 'GUIA_BALIZAS': f'{SECTIONS["guides"][i]}/{("seis-balizas", "pole-bending-in-brazil")[i]}.html'}
+    def place(x):
+        return re.sub(r'href="([A-Z_]+)"', lambda m: f'href="{rel(path, places[m.group(1)])}"', x) if isinstance(x, str) else x
+    blocks = [tuple(place(x) for x in b) for b in blocks]
     for b in blocks:
         if b[0] == 'p':
             out.append(f'<p>{link_names(t2(b[1:3], lang), path, lang)}</p>')
@@ -511,7 +574,7 @@ def text_page(key, lang, data, nodes=(), after=''):
     fig = ''
     if data.get('img'):
         w, h = webp_size(data['img'])
-        fig = f'<figure class="n-hero wrap pad"><img src="{rel(path, data["img"])}" alt="{E(t2(data["alt"], lang))}" width="{w}" height="{h}" fetchpriority="high" style="--pos:50% 40%"></figure>'
+        fig = f'<figure class="n-hero wrap pad"><img src="{rel(path, data["img"])}"{img_set(data["img"], path, PAGE_SIZES)} alt="{E(t2(data["alt"], lang))}" width="{w}" height="{h}" fetchpriority="high" style="--pos:50% 40%"></figure>'
     body = (f'<main>{crumbs_html(path, crumb)}<article><header class="n-head wrap pad" style="padding-top:clamp(24px,4vh,48px)"><span class="label">{L(lang, "nav_" + key)}</span><h1>{E(h1)}</h1><p>{E(lede)}</p></header>{fig}'
             f'<div class="n-body pad">{rich(data["body"], path, lang)}</div></article>{after}'
             + cta(lang, L(lang, 'cta_general'), L(lang, 'wa_general')) + '</main>')
@@ -519,28 +582,33 @@ def text_page(key, lang, data, nodes=(), after=''):
          nodes=[crumbs_ld(crumb)] + list(nodes))
 
 
-def horse_grid(horses, path, lang):
+def horse_grid(horses, path, lang, eager=False):
     cards = []
-    for h in horses:
+    for k, h in enumerate(horses):
         p = rel(path, horse_path(h, lang))
         ph = ''
         if h['img']:
             w, hh = webp_size(h['img'])
             alt = h['alt'] if lang == 'pt' else tr(h['alt'], h['name'])
-            ph = f'<span class="ph"><img src="{rel(path, h["img"])}" alt="{E(alt)}" width="{w}" height="{hh}" loading="lazy" decoding="async"></span>'
+            load = 'fetchpriority="high"' if eager and k < 3 else 'loading="lazy" decoding="async"'
+            ph = f'<span class="ph"><img src="{rel(path, h["img"])}"{img_set(h["img"], path, CARD_SIZES)} alt="{E(alt)}" width="{w}" height="{hh}" {load}></span>'
         tag = f'<em>{L(lang, "role_also")}</em>' if h['also_athlete'] else ''
         text = h['text'] if lang == 'pt' else h.get('text_en') or tr(h['text'], h['name'])
         cards.append(f'<article class="p-card{"" if h["img"] else " noimg"}"><a href="{p}">{ph}<h3>{E(h["name"])}{us_flag(L(lang, "imported_f")) if h.get("imported") else ""}{tag}</h3><span class="ped">{E(h["sire"])} × {E(h["dam"])}</span></a><p>{E(text)}</p></article>')
     return '<div class="p-grid">' + ''.join(cards) + '</div>'
 
 
-def hub_page(key, lang, title, desc, h1, lede, content, nodes=()):
+def hub_page(key, lang, title, desc, h1, lede, content, nodes=(), img=None, img_alt=''):
     idx = LANGS.index(lang)
     path = HUBS[key][idx]
     crumb = [(L(lang, 'nav_home'), HUBS['home'][idx]), (L(lang, 'nav_' + key), path)]
     body = (f'<main>{crumbs_html(path, crumb)}<header class="n-head wrap pad" style="padding-top:clamp(24px,4vh,48px)"><span class="label">{L(lang, "nav_" + key)}</span><h1>{E(h1)}</h1><p>{E(lede)}</p></header>'
             f'<div class="wrap pad p-hub">{content(path)}</div>' + cta(lang, L(lang, 'cta_general'), L(lang, 'wa_general')) + '</main>')
-    page(path, lang, title, desc, body, nodes=[crumbs_ld(crumb), {'@type': 'CollectionPage', 'name': h1, 'url': url(path), 'inLanguage': HTML_LANG[lang], 'isPartOf': {'@id': BASE + '/#site'}}] + list(nodes))
+    page(path, lang, title, desc, body, img=img, img_alt=img_alt, nodes=[crumbs_ld(crumb), {'@type': 'CollectionPage', 'name': h1, 'url': url(path), 'inLanguage': HTML_LANG[lang], 'isPartOf': {'@id': BASE + '/#site'}}] + list(nodes))
+
+
+FILMS = [('1wnK9MEXw0Y', 'assets/institucional-2-poster.webp', ('B2B Ranch, o filme', 'B2B Ranch, the film'), ('Seis minutos sobre o haras, a criação e as pessoas por trás de cada cavalo.', 'Six minutes on the ranch, the breeding program and the people behind every horse.'), '2026-11-02T06:25:06-08:00', 'PT5M54S'),
+         ('4IPh_fbGn5g', 'assets/institucional-poster.webp', ('Institucional', 'Institutional film'), ('A equipe, a rotina do haras e os cavalos que levam o nome B2B às pistas.', 'The team, daily life at the ranch and the horses that carry the B2B name into the arena.'), '2026-08-06T09:30:49-07:00', 'PT4M58S')]
 
 
 def build_hubs():
@@ -556,13 +624,13 @@ def build_hubs():
                  'Conheça as éguas matrizes Quarto de Milha do B2B Ranch: importadas, de linhagens raras e algumas ainda em pista, com pedigree e produção.' if pt else 'Meet the Quarter Horse broodmares of B2B Ranch in Brazil: imported mares, rare bloodlines and some still competing, with pedigrees and offspring.',
                  'Matrizes Quarto de Milha do B2B Ranch' if pt else 'Quarter Horse broodmares at B2B Ranch',
                  'As éguas que formam cada geração do B2B Ranch, em Três Rios (RJ): importadas, de linhagens raras, e algumas ainda em pista nos Três Tambores.' if pt else 'The mares behind every generation at B2B Ranch in Três Rios, Rio de Janeiro: imported, from rare bloodlines, and some still competing in barrel racing.',
-                 lambda path, l=lang: horse_grid(mares, path, l))
+                 lambda path, l=lang: f'<h2 class="p-sub">{L(l, "hub_mares_h")}</h2>' + horse_grid(mares, path, l, eager=True), img='assets/morganna-rolls.webp', img_alt=t2(('B2B Morgana Rolls, égua palomino, em movimento', 'B2B Morgana Rolls, a palomino mare, in motion'), lang))
         hub_page('athletes', lang,
                  'Atletas de Três Tambores da criação B2B Ranch' if pt else 'Barrel Racing Athletes Bred by B2B Ranch',
                  'Atletas da criação B2B Ranch nos Três Tambores e Seis Balizas: pedigree, tempos e resultados publicados de cada cavalo.' if pt else 'Quarter Horse athletes bred by B2B Ranch in barrel racing and pole bending: pedigrees, times and published results for each horse.',
                  'Atletas da criação B2B Ranch' if pt else 'Athletes bred by B2B Ranch',
                  'A genética B2B medida em segundos, nas principais provas de Três Tambores e Seis Balizas do Brasil.' if pt else 'B2B genetics measured in seconds, at the main barrel racing and pole bending events in Brazil.',
-                 lambda path, l=lang: horse_grid(athletes, path, l) + f'<h2 class="p-sub">{L(l, "extras_h")}</h2>' + horse_grid(extras, path, l))
+                 lambda path, l=lang: f'<h2 class="p-sub">{L(l, "hub_athletes_h")}</h2>' + horse_grid(athletes, path, l, eager=True) + f'<h2 class="p-sub">{L(l, "extras_h")}</h2>' + horse_grid(extras, path, l), img='assets/at/quaker-tux-guy.webp', img_alt=t2(('B2B Quaker Tux Guy contornando o tambor no Grand Prix', 'B2B Quaker Tux Guy turning a barrel at the Grand Prix'), lang))
         stall = [('Tux N Rolls', 'tux-n-rolls', 'assets/tux-profile.webp', 'First Down Dash × Zevis Doll · 1999–2023',
                   ('A base do B2B Ranch: 7.672 pontos ABQM e R$ 5.018.420,75 em ganhos dos filhos pelo SGP Três Tambores. Pai de B2B Lovergirl Rolls, única tríplice coroada do Brasil.',
                    'The foundation of B2B Ranch: 7,672 ABQM points and R$ 5,018,420.75 in offspring earnings on the SGP barrel racing record. Sire of B2B Lovergirl Rolls, the only Triple Crown winner in Brazil.')),
@@ -576,14 +644,14 @@ def build_hubs():
             out = []
             for n, s, im, ped, tx in stall:
                 w, hh = webp_size(im)
-                out.append(f'<article class="p-card wide"><a href="{rel(path, SECTIONS["stallions"][LANGS.index(l)] + "/" + s + ".html")}"><span class="ph"><img src="{rel(path, im)}" alt="{E(n)}" width="{w}" height="{hh}" loading="lazy" decoding="async"></span><h3>{n}{us_flag(L(l, {"Tux N Rolls": "imported_m", "Adios Pantalones": "from_us"}[n])) if n != "B2B Lucius Ta Fame" else ""}</h3><span class="ped">{ped}</span></a><p>{t2(tx, l)}</p></article>')
-            return '<div class="p-grid three">' + ''.join(out) + '</div>'
+                out.append(f'<article class="p-card wide"><a href="{rel(path, SECTIONS["stallions"][LANGS.index(l)] + "/" + s + ".html")}"><span class="ph"><img src="{rel(path, im)}"{img_set(im, path, CARD_SIZES)} alt="{E(n)}" width="{w}" height="{hh}" fetchpriority="high"></span><h3>{n}{us_flag(L(l, {"Tux N Rolls": "imported_m", "Adios Pantalones": "from_us"}[n])) if n != "B2B Lucius Ta Fame" else ""}</h3><span class="ped">{ped}</span></a><p>{t2(tx, l)}</p></article>')
+            return f'<h2 class="p-sub">{L(l, "hub_stallions_h")}</h2><div class="p-grid three">' + ''.join(out) + '</div>'
         hub_page('stallions', lang,
                  'Garanhões Quarto de Milha: Tux N Rolls, Lucius e Adios' if pt else 'Quarter Horse Stallions: Tux N Rolls, Lucius, Adios',
                  'Os garanhões por trás da genética B2B: Tux N Rolls, B2B Lucius Ta Fame e Adios Pantalones. Pedigree, números e contato para coberturas.' if pt else 'The stallions behind B2B genetics: Tux N Rolls, B2B Lucius Ta Fame and Adios Pantalones. Pedigrees, records and breeding enquiries.',
                  'Garanhões do B2B Ranch' if pt else 'B2B Ranch stallions',
                  'Os garanhões por trás da genética B2B: a base de toda a criação, o filho que leva a linhagem adiante e um recordista mundial.' if pt else 'The stallions behind B2B genetics: the foundation of the program, the son carrying the line forward, and a world record holder.',
-                 stall_html)
+                 stall_html, img='assets/tux-profile.webp', img_alt='Tux N Rolls')
         def news_html(path, l=lang):
             out = []
             for year in sorted({n['date'][:4] for n in latest}, reverse=True):
@@ -594,7 +662,7 @@ def build_hubs():
                  'Resultados, passadas e novidades do B2B Ranch nas provas de Três Tambores e Seis Balizas do Brasil, etapa por etapa.' if pt else 'Results and news from B2B Ranch at barrel racing and pole bending events across Brazil, event by event.',
                  'Notícias e resultados' if pt else 'News and results',
                  'Quase todo fim de semana tem prova. Resultados, tempos e novidades do B2B Ranch, de cada etapa.' if pt else 'There is a competition almost every weekend. Results, times and news from B2B Ranch, event by event.',
-                 news_html)
+                 news_html, img='assets/news/barretos.webp', img_alt=t2(('Amazona contorna o tambor na arena de Barretos', 'Rider turning a barrel in the Barretos arena'), lang))
         def guides_html(path, l=lang):
             c = [(t2(g['nav'], l), f'{SECTIONS["guides"][LANGS.index(l)]}/{t2(g["slug"], l)}.html', t2(g['desc'], l)) for g in GUIDES]
             c += [(L(l, 'nav_glossary'), HUBS['glossary'][LANGS.index(l)], t2(GLOSSARY['desc'], l)), (L(l, 'nav_faq'), HUBS['faq'][LANGS.index(l)], t2(FAQ['desc'], l))]
@@ -604,21 +672,20 @@ def build_hubs():
                  'Guias do B2B Ranch sobre Três Tambores, Seis Balizas, Potro do Futuro, a raça Quarto de Milha, reprodução e o vocabulário do meio.' if pt else 'B2B Ranch guides to barrel racing in Brazil, pole bending, the Potro do Futuro, the Quarter Horse breed, reproduction and key terms.',
                  'Guias sobre o Quarto de Milha e os Três Tambores' if pt else 'Guides to Quarter Horses and barrel racing in Brazil',
                  'Explicações diretas sobre as provas, a raça e a criação, para quem está chegando ao meio ou acompanhando de outro país.' if pt else 'Plain explanations of the events, the breed and breeding, for newcomers and for readers following Brazilian competition from abroad.',
-                 guides_html)
+                 guides_html, img='assets/arena-congresso.webp', img_alt=t2(('Conjunto no tambor do Congresso Brasileiro ABQM', 'Horse and rider at a barrel at the ABQM Brazilian Congress'), lang))
         def films_html(path, l=lang):
-            films = [('1wnK9MEXw0Y', 'assets/institucional-2-poster.webp', ('B2B Ranch, o filme', 'B2B Ranch, the film'), ('Seis minutos sobre o haras, a criação e as pessoas por trás de cada cavalo.', 'Six minutes on the ranch, the breeding program and the people behind every horse.')),
-                     ('4IPh_fbGn5g', 'assets/institucional-poster.webp', ('Institucional', 'Institutional film'), ('A equipe, a rotina do haras e os cavalos que levam o nome B2B às pistas.', 'The team, daily life at the ranch and the horses that carry the B2B name into the arena.'))]
             out = ''
-            for vid, im, n, d in films:
-                w, hh = webp_size(im)
-                out += f'<article class="p-card wide"><a href="https://www.youtube.com/watch?v={vid}" target="_blank" rel="noopener"><span class="ph"><img src="{rel(path, im)}" alt="{E(t2(n, l))}" width="{w}" height="{hh}" loading="lazy" decoding="async"></span><h3>{E(t2(n, l))}</h3><span class="ped">{L(l, "watch_yt")}</span></a><p>{E(t2(d, l))}</p></article>'
-            return f'<div class="p-grid two">{out}</div>'
+            for vid, im, n, d, *_ in FILMS:
+                out += (f'<article class="p-card wide"><div class="ph p-video"><iframe src="https://www.youtube-nocookie.com/embed/{vid}" title="{E(t2(n, l))}" loading="lazy" allowfullscreen allow="encrypted-media; picture-in-picture"></iframe></div>'
+                        f'<h3>{E(t2(n, l))}</h3><p>{E(t2(d, l))}</p><a class="ped" href="https://www.youtube.com/watch?v={vid}" target="_blank" rel="noopener">{L(l, "watch_yt")}</a></article>')
+            return f'<h2 class="p-sub">{L(l, "hub_films_h")}</h2><div class="p-grid two">{out}</div>'
         hub_page('films', lang,
                  'Filmes do B2B Ranch: conheça o haras por dentro' if pt else 'B2B Ranch Films: Inside the Ranch in Brazil',
                  'Assista aos filmes do B2B Ranch: o haras em Três Rios (RJ), a criação de cavalos Quarto de Milha e as pessoas por trás de cada cavalo.' if pt else 'Watch the B2B Ranch films: the ranch in Três Rios, Brazil, the Quarter Horse breeding program and the people behind every horse.',
                  'Filmes do B2B Ranch' if pt else 'B2B Ranch films',
                  'Dois filmes sobre o haras, a criação e as pessoas por trás de cada cavalo.' if pt else 'Two films about the ranch, the breeding program and the people behind every horse.',
-                 films_html)
+                 films_html, img='assets/institucional-2-poster.webp', img_alt=t2(FILMS[0][2], lang),
+                 nodes=[{'@type': 'VideoObject', 'name': t2(n, lang), 'description': t2(d, lang), 'thumbnailUrl': BASE + '/' + im, 'uploadDate': up, 'duration': dur, 'embedUrl': f'https://www.youtube-nocookie.com/embed/{vid}', 'contentUrl': f'https://www.youtube.com/watch?v={vid}', 'inLanguage': 'pt-BR', 'publisher': {'@id': BASE + '/#org'}} for vid, im, n, d, up, dur in FILMS])
         # contact
         path = HUBS['contact'][i]
         crumb = [(L(lang, 'nav_home'), HUBS['home'][i]), (L(lang, 'nav_contact'), path)]
@@ -627,14 +694,17 @@ def build_hubs():
                  (L(lang, 'location_lbl'), L(lang, 'nap'))]
         body = (f'<main>{crumbs_html(path, crumb)}<header class="n-head wrap pad" style="padding-top:clamp(24px,4vh,48px)"><span class="label">{L(lang, "nav_contact")}</span><h1>{L(lang, "contact_h1")}</h1><p>{L(lang, "contact_lede")}</p></header>'
                 '<div class="wrap pad"><dl class="g-sheet">' + ''.join(f'<div><dt>{k}</dt><dd>{v}</dd></div>' for k, v in sheet) + '</dl>'
+                f'<section class="p-links"><h2>{L(lang, "contact_help_h")}</h2><p class="p-note" style="font-size:1.05rem;margin:0 0 18px;color:inherit">{L(lang, "contact_visit")}</p><ul>' + ''.join(f'<li><a href="{rel(path, HUBS[k][i])}">{E(L(lang, lb))}</a></li>' for k, lb in (('breeding', 'help_breeding'), ('sale', 'help_sale'), ('training', 'help_training'), ('auctions', 'help_auctions'), ('faq', 'help_faq'))) + '</ul></section>'
                 f'<section class="p-links"><h2>{L(lang, "social_h")}</h2><ul>' + ''.join(f'<li><a href="{u}" target="_blank" rel="noopener">{n}</a></li>' for u, n in zip(SOCIAL, social_names)) + '</ul></section></div>'
                 + cta(lang, L(lang, 'cta_general'), L(lang, 'wa_general')) + '</main>')
-        page(path, lang, L(lang, 'contact_title'), L(lang, 'contact_desc'), body,
+        page(path, lang, L(lang, 'contact_title'), L(lang, 'contact_desc'), body, img='assets/haras-lago.webp', img_alt=L(lang, 'nap'),
              nodes=[crumbs_ld(crumb), {'@type': 'ContactPage', 'url': url(path), 'name': L(lang, 'contact_h1'), 'inLanguage': HTML_LANG[lang], 'about': {'@id': BASE + '/#org'}}])
         # long text pages
         text_page('about', lang, ABOUT)
         text_page('breeding', lang, BREEDING)
         text_page('auctions', lang, AUCTIONS)
+        text_page('sale', lang, SALE)
+        text_page('training', lang, TRAINING)
         text_page('glossary', lang, GLOSSARY, nodes=[{'@type': 'DefinedTermSet', 'name': t2(GLOSSARY['h1'], lang), 'url': url(HUBS['glossary'][i]), 'inLanguage': HTML_LANG[lang]}])
         qa = {'@type': 'FAQPage', 'mainEntity': [{'@type': 'Question', 'name': t2(q, lang), 'acceptedAnswer': {'@type': 'Answer', 'text': re.sub(r'<[^>]+>', '', t2(a, lang))}} for q, a in FAQ['qa']]}
         faq = dict(FAQ, body=[('dl', FAQ['qa'])])
@@ -653,10 +723,10 @@ def build_guides():
             more = '<section class="p-links wrap pad"><h2>' + L(lang, 'more_guides') + '</h2><ul>' + ''.join(
                 f'<li><a href="{rel(path, SECTIONS["guides"][i] + "/" + t2(o["slug"], lang) + ".html")}">{E(t2(o["nav"], lang))}</a></li>' for o in others) + '</ul></section>'
             body = (f'<main>{crumbs_html(path, crumb)}<article><header class="n-head wrap pad" style="padding-top:clamp(24px,4vh,48px)"><span class="label">{L(lang, "nav_guides")}</span><h1>{E(h1)}</h1><p>{E(lede)}</p></header>'
-                    f'<figure class="n-hero wrap pad"><img src="{rel(path, g["img"])}" alt="{E(t2(g["alt"], lang))}" width="{w}" height="{h}" fetchpriority="high" style="{g.get("img_style", "--pos:50% 40%")}"></figure>'
+                    f'<figure class="n-hero wrap pad"><img src="{rel(path, g["img"])}"{img_set(g["img"], path, PAGE_SIZES)} alt="{E(t2(g["alt"], lang))}" width="{w}" height="{h}" fetchpriority="high" style="{g.get("img_style", "--pos:50% 40%")}"></figure>'
                     f'<div class="n-body pad">{rich(g["body"], path, lang)}</div></article>{more}' + cta(lang, L(lang, 'cta_general'), L(lang, 'wa_general')) + '</main>')
             page(path, lang, title, t2(g['desc'], lang), body, img=g['img'], kind='article', img_alt=t2(g['alt'], lang),
-                 nodes=[crumbs_ld(crumb), {'@type': 'Article', 'headline': h1[:110], 'description': t2(g['desc'], lang), 'inLanguage': HTML_LANG[lang], 'mainEntityOfPage': url(path), 'image': BASE + '/' + g['img'], 'dateModified': TODAY, 'author': {'@id': BASE + '/#org'}, 'publisher': {'@id': BASE + '/#org'}}])
+                 nodes=[crumbs_ld(crumb), {'@type': 'Article', 'headline': h1[:110], 'description': t2(g['desc'], lang), 'inLanguage': HTML_LANG[lang], 'mainEntityOfPage': url(path), 'image': BASE + '/' + g['img'], 'dateModified': '__MODIFIED__', 'author': {'@id': BASE + '/#org'}, 'publisher': {'@id': BASE + '/#org'}}])
 
 
 # ---------- home and stallion pages: Portuguese source -> English page ----------
@@ -703,6 +773,8 @@ def relink(doc, src_path, dst_path):
             return val
         p, frag = (val.split('#', 1) + [''])[:2]
         target = posixpath.normpath(posixpath.join(posixpath.dirname(src_path), p))
+        if p.endswith('/') or target == '.':
+            target = posixpath.normpath(posixpath.join(target, 'index.html'))
         target = ROUTES.get(target, target)
         return rel(dst_path, target) + ('#' + frag if frag else '')
     doc = re.sub(r'\b(href|src|poster)="([^"]*)"', lambda m: f'{m.group(1)}="{fix(m.group(2))}"', doc)
@@ -725,8 +797,8 @@ def gen_regions(path, lang, is_home, title, desc):
     if is_home:
         nodes.append({'@type': 'WebSite', '@id': BASE + '/#site', 'url': url(path), 'name': 'B2B Ranch', 'inLanguage': HTML_LANG[lang], 'publisher': {'@id': BASE + '/#org'}})
     head = (alt_links(path, lang) + f'\n<meta property="og:locale" content="{OG_LOCALE[lang]}">\n<meta property="og:locale:alternate" content="{OG_LOCALE["en" if lang == "pt" else "pt"]}">\n'
-            f'<meta property="og:url" content="{url(path)}">\n' + ld_script(nodes))
-    regions = {'head': head, 'foot': foot(path, lang), 'map': sitemap_links(path, lang), 'lang': lang_button(path, lang), 'langjs': LANG_JS, 'top': top(path, lang)}
+            f'<meta property="og:url" content="{url(path)}">\n' + ''.join(x + '\n' for x in extra_head()) + ld_script(nodes))
+    regions = {'head': head, 'foot': foot(path, lang), 'map': sitemap_links(path, lang), 'lang': lang_button(path, lang), 'langjs': LANG_JS + analytics(), 'top': top(path, lang)}
     regions['hub'] = ('<p class="nw-all">' + ' · '.join(f'<a href="{rel(path, HUBS[k][idx])}">{L(lang, "all_" + k)}</a>' for k in ('mares', 'athletes', 'news')) + '</p>')
     return regions
 
@@ -775,22 +847,61 @@ def build_translated():
 
 
 # ---------- site files ----------
+def fingerprint(doc):
+    """What a reader actually gets: the words and photos of a page, not its menus or markup."""
+    m = re.search(r'(?s)<main.*</main>', doc)
+    body = re.sub(r'(?s)<script\b.*?</script>|<style\b.*?</style>|<!--.*?-->', '', m.group(0) if m else doc)
+    photos = re.findall(r'<img src="[^"]*?(assets/[^"]+)"', body)
+    return hashlib.sha1((re.sub(r'<[^>]+>', ' ', body) + ' '.join(photos)).encode()).hexdigest()
+
+
+def resolve_lastmod():
+    """A page's date moves only when its content does, so search engines can trust it."""
+    try:
+        known = json.load(open(LASTMOD_FILE))
+    except FileNotFoundError:
+        known = {}
+    out = {}
+    for p in PAGES:
+        for path in (p['pt'], p['en']):
+            fp = fingerprint(written[path])
+            old = known.get(path)
+            if old and old[0] == fp:
+                out[path] = old
+                continue
+            date = TODAY
+            if not old:
+                r = subprocess.run(['git', '-C', ROOT, 'log', '-1', '--format=%cs', '--', path], capture_output=True, text=True)
+                date = r.stdout.strip() or TODAY
+            out[path] = [fp, date]
+    with open(LASTMOD_FILE, 'w') as f:
+        json.dump(out, f, indent=0, sort_keys=True)
+    for path, (_, date) in out.items():
+        if '__MODIFIED__' in written[path]:
+            write(path, written[path].replace('__MODIFIED__', date))
+    return {k: v[1] for k, v in out.items()}
+
+
 def build_site_files():
+    lastmod = resolve_lastmod()
     lines = ['<?xml version="1.0" encoding="UTF-8"?>', '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xhtml="http://www.w3.org/1999/xhtml">']
     for p in PAGES:
         alt = (f'<xhtml:link rel="alternate" hreflang="pt-BR" href="{url(p["pt"])}"/><xhtml:link rel="alternate" hreflang="en" href="{url(p["en"])}"/>'
                f'<xhtml:link rel="alternate" hreflang="x-default" href="{url(p["pt"])}"/>')
         for k in LANGS:
-            lines.append(f'  <url><loc>{url(p[k])}</loc><lastmod>{TODAY}</lastmod>{alt}</url>')
+            lines.append(f'  <url><loc>{url(p[k])}</loc><lastmod>{lastmod[p[k]]}</lastmod>{alt}</url>')
     lines.append('</urlset>\n')
     write('sitemap.xml', '\n'.join(lines))
-    write('robots.txt', f'User-agent: *\nAllow: /\nDisallow: /tools/\n\nSitemap: {BASE}/sitemap.xml\n')
-    # 301s from the old WordPress addresses; used by Apache/LiteSpeed hosts such as Hostinger, ignored elsewhere
-    ht = ['# Old WordPress addresses -> new pages', 'RedirectMatch 404 ^/tools/']
-    for old, new in OLD_URLS.items():
-        ht.append(f'Redirect 301 /{old}/ /{new}')
-    ht.append('ErrorDocument 404 /404.html\n')
-    write('.htaccess', '\n'.join(ht))
+    write('robots.txt', f'User-agent: *\nAllow: /\n\nSitemap: {BASE}/sitemap.xml\n')
+    # hosting rules: 301s from the old WordPress addresses, one address per home page, browser caching
+    redirects = [{'source': f'/{old}{{/}}?', 'destination': f'/{new}', 'permanent': True} for old, new in OLD_URLS.items()]
+    redirects += [{'source': '/index.html', 'destination': '/', 'permanent': True}, {'source': '/en/index.html', 'destination': '/en/', 'permanent': True},
+                  {'source': '/en', 'destination': '/en/', 'permanent': True}, {'source': '/tools/:path*', 'destination': '/', 'permanent': False}]
+    week = 'public, max-age=604800, stale-while-revalidate=2592000'
+    headers = [{'source': '/assets/(.*)', 'headers': [{'key': 'Cache-Control', 'value': week}]},
+               {'source': '/assets/fonts/(.*)', 'headers': [{'key': 'Cache-Control', 'value': 'public, max-age=31536000, immutable'}]}]
+    write('vercel.json', json.dumps({'redirects': redirects, 'headers': headers}, indent=2, ensure_ascii=False) + '\n')
+    write('.vercelignore', 'tools\n.gitignore\n')
     # plain-text summary for AI assistants
     llms = ['# B2B Ranch', '', '> B2B Ranch is a Quarter Horse breeding and training ranch in Três Rios, Rio de Janeiro, Brazil, focused on barrel racing (Três Tambores). Founded by Odilon and Maria Izabel (Bebel) Diniz.', '',
             f'Phone and WhatsApp: {PHONE}', f'Email: {EMAIL}', f'Languages: Portuguese ({BASE}/), English ({BASE}/en/)', '', '## Stallions (English)']
@@ -818,7 +929,10 @@ def check():
         for attr, val in re.findall(r'\b(href|src|poster)="([^"]+)"', clean):
             if val.startswith(('http', 'mailto:', 'tel:', '#', 'data:')):
                 continue
-            target = posixpath.normpath(posixpath.join(posixpath.dirname(path), val.split('#')[0]))
+            val_path = val.split('#')[0]
+            target = posixpath.normpath(posixpath.join(posixpath.dirname(path), val_path))
+            if val_path.endswith('/'):
+                target = posixpath.normpath(posixpath.join(target, 'index.html'))
             if not os.path.exists(os.path.join(ROOT, target)):
                 errs.append(f'{path}: broken {attr} {val}')
         for block in re.findall(r'<script type="application/ld\+json">(.*?)</script>', doc, re.S):
@@ -834,8 +948,13 @@ def check():
             errs.append(f'duplicate description ({path}, {descs[d.group(1)]})')
         else:
             descs[d.group(1)] = path
-        if len(html.unescape(t)) > 75:
+        if len(html.unescape(t)) > 60:
             errs.append(f'{path}: long title ({len(html.unescape(t))}): {t}')
+        if d and (len(html.unescape(d.group(1))) > 160 or html.unescape(d.group(1)).endswith('…')):
+            errs.append(f'{path}: description ({len(html.unescape(d.group(1)))}): {d.group(1)[:60]}')
+        ls = [int(x) for x in re.findall(r'<h([1-6])\b', clean)]
+        if any(b > a + 1 for a, b in zip(ls, ls[1:])):
+            errs.append(f'{path}: heading skips a level')
         if len(re.findall(r'<h1\b', clean)) != 1:
             errs.append(f'{path}: {len(re.findall(r"<h1", clean))} h1s')
         if path.startswith('en/') and path not in ('en/glossary.html', 'en/guides.html'):  # these two teach the Portuguese terms

@@ -132,7 +132,7 @@ a{color:inherit}
 .s-menu li + li{border-top:1px solid rgba(241,237,230,.16)}
 .s-menu a{display:block;padding:12px 0;font-size:1.05rem}
 .lang{display:inline-flex;align-items:center;border:1px solid currentColor;border-radius:999px;padding:2px;font-size:.72rem;letter-spacing:.08em;line-height:1;white-space:nowrap}
-.lang a{display:block;padding:8px 10px;border-radius:999px;text-decoration:none;opacity:.62}
+.lang a{display:block;padding:8px 10px;border-radius:999px;text-decoration:none;opacity:.72}
 .lang a:hover{opacity:1}
 .lang a[aria-current]{opacity:1;font-weight:600;text-decoration:underline;text-underline-offset:4px}
 .brand{z-index:20}

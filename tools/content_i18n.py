@@ -1,6 +1,13 @@
 # Interface strings as (Portuguese, English), and the Portuguese -> English dictionary for index.html and
 # garanhoes/*.html. build.py stops and lists anything missing here.
 UI = {
+    'nav_sale': ('Cavalos à venda', 'Horses for sale'), 'nav_training': ('Treinamento', 'Training'),
+    'hub_mares_h': ('As matrizes do plantel', 'The broodmares in the band'), 'hub_athletes_h': ('Atletas da criação', 'Athletes from the program'), 'hub_stallions_h': ('Os três garanhões', 'The three stallions'), 'hub_films_h': ('Assista aos filmes', 'Watch the films'),
+    'desc_more': ('Veja pedigree, família e resultados no B2B Ranch.', 'See pedigree, family and results at B2B Ranch.'),
+    'desc_mare': ('matriz Quarto de Milha do B2B Ranch', 'Quarter Horse broodmare at B2B Ranch'), 'desc_athlete': ('atleta Quarto de Milha da criação B2B Ranch', 'Quarter Horse athlete bred by B2B Ranch'),
+    'contact_help_h': ('Como podemos ajudar', 'How we can help'),
+    'help_breeding': ('Coberturas e genética', 'Breeding and genetics'), 'help_sale': ('Comprar cavalos ou embriões', 'Buying horses or embryos'), 'help_training': ('Treinamento e competição', 'Training and competition'), 'help_auctions': ('Leilão B2B Ranch & Amigos', 'B2B Ranch & Friends Auction'), 'help_faq': ('Perguntas frequentes', 'Frequently asked questions'),
+    'contact_visit': ('O B2B Ranch fica em Três Rios, no estado do Rio de Janeiro. Para visitar o haras, combine antes com a equipe pelo WhatsApp.', 'B2B Ranch is in Três Rios, in the state of Rio de Janeiro, Brazil. To visit the ranch, arrange it first with the team on WhatsApp.'),
     'origin': ('Origem', 'Origin'), 'imported_f': ('Importada dos EUA', 'Imported from the USA'), 'imported_m': ('Importado dos EUA', 'Imported from the USA'), 'from_us': ('Garanhão dos EUA', 'Stallion from the USA'),
     'lang_label': ('Idioma', 'Language'), 'home_label': ('B2B Ranch, início', 'B2B Ranch, home'), 'nav_label': ('Principal', 'Main'),
     'nav_home': ('Início', 'Home'), 'nav_about': ('O Ranch', 'The Ranch'), 'nav_stallions': ('Garanhões', 'Stallions'), 'nav_mares': ('Matrizes', 'Broodmares'),
@@ -71,8 +78,8 @@ T = {
     'Grande atleta, correndo 16.693, com mais de R$ 102 mil em ganhos pelo SGP.': 'A great athlete, running 16.693, with more than R$ 102,000 in SGP earnings.',
     'Importada dos EUA': 'Imported from the USA', 'Importado dos EUA': 'Imported from the USA', 'Garanhão dos EUA': 'Stallion from the USA',
     # ---- home: head
-    'B2B Ranch: Haras de Cavalos Quarto de Milha em Três Rios, RJ': 'B2B Ranch: Quarter Horse Breeding and Training in Brazil',
-    'B2B Ranch: haras em Três Rios (RJ) com criação e treinamento de cavalos Quarto de Milha de alta performance para os Três Tambores. Garanhões, matrizes e atletas.': 'B2B Ranch breeds and trains high-performance Quarter Horses for barrel racing in Três Rios, Rio de Janeiro, Brazil. Meet the stallions, broodmares and athletes.',
+    'B2B Ranch: Haras de Quarto de Milha em Três Rios, RJ': 'B2B Ranch: Quarter Horse Breeding and Training in Brazil',
+    'Haras em Três Rios (RJ): criação e treinamento de cavalos Quarto de Milha de alta performance para os Três Tambores. Garanhões, matrizes e atletas.': 'B2B Ranch breeds and trains high-performance Quarter Horses for barrel racing in Três Rios, Rio de Janeiro, Brazil. Meet the stallions, broodmares and athletes.',
     'Apaixonados por grandes cavalos. Criação e treinamento de cavalos Quarto de Milha de alta performance para os Três Tambores.': 'Passionate about great horses. Breeding and training high-performance Quarter Horses for barrel racing in Brazil.',
     'B2B Lucius Ta Fame, garanhão zaino, com o escudo do B2B Ranch': 'B2B Lucius Ta Fame, a dark bay stallion, with the B2B Ranch crest',
     # ---- home: nav and hero
@@ -188,8 +195,8 @@ T = {
     'Coberturas, genética e disponibilidade de produtos: responderemos pelo WhatsApp.': 'Breeding, genetics and available horses: we will reply on WhatsApp.', 'Próximo garanhão': 'Next stallion',
     'Filho': 'Son', 'Filha': 'Daughter', 'Filho · garanhão': 'Son · stallion', 'Filha · matriz': 'Daughter · broodmare', 'Irmã materna': 'Maternal half sister', 'Avô materno': 'Maternal grandsire', 'Brasil': 'Brazil', 'Irmã paterna': 'Paternal half sister', 'Irmão próprio': 'Full brother', 'Criação': 'Bred by',
     # ---- Tux N Rolls
-    'Tux N Rolls: garanhão Quarto de Milha, filho de First Down Dash · B2B Ranch': 'Tux N Rolls: Quarter Horse Stallion by First Down Dash',
-    'Tux N Rolls: Filho de First Down Dash e base da criação B2B: 7.672 pontos ABQM, R$ 5.018.420,75 em ganhos pelo SGP e participante do incentivo da Seleção Nacional.': 'Tux N Rolls, by First Down Dash, is the foundation of B2B breeding: 7,672 ABQM points, R$ 5,018,420.75 in offspring earnings and part of the Seleção Nacional incentive.',
+    'Tux N Rolls: garanhão Quarto de Milha · B2B Ranch': 'Tux N Rolls: Quarter Horse Stallion by First Down Dash',
+    'Filho de First Down Dash e base da criação B2B: 7.672 pontos ABQM, R$ 5.018.420,75 em ganhos dos filhos pelo SGP e incentivo da Seleção Nacional.': 'By First Down Dash and the foundation of B2B breeding: 7,672 ABQM points, R$ 5,018,420.75 in offspring earnings and part of the Seleção Nacional incentive.',
     'Tux N Rolls, garanhão preto, de perfil no piquete': 'Tux N Rolls, a black stallion, in profile in the paddock', 'Garanhão · 1999 – 2023': 'Stallion · 1999 – 2023', 'A base do B2B Ranch.': 'The foundation of B2B Ranch.',
     'Filho do lendário First Down Dash, Tux N Rolls foi um dos principais reprodutores da raça no Brasil e deixou campeões de Três Tambores em cada geração do plantel.': 'A son of the legendary First Down Dash, Tux N Rolls was one of the leading sires of the breed in Brazil and left barrel racing champions in every generation of the program.',
     '19 de fevereiro de 1999': 'February 19, 1999', 'Preta': 'Black', 'Índice de velocidade': 'Speed index', 'Ganhos em pista': 'Performance earnings', 'US$ 35 mil+': 'US$35,000+', 'Um reprodutor de campeões': 'A sire of champions',
@@ -209,7 +216,7 @@ T = {
     'Filho de First Down Dash e base da criação B2B: 7.672 pontos ABQM, R$ 5.018.420,75 em ganhos pelo SGP e participante do incentivo da Seleção Nacional.': 'By First Down Dash and the foundation of B2B breeding: 7,672 ABQM points, R$ 5,018,420.75 in SGP earnings and part of the Seleção Nacional incentive.',
     # ---- Lucius
     'B2B Lucius Ta Fame: garanhão Quarto de Milha · B2B Ranch': 'B2B Lucius Ta Fame: Quarter Horse Stallion · B2B Ranch',
-    'B2B Lucius Ta Fame: Filho de Tux N Rolls com KR The Black Pearl, nascido e criado no B2B Ranch. Pai da B2B Brave Rolls, top 3 na final do Potro do Futuro ABQM 2026.': 'B2B Lucius Ta Fame, by Tux N Rolls out of KR The Black Pearl, was born and raised at B2B Ranch. Sire of B2B Brave Rolls, Top 3 at the 2026 ABQM Potro do Futuro final.',
+    'Filho de Tux N Rolls com KR The Black Pearl, nascido no B2B Ranch. Pai de B2B Brave Rolls, top 3 na final do Potro do Futuro ABQM 2026.': 'By Tux N Rolls out of KR The Black Pearl, born at B2B Ranch. Sire of B2B Brave Rolls, Top 3 at the 2026 ABQM Potro do Futuro final in Brazil.',
     'Filho de Tux N Rolls com KR The Black Pearl, nascido e criado no B2B Ranch. Pai da B2B Brave Rolls, top 3 na final do Potro do Futuro ABQM 2026.': 'By Tux N Rolls out of KR The Black Pearl, born and raised at B2B Ranch. Sire of B2B Brave Rolls, Top 3 at the 2026 ABQM Potro do Futuro final.',
     'Garanhão · Criação B2B Ranch': 'Stallion · Bred by B2B Ranch', 'Grande nas pistas e na reprodução.': 'Great in the arena and in the breeding shed.',
     'Nascido no B2B Ranch, filho de Tux N Rolls com KR The Black Pearl, Lucius já tem filhos se provando nas principais provas do país.': 'Born at B2B Ranch, by Tux N Rolls out of KR The Black Pearl, Lucius already has offspring proving themselves at the main events in Brazil.',
@@ -224,9 +231,9 @@ T = {
     'Uma das primeiras gerações de Lucius a se provar em pista. Menor tempo: 16.671 s.': 'One of the first generations by Lucius to prove itself in competition. Best time: 16.671 s.', 'Corre na casa dos 17 segundos.': 'Runs in the 17s.', 'Com Mended Heart. Potro do Futuro 2028.': 'Out of Mended Heart. Potro do Futuro 2028.',
     'Fale com o B2B Ranch sobre B2B Lucius Ta Fame': 'Talk to B2B Ranch about B2B Lucius Ta Fame', 'Olá B2B Ranch! Quero saber sobre coberturas do B2B Lucius Ta Fame.': 'Hello B2B Ranch! I would like to know about breeding to B2B Lucius Ta Fame.',
     # ---- Adios
-    'Adios Pantalones: O primeiro e único garanhão a passar de US$ 1 milhão em ganhos nos Três Tambores. Genética no Brasil pelo Condomínio Adios Pantalones, com o B2B Ranch.': 'Adios Pantalones: the first and only stallion to pass US$1 million in barrel racing earnings. Genetics in Brazil through a syndicate that includes B2B Ranch.',
+    'O primeiro e único garanhão a passar de US$ 1 milhão em ganhos nos Três Tambores. Genética no Brasil pelo condomínio do qual o B2B Ranch faz parte.': 'The first and only stallion to pass US$1 million in barrel racing earnings. His genetics reach Brazil through a syndicate that includes B2B Ranch.',
     'O primeiro e único garanhão a passar de US$ 1 milhão em ganhos nos Três Tambores. Genética no Brasil pelo Condomínio Adios Pantalones, com o B2B Ranch.': 'The first and only stallion to pass US$1 million in barrel racing earnings. Genetics in Brazil through a syndicate that includes B2B Ranch.',
-    'Adios Pantalones: garanhão recordista no Brasil · B2B Ranch': 'Adios Pantalones: Record-Setting Stallion in Brazil · B2B Ranch',
+    'Adios Pantalones: garanhão recordista no Brasil · B2B Ranch': 'Adios Pantalones: Record-Setting Stallion · B2B Ranch',
     'Adios Pantalones, garanhão palomino com crina trançada, de perfil': 'Adios Pantalones, a palomino stallion with a braided mane, in profile', 'Garanhão · Genética no Brasil pelo Condomínio Adios Pantalones': 'Stallion · Genetics in Brazil through the Adios Pantalones syndicate',
     'O palomino que reescreveu os Três Tambores.': 'The palomino who rewrote barrel racing.', 'Adios Pantalones é o primeiro e único garanhão a passar de US$ 1 milhão em ganhos, e a sua genética chega ao Brasil pelo condomínio do qual o B2B Ranch faz parte.': 'Adios Pantalones is the first and only stallion to pass US$1 million in earnings, and his genetics reach Brazil through a syndicate of which B2B Ranch is a member.',
     'Treinadora e amazona': 'Trainer and rider', 'Tricia Aldridge, EUA': 'Tricia Aldridge, USA', 'Os números de um recordista': 'The numbers of a record holder',

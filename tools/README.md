@@ -9,3 +9,5 @@ Run `python3 tools/build.py` after any change, then publish everything it writes
 - Do not edit `en/`, `matrizes/`, `atletas/`, `noticias/`, `guias/`, the hub pages or `sitemap.xml` by hand: the build overwrites them.
 
 The build also checks links, duplicate titles and descriptions, one H1 per page, valid structured data and leftover Portuguese in English pages.
+
+The site is hosted on Vercel. The build writes `vercel.json` (redirects from the old WordPress addresses, browser caching) and `.vercelignore`. To verify Search Console or turn on Vercel Analytics, set `GSC_VERIFICATION` or `VERCEL_ANALYTICS` at the top of `build.py`. `tools/lastmod.json` remembers when each page's content last changed: commit it with the rest.

@@ -49,8 +49,8 @@ BREEDING = dict(
                ('B2B Lucius Ta Fame (Tux N Rolls × KR The Black Pearl): nascido no B2B Ranch, pai de B2B Brave Rolls e B2B Aphrodite Rolls.', 'B2B Lucius Ta Fame (Tux N Rolls × KR The Black Pearl): born at B2B Ranch, sire of B2B Brave Rolls and B2B Aphrodite Rolls.'),
                ('Adios Pantalones (Tres Seis × French Bar Belle): primeiro e único garanhão a passar de US$ 1 milhão em ganhos. Sua genética chega ao Brasil pelo Condomínio Adios Pantalones, formado por B2B Ranch, Haras Zopone, Ycambi Ranch, Haras Fazenda São José, Fazenda Poço das Pedras e Witzler Ranch.', 'Adios Pantalones (Tres Seis × French Bar Belle): the first and only stallion to pass US$1 million in earnings. His genetics reach Brazil through the Adios Pantalones syndicate, formed by B2B Ranch, Haras Zopone, Ycambi Ranch, Haras Fazenda São José, Fazenda Poço das Pedras and Witzler Ranch.')]),
         ('h', 'As matrizes', 'The broodmares'),
-        ('p', 'O plantel reúne éguas importadas e de linhagens raras, como Mended Heart, filha de Heart Of The Cartel; Three Carat Diamond, mãe de B2B Noa Carat Rolls; e B2B Movidas Guy, irmã própria de A Smooth Guy. Veja o plantel completo na <a href="MATRIZES">página de matrizes</a>.',
-         'The band includes imported mares and rare bloodlines, such as Mended Heart, by Heart Of The Cartel; Three Carat Diamond, dam of B2B Noa Carat Rolls; and B2B Movidas Guy, full sister to A Smooth Guy. See the whole band on the <a href="MATRIZES">broodmares page</a>.'),
+        ('p', 'O plantel reúne éguas importadas e de linhagens raras, como Mended Heart, filha de Heart Of The Cartel; Three Carat Diamond, mãe de B2B Noa Carat Rolls; e B2B Movidas Guy, irmã própria de A Smooth Guy. Veja o plantel completo na <a href="MATRIZES">página de matrizes</a> e como <a href="VENDA">comprar cavalos e embriões</a>.',
+         'The band includes imported mares and rare bloodlines, such as Mended Heart, by Heart Of The Cartel; Three Carat Diamond, dam of B2B Noa Carat Rolls; and B2B Movidas Guy, full sister to A Smooth Guy. See the whole band on the <a href="MATRIZES">broodmares page</a>, and how to <a href="VENDA">buy horses and embryos</a>.'),
         ('h', 'Como falar sobre coberturas e produtos', 'How to ask about breeding and horses'),
         ('p', 'Coberturas, genética e disponibilidade de produtos são tratadas diretamente com a equipe, pelo WhatsApp +55 (24) 99944-2266 ou pelo e-mail contato@b2branch.com.br. Informe o garanhão ou a linhagem de interesse.',
          'Breeding, genetics and availability are handled directly with the team, on WhatsApp at +55 (24) 99944-2266 or by email at contato@b2branch.com.br. Tell us which stallion or bloodline you are interested in.'),
@@ -74,6 +74,55 @@ AUCTIONS = dict(
         ('h', 'Como acompanhar a próxima edição', 'How to follow the next edition'),
         ('p', 'Datas, catálogo e condições são divulgados pelos canais oficiais do B2B Ranch no Instagram e no YouTube, e podem ser confirmados pelo WhatsApp +55 (24) 99944-2266.',
          'Dates, catalog and terms are announced on the official B2B Ranch Instagram and YouTube channels, and can be confirmed on WhatsApp at +55 (24) 99944-2266.'),
+    ])
+
+SALE = dict(
+    title=('Cavalos Quarto de Milha à venda: como comprar · B2B Ranch', 'Quarter Horses for Sale in Brazil: How to Buy · B2B Ranch'),
+    h1=('Cavalos Quarto de Milha e embriões à venda no B2B Ranch', 'Quarter Horses and embryos for sale at B2B Ranch'),
+    lede=('Como comprar animais e embriões da criação B2B Ranch: leilões, ofertas diretas e contato com a equipe.', 'How to buy horses and embryos from the B2B Ranch program: auctions, direct offers and talking to the team.'),
+    desc=('Como comprar cavalos Quarto de Milha e embriões da criação B2B Ranch, de linhagens para os Três Tambores: leilões, ofertas e contato pelo WhatsApp.',
+          'How to buy Quarter Horses and embryos from B2B Ranch in Brazil, from barrel racing bloodlines: auctions, direct offers and contact on WhatsApp.'),
+    img='assets/mz/hp-boom-shockalocka.webp',
+    alt=('HP Boom Shockalocka, égua alazã, no pasto', 'HP Boom Shockalocka, a chestnut mare, at pasture'),
+    body=[
+        ('h', 'Disponibilidade', 'Availability'),
+        ('p', 'A disponibilidade de animais e embriões muda ao longo do ano e é informada diretamente pela equipe, pelo WhatsApp +55 (24) 99944-2266 ou pelo e-mail contato@b2branch.com.br.',
+         'Horses and embryos available change through the year, and the team confirms them directly, on WhatsApp at +55 (24) 99944-2266 or by email at contato@b2branch.com.br.'),
+        ('h', 'Leilões', 'Auctions'),
+        ('p', 'O <a href="LEILOES">Leilão B2B Ranch &amp; Amigos</a>, com mais de 17 edições, acontece durante o Congresso da ABQM. O haras também participa de leilões de parceiros, como já fez com o Rancho 3D e o 4º Leilão 3DM.',
+         'The <a href="LEILOES">B2B Ranch &amp; Friends Auction</a>, with more than 17 editions, takes place during the ABQM Congress. The ranch also takes part in partners\' auctions, as it has with Rancho 3D and the 4th 3DM Auction.'),
+        ('h', 'Embriões', 'Embryos'),
+        ('p', 'O B2B Ranch já ofereceu embriões de matrizes do plantel, como Mended Heart e MJP Epic Sis. Pergunte à equipe sobre as ofertas atuais.',
+         'B2B Ranch has offered embryos from mares in the band, such as Mended Heart and MJP Epic Sis. Ask the team about current offers.'),
+        ('h', 'Linhagens da criação', 'Bloodlines in the program'),
+        ('p', 'A criação reúne os garanhões Tux N Rolls, B2B Lucius Ta Fame e a genética de Adios Pantalones, além de matrizes importadas. Veja também a página de <a href="GENETICA">genética e coberturas</a>.',
+         'The program brings together the stallions Tux N Rolls and B2B Lucius Ta Fame, the genetics of Adios Pantalones, and imported broodmares. See also the <a href="GENETICA">genetics and breeding</a> page.'),
+        ('h', 'Compradores de outros países', 'Buyers from other countries'),
+        ('p', 'B2B The Fling French foi adquirida em um leilão do B2B Ranch, exportada e ganhou mais de US$ 8 mil em Houston. As condições de cada caso são tratadas com a equipe.',
+         'B2B The Fling French was bought at a B2B Ranch auction, exported, and earned over US$8,000 in Houston. The terms of each case are discussed with the team.'),
+    ])
+
+TRAINING = dict(
+    title=('Treinamento de cavalos Quarto de Milha · B2B Ranch', 'Quarter Horse Training for Barrel Racing · B2B Ranch'),
+    h1=('Treinamento de cavalos Quarto de Milha para os Três Tambores', 'Training Quarter Horses for barrel racing'),
+    lede=('No B2B Ranch, a equipe acompanha cada cavalo da escolha do cruzamento ao treinamento na pista.', 'At B2B Ranch, the team follows each horse from the choice of the cross to training in the arena.'),
+    desc=('Como o B2B Ranch, em Três Rios (RJ), prepara cavalos Quarto de Milha para os Três Tambores e as Seis Balizas, com manejo individual e resultados em pista.',
+          'How B2B Ranch in Três Rios, Brazil prepares Quarter Horses for barrel racing and pole bending, with individual care and published results in the arena.'),
+    img='assets/at/tapdancer-rolls.webp',
+    alt=('B2B Tapdancer Rolls, tordilha, contornando o tambor no Heringer Ranch', 'B2B Tapdancer Rolls, a gray, turning a barrel at Heringer Ranch'),
+    body=[
+        ('h', 'Da criação à pista', 'From breeding to the arena'),
+        ('p', 'Os atletas do B2B Ranch nascem, crescem e são preparados no haras, em Três Rios (RJ), com manejo individual para cada cavalo. A seleção genética é o ponto de partida, e o treinamento transforma potencial em resultado.',
+         'B2B Ranch athletes are born, raised and prepared at the ranch in Três Rios, Rio de Janeiro, with individual care for each horse. Genetic selection is the starting point, and training turns potential into results.'),
+        ('h', 'Modalidades', 'Disciplines'),
+        ('p', 'O foco do programa são os <a href="GUIA_TAMBORES">Três Tambores</a>, e os cavalos da criação também competem nas <a href="GUIA_BALIZAS">Seis Balizas</a>.',
+         'The program focuses on <a href="GUIA_TAMBORES">barrel racing</a>, and horses from the program also compete in <a href="GUIA_BALIZAS">pole bending</a>.'),
+        ('h', 'Resultados em pista', 'Results in the arena'),
+        ('l', [('B2B Quaker Tux Guy, com Keverson de Souza: venceu o GP ABQM da 1ª Etapa da Copa Organnact 2026 com 16.489.', 'B2B Quaker Tux Guy, with Keverson de Souza: won the ABQM GP at round 1 of the 2026 Copa Organnact in 16.489.'),
+               ('B2B Brave Rolls, com Keverson de Souza: Top 3 na Categoria Aberta da Final do Potro do Futuro 2026.', 'B2B Brave Rolls, with Keverson de Souza: Top 3 in the Open category at the 2026 Potro do Futuro Final.'),
+               ('Mended Heart, com Keverson de Souza: 2º lugar na Aberta Sênior com 16.659, no 3º Grand Prix Rancho Gabriela.', 'Mended Heart, with Keverson de Souza: second in Open Senior in 16.659 at the 3rd Rancho Gabriela Grand Prix.')]),
+        ('h', 'Fale com a equipe', 'Talk to the team'),
+        ('p', 'Para saber mais sobre o trabalho de treinamento do B2B Ranch, fale com a equipe pelo WhatsApp +55 (24) 99944-2266.', 'To learn more about training at B2B Ranch, talk to the team on WhatsApp at +55 (24) 99944-2266.'),
     ])
 
 GLOSSARY = dict(
@@ -127,7 +176,7 @@ FAQ = dict(
 
 GUIDES = [
     dict(slug=('tres-tambores', 'barrel-racing-in-brazil'), nav=('Três Tambores: como funciona', 'Barrel racing in Brazil'),
-         title=('Três Tambores: o que é e como funciona a prova · B2B Ranch', 'Barrel Racing in Brazil (Três Tambores) Explained · B2B Ranch'),
+         title=('Três Tambores: o que é e como funciona a prova · B2B Ranch', 'Barrel Racing in Brazil (Três Tambores) · B2B Ranch'),
          h1=('Três Tambores: o que é e como funciona a prova', 'Barrel racing in Brazil: how Três Tambores works'),
          lede=('Velocidade, curvas fechadas e centésimos de segundo: a prova mais disputada do Quarto de Milha no Brasil, explicada.', 'Speed, tight turns and hundredths of a second: how the sport known in Brazil as Três Tambores works.'),
          desc=('Entenda os Três Tambores: o percurso, a cronometragem, as penalidades, as categorias e o que faz um grande cavalo de tambor.',
@@ -165,7 +214,7 @@ GUIDES = [
                ('p', 'B2B Oprah Rolls, montada pelo fundador Odilon Diniz, é vencedora nas duas modalidades, e B2B Apollo Rolls também compete nas Seis Balizas. Veja os tempos nas páginas de cada atleta.',
                 'B2B Oprah Rolls, ridden by founder Odilon Diniz, is a winner in both disciplines, and B2B Apollo Rolls also competes in pole bending. See the times on each athlete&#x27;s page.')]),
     dict(slug=('potro-do-futuro', 'potro-do-futuro-explained'), nav=('Potro do Futuro: o que é', 'The Potro do Futuro'),
-         title=('Potro do Futuro: o que é a prova de cavalos jovens · B2B Ranch', 'Potro do Futuro: Brazil\'s Quarter Horse Futurity · B2B Ranch'),
+         title=('Potro do Futuro: a prova de cavalos jovens · B2B Ranch', 'Potro do Futuro: Brazil\'s Quarter Horse Futurity · B2B Ranch'),
          h1=('Potro do Futuro: a prova que revela as novas gerações', 'The Potro do Futuro: the event that reveals new generations'),
          lede=('A competição para cavalos jovens que aponta as promessas de cada geração do Quarto de Milha no Brasil.', 'The competition for young horses that reveals the promise of each Quarter Horse generation in Brazil, similar to a futurity in the United States.'),
          desc=('O que é o Potro do Futuro, por que importa para criadores e como os cavalos do B2B Ranch têm se saído nas gerações de 2025 e 2026.',
@@ -197,7 +246,7 @@ GUIDES = [
                ('p', 'No Brasil, a raça é representada pela ABQM, a Associação Brasileira de Criadores de Cavalo Quarto de Milha, e por associações estaduais, como a RJQM. Criadores brasileiros também importam genética americana: o plantel do B2B Ranch reúne éguas importadas e pedigrees ligados a First Down Dash, Frenchmans Guy, Tres Seis e Epic Leader.',
                 'In Brazil the breed is represented by the ABQM, the Brazilian Quarter Horse Breeders Association, and by state associations such as the RJQM. Brazilian breeders also import American genetics: the B2B Ranch band includes imported mares and pedigrees linked to First Down Dash, Frenchmans Guy, Tres Seis and Epic Leader.')]),
     dict(slug=('transferencia-de-embriao-e-inseminacao', 'embryo-transfer-and-artificial-insemination'), nav=('Transferência de embrião e inseminação', 'Embryo transfer and insemination'),
-         title=('Transferência de embrião e inseminação em equinos · B2B Ranch', 'Embryo Transfer and AI in Quarter Horses · B2B Ranch'),
+         title=('Transferência de embrião e inseminação · B2B Ranch', 'Embryo Transfer and AI in Quarter Horses · B2B Ranch'),
          h1=('Transferência de embrião e inseminação artificial em cavalos', 'Embryo transfer and artificial insemination in horses'),
          lede=('Duas tecnologias que ampliam o alcance de uma boa genética, e que o B2B Ranch usa no seu programa.', 'Two technologies that extend the reach of good genetics, both used in the B2B Ranch program.'),
          desc=('Como funcionam a transferência de embrião e a inseminação artificial em cavalos, e por que permitem que uma égua siga em pista enquanto produz.',

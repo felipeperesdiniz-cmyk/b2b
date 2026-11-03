@@ -265,6 +265,28 @@ NEWS = [
                ('l', [('Produzimos a única tríplice coroada do tambor no Brasil, B2B Lovergirl Rolls.', 'We bred the only Triple Crown winner in Brazilian barrel racing, B2B Lovergirl Rolls.'), ('Produzimos o Cavalo do Ano de 2018, B2B Maximus Rolls.', 'We bred the 2018 Horse of the Year, B2B Maximus Rolls.'), ('Tux N Rolls é Top 11 na história de ganhos.', 'Tux N Rolls is Top 11 in all-time earnings.')])]),
 ]
 
+# Shorter titles and descriptions for search results, where the headline is too long to show in full.
+SEO = {
+    'heringer-ranch-1a-etapa': ('B2B Ranch na 1ª etapa do VII Campeonato Heringer Ranch', 'B2B Ranch at Round 1, 7th Heringer Ranch Championship'),
+    'vice-campea-final-ouro-potro-do-futuro-pf-copa-wv-2026': ('B2B Brave Rolls, vice na Final Ouro do PF & Copa WV 2026', 'B2B Brave Rolls, Runner-up at PF & Copa WV 2026 Gold Final'),
+    'abertura-temporada-2026-copa-organnact': ('B2B Ranch vence o GP ABQM na abertura da Copa Organnact', 'B2B Ranch Wins ABQM GP to Open the 2026 Copa Organnact'),
+    'encerramento-temporada-2025-rjqm': ('Temporada 2025 da RJQM: resultados da criação B2B Ranch', 'End of the 2025 RJQM Season: B2B Ranch Results'),
+    'v-grand-slam-cutter-haras-raphaela': ('B2B Ranch no V Grand Slam Cutter, no Haras Raphaela', 'B2B Ranch Wins at the 5th Grand Slam Cutter'),
+    '46-potro-do-futuro-2025': ('B2B Ranch no 46º Potro do Futuro 2025 e Copa dos Campeões', 'B2B Ranch at the 46th Potro do Futuro and Champions Cup'),
+    '1a-etapa-vi-campeonato-heringer-ranch': ('B2B Ranch na 1ª Etapa do VI Campeonato Heringer Ranch', 'B2B Ranch at Round 1, 6th Heringer Ranch Championship'),
+    'programa-de-incentivo-rjqm-2025-2030': ('Programa de incentivo B2B Ranch e Rancho 3D na RJQM', 'B2B Ranch and Rancho 3D Incentive Program at the RJQM'),
+    '4a-etapa-xxv-campeonato-regional-oeste': ('B2B Ranch na 4ª Etapa do XXV Campeonato Regional Oeste', 'B2B Ranch at Round 4, 25th Western Regional Championship'),
+    '5a-etapa-xxxix-campeonato-estadual-rjqm': ('B2B Ranch na 5ª Etapa do XXXIX Campeonato Estadual RJQM', 'B2B Ranch at Round 5, 39th RJQM State Championship'),
+    '3o-grand-prix-rancho-gabriela': ('Three Blackpearl e Mended Heart no 3º Grand Prix Gabriela', 'Three Blackpearl and Mended Heart at the 3rd Gabriela GP'),
+}
+DESC = {
+    'brave-rolls-top-3-potro-do-futuro': ('B2B Brave Rolls, filha de B2B Lucius Ta Fame e Crystal Mine OFV, ficou em terceiro na Categoria Aberta da Final do Potro do Futuro.', 'B2B Brave Rolls, by B2B Lucius Ta Fame out of Crystal Mine OFV, took third in the Open category of the Potro do Futuro Final in Brazil.'),
+    'programa-de-incentivo-rjqm-2025-2030': ('Prêmio extra de R$ 5.000 por categoria para campeões de criação B2B Ranch ou Rancho 3D no Campeonato RJQM, de 2025/2026 a 2029/2030.', 'An extra R$ 5,000 per category for RJQM champions bred by B2B Ranch or Rancho 3D, from the 2025/2026 to the 2029/2030 seasons.'),
+}
+for _n in NEWS:
+    _n['seo'] = SEO.get(_n['slug'][0])
+    _n['desc'] = DESC.get(_n['slug'][0])
+
 # Old WordPress address -> new page (301). Pages not carried over go to the closest hub.
 OLD_URLS = {
     'o-b2b-ranch': 'sobre.html', 'contato': 'contato.html', 'plantel-b2b': 'garanhoes.html', 'b2b-noticias': 'noticias.html', '17o-leilao-b2b-ranch-amigos': 'leiloes.html',

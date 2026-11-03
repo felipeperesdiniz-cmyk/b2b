@@ -1,0 +1,199 @@
+{
+  "redirects": [
+    {
+      "source": "/o-b2b-ranch{/}?",
+      "destination": "/sobre.html",
+      "permanent": true
+    },
+    {
+      "source": "/contato{/}?",
+      "destination": "/contato.html",
+      "permanent": true
+    },
+    {
+      "source": "/plantel-b2b{/}?",
+      "destination": "/garanhoes.html",
+      "permanent": true
+    },
+    {
+      "source": "/b2b-noticias{/}?",
+      "destination": "/noticias.html",
+      "permanent": true
+    },
+    {
+      "source": "/17o-leilao-b2b-ranch-amigos{/}?",
+      "destination": "/leiloes.html",
+      "permanent": true
+    },
+    {
+      "source": "/b2b-brave-rolls-conquista-top-3-na-final-do-potro-do-futuro-e-coloca-a-genetica-b2b-ranch-entre-os-destaques-da-competicao{/}?",
+      "destination": "/noticias/brave-rolls-top-3-potro-do-futuro.html",
+      "permanent": true
+    },
+    {
+      "source": "/mjp-epic-sis-genetica-para-o-futuro-do-seu-plantel{/}?",
+      "destination": "/matrizes/mjp-epic-sis.html",
+      "permanent": true
+    },
+    {
+      "source": "/elas-entraram-em-pista-para-fazer-acontecer-e-fizeram{/}?",
+      "destination": "/noticias/elas-em-pista.html",
+      "permanent": true
+    },
+    {
+      "source": "/b2b-ranch-se-destaca-na-1a-etapa-do-vii-campeonato-heringer-ranch{/}?",
+      "destination": "/noticias/heringer-ranch-1a-etapa.html",
+      "permanent": true
+    },
+    {
+      "source": "/vice-campea-final-ouro-potro-do-futuro-pf-e-copa-wv-2026{/}?",
+      "destination": "/noticias/vice-campea-final-ouro-potro-do-futuro-pf-copa-wv-2026.html",
+      "permanent": true
+    },
+    {
+      "source": "/barretos-o-palco-onde-grandes-historias-sao-escritas{/}?",
+      "destination": "/noticias/barretos.html",
+      "permanent": true
+    },
+    {
+      "source": "/resultados-que-comprovam-a-forca-da-b2b-ranch{/}?",
+      "destination": "/noticias/1a-etapa-xli-campeonato-rjqm-rancho-gabriela.html",
+      "permanent": true
+    },
+    {
+      "source": "/b2b-brave-rolls-o-futuro-dos-tres-tambores{/}?",
+      "destination": "/noticias/b2b-brave-rolls-o-futuro-dos-tres-tambores.html",
+      "permanent": true
+    },
+    {
+      "source": "/prova-selecao-nacional-2026{/}?",
+      "destination": "/noticias/prova-selecao-nacional-2026.html",
+      "permanent": true
+    },
+    {
+      "source": "/apaixonados-por-grandes-cavalos{/}?",
+      "destination": "/sobre.html",
+      "permanent": true
+    },
+    {
+      "source": "/b2b-ranch-impoe-excelencia-na-abertura-da-temporada-2026{/}?",
+      "destination": "/noticias/abertura-temporada-2026-copa-organnact.html",
+      "permanent": true
+    },
+    {
+      "source": "/encerramento-da-temporada-2025-na-rjqm-destaca-excelencia-da-criacao-b2b-ranch{/}?",
+      "destination": "/noticias/encerramento-temporada-2025-rjqm.html",
+      "permanent": true
+    },
+    {
+      "source": "/fim-de-semana-de-conquistas-no-v-grand-slam-cutter-no-haras-raphaela{/}?",
+      "destination": "/noticias/v-grand-slam-cutter-haras-raphaela.html",
+      "permanent": true
+    },
+    {
+      "source": "/destaque-b2b-ranch-no-46o-potro-do-futuro-da-raca-quarto-de-milha-2025-18o-copa-dos-campeoes-e-11o-derby-da-raca-quarto-de-milha{/}?",
+      "destination": "/noticias/46-potro-do-futuro-2025.html",
+      "permanent": true
+    },
+    {
+      "source": "/criacao-b2b-ranch-campeoes-em-pistas-durante-a-1a-etapa-do-vi-campeonato-heringer-ranch{/}?",
+      "destination": "/noticias/1a-etapa-vi-campeonato-heringer-ranch.html",
+      "permanent": true
+    },
+    {
+      "source": "/3o-leilao-virtual-rancho-3d-convidado-especial-b2b-ranch{/}?",
+      "destination": "/leiloes.html",
+      "permanent": true
+    },
+    {
+      "source": "/programa-de-incentivo-b2b-ranch-e-rancho-3d-no-campeonato-rjqm-de-2025-2026-a-2029-2030{/}?",
+      "destination": "/noticias/programa-de-incentivo-rjqm-2025-2030.html",
+      "permanent": true
+    },
+    {
+      "source": "/destaques-do-b2b-ranch-na-4a-etapa-do-xxv-campeonato-regional-oeste{/}?",
+      "destination": "/noticias/4a-etapa-xxv-campeonato-regional-oeste.html",
+      "permanent": true
+    },
+    {
+      "source": "/agradecimento-especial{/}?",
+      "destination": "/leiloes.html",
+      "permanent": true
+    },
+    {
+      "source": "/agradecimentos-e-novidades-do-nosso-criatorio{/}?",
+      "destination": "/noticias/novidades-do-criatorio-maio-2025.html",
+      "permanent": true
+    },
+    {
+      "source": "/b2b-ranch-em-destaque-na-5a-etapa-do-xxxix-campeonato-estadual-rjqm{/}?",
+      "destination": "/noticias/5a-etapa-xxxix-campeonato-estadual-rjqm.html",
+      "permanent": true
+    },
+    {
+      "source": "/oferta-especial-do-embriao-a-ser-realizado-da-mended-heart{/}?",
+      "destination": "/matrizes/mended-heart.html",
+      "permanent": true
+    },
+    {
+      "source": "/b2b-the-fling-french-ganhou-mais-de-8mil-dolares-na-houston-qualifiers-1d-winners-copy-copy{/}?",
+      "destination": "/noticias/3o-grand-prix-rancho-gabriela.html",
+      "permanent": true
+    },
+    {
+      "source": "/b2b-the-fling-french-ganhou-mais-de-8mil-dolares-na-houston-qualifiers-1d-winners-copy{/}?",
+      "destination": "/noticias/3o-grand-prix-rancho-gabriela.html",
+      "permanent": true
+    },
+    {
+      "source": "/b2b-the-fling-french-ganhou-mais-de-8mil-dolares-na-houston-qualifiers-1d-winners{/}?",
+      "destination": "/noticias/b2b-the-fling-french-houston.html",
+      "permanent": true
+    },
+    {
+      "source": "/17o-leilao-b2b-ranch{/}?",
+      "destination": "/noticias/17o-leilao-b2b-ranch-amigos.html",
+      "permanent": true
+    },
+    {
+      "source": "/index.html",
+      "destination": "/",
+      "permanent": true
+    },
+    {
+      "source": "/en/index.html",
+      "destination": "/en/",
+      "permanent": true
+    },
+    {
+      "source": "/en",
+      "destination": "/en/",
+      "permanent": true
+    },
+    {
+      "source": "/tools/:path*",
+      "destination": "/",
+      "permanent": false
+    }
+  ],
+  "headers": [
+    {
+      "source": "/assets/(.*)",
+      "headers": [
+        {
+          "key": "Cache-Control",
+          "value": "public, max-age=604800, stale-while-revalidate=2592000"
+        }
+      ]
+    },
+    {
+      "source": "/assets/fonts/(.*)",
+      "headers": [
+        {
+          "key": "Cache-Control",
+          "value": "public, max-age=31536000, immutable"
+        }
+      ]
+    }
+  ]
+}

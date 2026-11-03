@@ -1,5 +1,4 @@
 User-agent: *
 Allow: /
-Disallow: /tools/
 
 Sitemap: https://b2branch.com.br/sitemap.xml
