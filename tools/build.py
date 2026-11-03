@@ -201,7 +201,7 @@ def crumbs_html(path, items):
     return f'<nav class="s-crumbs wrap pad" aria-label="Breadcrumb"><ol>{out}</ol></nav>'
 
 
-def page(path, lang, title, desc, body, img=None, kind='website', nodes=(), css=('garanhao', 'noticia', 'pagina'), published=None, img_alt=''):
+def page(path, lang, title, desc, body, img=None, kind='website', nodes=(), css=('garanhao', 'noticia', 'pagina', 'flag'), published=None, img_alt=''):
     if len(desc) > 165:
         problems.append(f'{path}: description is {len(desc)} chars')
     og = og_for(img)
@@ -250,16 +250,16 @@ def parse_home_horses():
     seen = {}
     for sec, chunk in (('mares', mz), ('athletes', at)):
         for li in re.findall(r'<li(?: data-mz="[^"]*")?>(<b>.*?)</li>', chunk, re.S):
-            m = re.match(r'<b>(?:<a [^>]*>)?([^<]+)(?:</a>)?(<em>[^<]*</em>)?</b><span>([^<]+)</span>', li)
+            m = re.match(r'<b>(?:<a [^>]*>)?([^<]+)(?:</a>)?(<i class="us"[^>]*></i>)?(<em>[^<]*</em>)?</b><span>([^<]+)</span>', li)
             name = html.unescape(m.group(1))
             if name in seen:
                 seen[name]['also_athlete'] = True
                 continue
-            sire, dam = [x.strip() for x in html.unescape(m.group(3)).split('×')]
+            sire, dam = [x.strip() for x in html.unescape(m.group(4)).split('×')]
             im = re.search(r'<img src="(assets/[^"]+)" alt="([^"]*)"', li)
             text = re.search(r'<p>(.*?)</p>', li, re.S).group(1)
             seen[name] = {'name': name, 'section': sec, 'sire': sire, 'dam': dam, 'slug': slugify(name), 'text': html.unescape(text),
-                          'also_athlete': bool(m.group(2)), 'img': im.group(1) if im else None, 'alt': html.unescape(im.group(2)) if im else '',
+                          'also_athlete': bool(m.group(3)), 'imported': bool(m.group(2)), 'img': im.group(1) if im else None, 'alt': html.unescape(im.group(2)) if im else '',
                           'gen': None}
     # which Potro do Futuro generation each athlete belongs to, as grouped on the home page
     for year, block in re.findall(r'<h3 class="mz-sub">Potros do Futuro (\d{4})</h3>\s*<ul class="mz-list pf">(.*?)</ul>', at, re.S):
@@ -268,6 +268,16 @@ def parse_home_horses():
     for h in EXTRA_HORSES:
         seen[h['name']] = dict({'section': 'athletes', 'slug': slugify(h['name']), 'also_athlete': False, 'img': None, 'alt': '', 'gen': None}, **h)
     return seen
+
+
+def us_flag(label):
+    return f'<i class="us" role="img" aria-label="{label}" title="{label}"></i>'
+
+
+def title_with_flag(name, label):
+    """Keeps the flag on the same line as the last word of a big heading."""
+    head, _, last = name.rpartition(' ')
+    return f'{E(head)} <span class="us-keep">{E(last)}{us_flag(label)}</span>'
 
 
 def horse_path(h, lang):
@@ -377,6 +387,8 @@ def build_horse(h, results):
         sheet = [(L(lang, 'sire'), h['sire']), (L(lang, 'dam'), h['dam'])]
         if coat:
             sheet.append((L(lang, 'coat'), coat if lang == 'pt' else COAT[coat]))
+        if h.get('imported'):
+            sheet.append((L(lang, 'origin'), L(lang, 'imported_f')))
         sheet.append((L(lang, 'breed'), L(lang, 'breed_v')))
         sheet.append((L(lang, 'discipline'), L(lang, 'discipline_v')))
         sheet.append((L(lang, 'ranch'), 'B2B Ranch'))
@@ -405,7 +417,7 @@ def build_horse(h, results):
             news_html = (f'<section class="p-links wrap pad"><h2>{L(lang, "news_about").format(name=E(name))}</h2><ul>' + ''.join(
                 f'<li><a href="{rel(path, news_path(n, lang))}">{E(t2(n["title"], lang))}</a> <time datetime="{n["date"]}">{fmt_date(n["date"], lang)}</time></li>' for n in related[:6]) + '</ul></section>')
         extra_p = f'<p>{link_names(E(t2(note, lang)), path, lang, skip=(name,))}</p>' if note else ''
-        body = (f'<main>{crumbs_html(path, crumb)}<article><header class="p-head wrap pad"><span class="label">{role}</span><h1>{E(name)}</h1><p class="p-ped">{E(pedigree)}</p></header>{fig}'
+        body = (f'<main>{crumbs_html(path, crumb)}<article><header class="p-head wrap pad"><span class="label">{role}</span><h1>{title_with_flag(name, L(lang, "imported_f")) if h.get("imported") else E(name)}</h1><p class="p-ped">{E(pedigree)}</p></header>{fig}'
                 f'<section class="p-copy wrap pad"><span class="label">{L(lang, "about_horse")}</span><div><p class="p-lead">{link_names(E(text), path, lang, skip=(name,))}</p>{extra_p}<p>{link_names(E(lead), path, lang, skip=(name,))}</p></div></section>'
                 f'<div class="wrap pad">{sheet_html}</div>{fam_html and "<div class=p-gap></div>" + fam_html}{res_html}{news_html}</article>'
                 + cta(lang, L(lang, 'cta_about').format(name=name), L(lang, 'wa_about').format(name=name))
@@ -518,7 +530,7 @@ def horse_grid(horses, path, lang):
             ph = f'<span class="ph"><img src="{rel(path, h["img"])}" alt="{E(alt)}" width="{w}" height="{hh}" loading="lazy" decoding="async"></span>'
         tag = f'<em>{L(lang, "role_also")}</em>' if h['also_athlete'] else ''
         text = h['text'] if lang == 'pt' else h.get('text_en') or tr(h['text'], h['name'])
-        cards.append(f'<article class="p-card{"" if h["img"] else " noimg"}"><a href="{p}">{ph}<h3>{E(h["name"])}{tag}</h3><span class="ped">{E(h["sire"])} × {E(h["dam"])}</span></a><p>{E(text)}</p></article>')
+        cards.append(f'<article class="p-card{"" if h["img"] else " noimg"}"><a href="{p}">{ph}<h3>{E(h["name"])}{us_flag(L(lang, "imported_f")) if h.get("imported") else ""}{tag}</h3><span class="ped">{E(h["sire"])} × {E(h["dam"])}</span></a><p>{E(text)}</p></article>')
     return '<div class="p-grid">' + ''.join(cards) + '</div>'
 
 
@@ -564,7 +576,7 @@ def build_hubs():
             out = []
             for n, s, im, ped, tx in stall:
                 w, hh = webp_size(im)
-                out.append(f'<article class="p-card wide"><a href="{rel(path, SECTIONS["stallions"][LANGS.index(l)] + "/" + s + ".html")}"><span class="ph"><img src="{rel(path, im)}" alt="{E(n)}" width="{w}" height="{hh}" loading="lazy" decoding="async"></span><h3>{n}</h3><span class="ped">{ped}</span></a><p>{t2(tx, l)}</p></article>')
+                out.append(f'<article class="p-card wide"><a href="{rel(path, SECTIONS["stallions"][LANGS.index(l)] + "/" + s + ".html")}"><span class="ph"><img src="{rel(path, im)}" alt="{E(n)}" width="{w}" height="{hh}" loading="lazy" decoding="async"></span><h3>{n}{us_flag(L(l, {"Tux N Rolls": "imported_m", "Adios Pantalones": "from_us"}[n])) if n != "B2B Lucius Ta Fame" else ""}</h3><span class="ped">{ped}</span></a><p>{t2(tx, l)}</p></article>')
             return '<div class="p-grid three">' + ''.join(out) + '</div>'
         hub_page('stallions', lang,
                  'Garanhões Quarto de Milha: Tux N Rolls, Lucius e Adios' if pt else 'Quarter Horse Stallions: Tux N Rolls, Lucius, Adios',

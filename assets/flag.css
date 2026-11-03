@@ -1,0 +1,5 @@
+/* small US flag beside a horse imported from the United States */
+.us{display:inline-block;width:1.3em;height:.69em;margin-left:.42em;vertical-align:.04em;background:url(flag-us.svg) center/100% 100% no-repeat;box-shadow:0 0 0 1px rgba(0,0,0,.12);flex:none}
+.g-hero h1 .us{width:.72em;height:.38em;margin-left:.22em;vertical-align:.3em}
+.us-keep{white-space:nowrap}
+.p-head h1 .us{width:.72em;height:.38em;margin-left:.2em;vertical-align:.28em}

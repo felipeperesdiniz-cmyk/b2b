@@ -1,6 +1,7 @@
 # Interface strings as (Portuguese, English), and the Portuguese -> English dictionary for index.html and
 # garanhoes/*.html. build.py stops and lists anything missing here.
 UI = {
+    'origin': ('Origem', 'Origin'), 'imported_f': ('Importada dos EUA', 'Imported from the USA'), 'imported_m': ('Importado dos EUA', 'Imported from the USA'), 'from_us': ('Garanhão dos EUA', 'Stallion from the USA'),
     'lang_label': ('Idioma', 'Language'), 'home_label': ('B2B Ranch, início', 'B2B Ranch, home'), 'nav_label': ('Principal', 'Main'),
     'nav_home': ('Início', 'Home'), 'nav_about': ('O Ranch', 'The Ranch'), 'nav_stallions': ('Garanhões', 'Stallions'), 'nav_mares': ('Matrizes', 'Broodmares'),
     'nav_athletes': ('Atletas', 'Athletes'), 'nav_news': ('Notícias', 'News'), 'nav_guides': ('Guias', 'Guides'), 'nav_contact': ('Contato', 'Contact'),
@@ -63,6 +64,12 @@ KEEP = {
 }
 
 T = {
+    'Custom Made Kat, égua alazã, de frente no gramado': 'Custom Made Kat, a chestnut mare, facing the camera on the grass',
+    'Three Carat Diamond, égua castanha, de perfil no gramado': 'Three Carat Diamond, a bay mare, in profile on the grass',
+    'Julie Tux Failas B2B, égua de pelagem escura, em pé no gramado': 'Julie Tux Failas B2B, a dark-coated mare, standing on the grass',
+    'Ill Bethere Tux B2B contornando o tambor': 'Ill Bethere Tux B2B turning a barrel',
+    'Grande atleta, correndo 16.693, com mais de R$ 102 mil em ganhos pelo SGP.': 'A great athlete, running 16.693, with more than R$ 102,000 in SGP earnings.',
+    'Importada dos EUA': 'Imported from the USA', 'Importado dos EUA': 'Imported from the USA', 'Garanhão dos EUA': 'Stallion from the USA',
     # ---- home: head
     'B2B Ranch: Haras de Cavalos Quarto de Milha em Três Rios, RJ': 'B2B Ranch: Quarter Horse Breeding and Training in Brazil',
     'B2B Ranch: haras em Três Rios (RJ) com criação e treinamento de cavalos Quarto de Milha de alta performance para os Três Tambores. Garanhões, matrizes e atletas.': 'B2B Ranch breeds and trains high-performance Quarter Horses for barrel racing in Três Rios, Rio de Janeiro, Brazil. Meet the stallions, broodmares and athletes.',
