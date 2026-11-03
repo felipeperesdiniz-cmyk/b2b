@@ -117,7 +117,7 @@ T = {
     # ---- home: mares
     'As éguas que formam cada geração do B2B Ranch: importadas, de linhagens raras, e algumas ainda em pista.': 'The mares behind every generation at B2B Ranch: imported, from rare bloodlines, and some still competing.',
     'Deslize para ver todas →': 'Swipe to see them all →', 'Também atleta': 'Also an athlete',
-    'Legenda Lenas, égua alazã, de perfil no gramado': 'Legenda Lenas, a chestnut mare, in profile on the grass',
+    'Lenas Bar Belle, égua alazã, de perfil no gramado': 'Lenas Bar Belle, a chestnut mare, in profile on the grass',
     'Frenchmans Bulla, palomino, contornando o tambor no Campeonato Nacional ABQM': 'Frenchmans Bulla, a palomino, turning a barrel at the ABQM National Championship',
     'HP Stoli My Jet, égua alazã, no piquete': 'HP Stoli My Jet, a chestnut mare, in the paddock', 'Simply Epic, égua tordilha, de perfil no gramado': 'Simply Epic, a gray mare, in profile on the grass',
     'Custom Made Kat, égua alazã, de perfil no gramado': 'Custom Made Kat, a chestnut mare, in profile on the grass', 'Three Carat Diamond contornando o tambor': 'Three Carat Diamond turning a barrel',
