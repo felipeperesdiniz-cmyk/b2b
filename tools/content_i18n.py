@@ -2,7 +2,7 @@
 # garanhoes/*.html. build.py stops and lists anything missing here.
 UI = {
     'nav_sale': ('Cavalos à venda', 'Horses for sale'), 'nav_training': ('Treinamento', 'Training'),
-    'hub_mares_h': ('As matrizes do plantel', 'The broodmares in the band'), 'hub_athletes_h': ('Atletas da criação', 'Athletes from the program'), 'hub_stallions_h': ('Os três garanhões', 'The three stallions'), 'hub_films_h': ('Assista aos filmes', 'Watch the films'),
+    'hub_mares_h': ('As matrizes do plantel', 'The broodmares in the band'), 'hub_athletes_h': ('Atletas da criação', 'Athletes from the program'), 'hub_pf_h': ('Potros do Futuro', 'Potro do Futuro'), 'title_pf': ('Potro do Futuro', 'Quarter Horse foal'), 'desc_pf': ('Potro do Futuro Quarto de Milha da criação B2B Ranch', 'Quarter Horse Potro do Futuro foal bred by B2B Ranch'), 'role_pf': ('Potro do Futuro', 'Potro do Futuro'), 'hub_stallions_h': ('Os três garanhões', 'The three stallions'), 'hub_films_h': ('Assista aos filmes', 'Watch the films'),
     'desc_more': ('Veja pedigree, família e resultados no B2B Ranch.', 'See pedigree, family and results at B2B Ranch.'),
     'desc_mare': ('matriz Quarto de Milha do B2B Ranch', 'Quarter Horse broodmare at B2B Ranch'), 'desc_athlete': ('atleta Quarto de Milha da criação B2B Ranch', 'Quarter Horse athlete bred by B2B Ranch'),
     'contact_help_h': ('Como podemos ajudar', 'How we can help'),
@@ -64,7 +64,7 @@ CAT = {
 
 KEEP = {
     'B2B Ranch', 'Menu', 'YouTube', 'Instagram', 'TikTok', 'Facebook', 'Instagram · @b2branch', 'Facebook · B2B Ranch', 'YouTube · B2B Ranch', 'TikTok · @b2branch',
-    'B2B', 'Ranch', 'B2B Ranch Quarter Horse', 'contato@b2branch.com.br', 'E-mail', 'b2branch.com.br', '@b2branch', 'US$ 1 mi+', 'NFR 2025', 'Top 3', '16.671', '2028',
+    'B2B', 'PF', 'Ranch', 'B2B Ranch Quarter Horse', 'contato@b2branch.com.br', 'E-mail', 'b2branch.com.br', '@b2branch', 'US$ 1 mi+', 'NFR 2025', 'Top 3', '16.671', '2028',
     'Tux N Rolls', 'B2B Lucius Ta Fame', 'Adios Pantalones', 'First Down Dash', 'Zevis Doll', 'KR The Black Pearl', 'Tres Seis', 'French Bar Belle', 'Frenchmans Guy', 'SI 97', 'Palomino', 'Crystal Mine OFV',
     'Seleção Nacional', 'B2B Maximus Rolls', 'B2B Lovergirl Rolls', 'B2B Noa Carat Rolls', 'B2B Brave Rolls', 'B2B Aphrodite Rolls', 'B2B Tiberius Rolls', 'B2B Darwin Bar Belle',
     'Condomínio Adios Pantalones', '10×', 'BR', 'Tux N Rolls · B2B Ranch', 'B2B Lucius Ta Fame · B2B Ranch', 'Adios Pantalones · B2B Ranch',
@@ -166,8 +166,8 @@ T = {
     'Cruzamento que carrega o sangue da grande Miss Fortunes Fool com a lenda branca El Shady Zorrero.': 'A cross carrying the blood of the great Miss Fortunes Fool with the white legend El Shady Zorrero.',
     'Irmão materno da maior égua ganhadora de rodeios no Brasil, B2B Noa Carat Rolls.': 'Maternal half brother to the top rodeo-winning mare in Brazil, B2B Noa Carat Rolls.',
     'Tordilho que faz história como atleta, e um lindo garanhão.': 'A gray making history as an athlete, and a beautiful stallion.',
-    'Potros do Futuro 2028': 'Potro do Futuro 2028', 'Potros do Futuro 2026': 'Potro do Futuro 2026', 'Potros do Futuro 2025': 'Potro do Futuro 2025',
-    'Potro do Futuro 2028, de linhagem de vencedores.': 'Potro do Futuro 2028, from a line of winners.',
+    'Potros do Futuro': 'Potro do Futuro',
+    'Potro do Futuro, de linhagem de vencedores.': 'Potro do Futuro foal, from a line of winners.',
     'Top 3 na final do Potro do Futuro ABQM 2026, na casa dos 16 segundos.': 'Top 3 at the 2026 ABQM Potro do Futuro final, running in the 16s.',
     'Um cruzamento incrível de linhagem de corrida com a de trabalho. 2º lugar na Final Potro do Futuro do VII Campeonato Heringer Ranch · 17.103 s.': 'An incredible cross of racing and working bloodlines. Second in the Potro do Futuro Final at the 7th Heringer Ranch Championship · 17.103 s.',
     'Corre na casa dos 16 segundos e é neto de Miss Fortunes Fool.': 'Runs in the 16s and is a grandson of Miss Fortunes Fool.',
@@ -222,13 +222,13 @@ T = {
     'Nascido no B2B Ranch, filho de Tux N Rolls com KR The Black Pearl, Lucius já tem filhos se provando nas principais provas do país.': 'Born at B2B Ranch, by Tux N Rolls out of KR The Black Pearl, Lucius already has offspring proving themselves at the main events in Brazil.',
     '5 de dezembro de 2012': 'December 5, 2012', 'Zaino': 'Dark bay', 'A próxima geração': 'The next generation', 'Menor tempo de B2B Aphrodite Rolls, uma das primeiras gerações de Lucius a se provar em pista.': 'Best time of B2B Aphrodite Rolls, one of the first generations by Lucius to prove itself in competition.',
     'B2B Brave Rolls, sua filha, na final do Potro do Futuro ABQM 2026.': 'B2B Brave Rolls, his daughter, at the 2026 ABQM Potro do Futuro final.', 'R$ 50.958': 'R$ 50,958', 'Em ganhos de B2B Brave Rolls pelo SGP, correndo na casa dos 16 segundos.': 'In earnings for B2B Brave Rolls on the SGP record, running in the 16s.',
-    'B2B Darwin Bar Belle, filho com Mended Heart, é Potro do Futuro 2028.': 'B2B Darwin Bar Belle, his son out of Mended Heart, is in the 2028 Potro do Futuro generation.',
+    'B2B Darwin Bar Belle, filho com Mended Heart, é Potro do Futuro.': 'B2B Darwin Bar Belle, his son out of Mended Heart, is a Potro do Futuro foal.',
     'Retrato de B2B Lucius Ta Fame': 'Portrait of B2B Lucius Ta Fame', 'B2B Lucius Ta Fame em pé junto à cerca, com o lago ao fundo': 'B2B Lucius Ta Fame standing by the fence, with the lake behind him',
     'Lucius é filho de Tux N Rolls com KR The Black Pearl. É irmão próprio de B2B Maximus Rolls e irmão paterno da B2B Lovergirl Rolls, a única tríplice coroada do Brasil nos Três Tambores.': 'Lucius is by Tux N Rolls out of KR The Black Pearl. He is a full brother to B2B Maximus Rolls and a paternal half brother to B2B Lovergirl Rolls, the only Triple Crown winner in Brazilian barrel racing.',
     'Na reprodução, é um grande garanhão, assim como foi nas pistas. É pai da B2B Brave Rolls, top 3 na final do Potro do Futuro ABQM 2026, já com R$ 50.958,00 em ganhos pelo SGP e correndo na casa dos 16 segundos, e da B2B Aphrodite Rolls, uma das primeiras gerações a se provar em pista, com menor tempo de 16.671.': 'He is as great a stallion in breeding as he was in the arena. He is the sire of B2B Brave Rolls, Top 3 at the 2026 ABQM Potro do Futuro final, with R$ 50,958.00 in SGP earnings and running in the 16s, and of B2B Aphrodite Rolls, one of the first generations to prove itself in competition, with a best time of 16.671.',
     'Família e descendentes': 'Family and offspring', 'First Down Dash × Zevis Doll. A base da criação B2B.': 'First Down Dash × Zevis Doll. The foundation of B2B breeding.', 'Única tríplice coroada do Brasil nos Três Tambores.': 'The only Triple Crown winner in Brazilian barrel racing.',
     'Outro destaque da criação B2B Ranch.': 'Another standout from the B2B Ranch program.', 'Com Crystal Mine OFV. Top 3 na final do Potro do Futuro ABQM 2026; R$ 50.958,00 em ganhos pelo SGP.': 'Out of Crystal Mine OFV. Top 3 at the 2026 ABQM Potro do Futuro final; R$ 50,958.00 in SGP earnings.',
-    'Uma das primeiras gerações de Lucius a se provar em pista. Menor tempo: 16.671 s.': 'One of the first generations by Lucius to prove itself in competition. Best time: 16.671 s.', 'Corre na casa dos 17 segundos.': 'Runs in the 17s.', 'Com Mended Heart. Potro do Futuro 2028.': 'Out of Mended Heart. Potro do Futuro 2028.',
+    'Uma das primeiras gerações de Lucius a se provar em pista. Menor tempo: 16.671 s.': 'One of the first generations by Lucius to prove itself in competition. Best time: 16.671 s.', 'Corre na casa dos 17 segundos.': 'Runs in the 17s.', 'Com Mended Heart. Potro do Futuro.': 'Out of Mended Heart. Potro do Futuro foal.',
     'Fale com o B2B Ranch sobre B2B Lucius Ta Fame': 'Talk to B2B Ranch about B2B Lucius Ta Fame', 'Olá B2B Ranch! Quero saber sobre coberturas do B2B Lucius Ta Fame.': 'Hello B2B Ranch! I would like to know about breeding to B2B Lucius Ta Fame.',
     # ---- Adios
     'O primeiro e único garanhão a passar de US$ 1 milhão em ganhos nos Três Tambores. Genética no Brasil pelo condomínio do qual o B2B Ranch faz parte.': 'The first and only stallion to pass US$1 million in barrel racing earnings. His genetics reach Brazil through a syndicate that includes B2B Ranch.',

@@ -321,13 +321,13 @@ def parse_home_horses():
             text = re.search(r'<p>(.*?)</p>', li, re.S).group(1)
             seen[name] = {'name': name, 'section': sec, 'sire': sire, 'dam': dam, 'slug': slugify(name), 'text': html.unescape(text),
                           'also_athlete': bool(m.group(3)), 'imported': bool(m.group(2)), 'img': im.group(1) if im else None, 'alt': html.unescape(im.group(2)) if im else '',
-                          'gen': None}
-    # which Potro do Futuro generation each athlete belongs to, as grouped on the home page
-    for year, block in re.findall(r'<h3 class="mz-sub">Potros do Futuro (\d{4})</h3>\s*<ul class="mz-list pf">(.*?)</ul>', at, re.S):
+                          'pf': False}
+    # horses grouped under Potros do Futuro on the home page: born, but not yet competing
+    for block in re.findall(r'<h3 class="mz-sub">Potros do Futuro</h3>\s*<ul class="mz-list pf">(.*?)</ul>', at, re.S):
         for nm in re.findall(r'<b>(?:<a [^>]*>)?([^<]+)', block):
-            seen[html.unescape(nm)]['gen'] = year
+            seen[html.unescape(nm)]['pf'] = True
     for h in EXTRA_HORSES:
-        seen[h['name']] = dict({'section': 'athletes', 'slug': slugify(h['name']), 'also_athlete': False, 'img': None, 'alt': '', 'gen': None}, **h)
+        seen[h['name']] = dict({'section': 'athletes', 'slug': slugify(h['name']), 'also_athlete': False, 'img': None, 'alt': '', 'pf': False}, **h)
     return seen
 
 
@@ -433,10 +433,10 @@ def build_horse(h, results):
                     if lang == 'pt' else
                     f'{name} is a broodmare at B2B Ranch, a Quarter Horse breeding and training ranch in Três Rios, Rio de Janeiro, Brazil, focused on barrel racing. Sire: {h["sire"]}. Dam: {h["dam"]}.')
         else:
-            role = L(lang, 'role_athlete') + (f' · Potro do Futuro {h["gen"]}' if h['gen'] else '')
-            lead = (f'{name} é atleta da criação B2B Ranch, haras de cavalos Quarto de Milha em Três Rios (RJ) dedicado aos Três Tambores. Pai: {h["sire"]}. Mãe: {h["dam"]}.'
+            role = L(lang, 'role_pf' if h['pf'] else 'role_athlete')
+            lead = (f'{name} é {"Potro do Futuro" if h["pf"] else "atleta"} da criação B2B Ranch, haras de cavalos Quarto de Milha em Três Rios (RJ) dedicado aos Três Tambores. Pai: {h["sire"]}. Mãe: {h["dam"]}.'
                     if lang == 'pt' else
-                    f'{name} is an athlete bred by B2B Ranch, a Quarter Horse breeding and training ranch in Três Rios, Rio de Janeiro, Brazil, focused on barrel racing. Sire: {h["sire"]}. Dam: {h["dam"]}.')
+                    f'{name} is {"a Potro do Futuro foal" if h["pf"] else "an athlete"} bred by B2B Ranch, a Quarter Horse breeding and training ranch in Três Rios, Rio de Janeiro, Brazil, focused on barrel racing. Sire: {h["sire"]}. Dam: {h["dam"]}.')
         text = h['text'] if lang == 'pt' else h.get('text_en') or tr(h['text'], name)
         alt = h['alt'] if lang == 'pt' else tr(h['alt'], name) if h['alt'] else ''
         hub = HUBS[h['section']][idx]
@@ -483,10 +483,11 @@ def build_horse(h, results):
                 f'<div class="wrap pad">{sheet_html}</div>{fam_html and "<div class=p-gap></div>" + fam_html}{res_html}{news_html}</article>'
                 + cta(lang, L(lang, 'cta_about').format(name=name), L(lang, 'wa_about').format(name=name))
                 + f'<nav class="p-next wrap pad" aria-label="{L(lang, "next_label")}"><a href="{rel(path, hub)}">← {L(lang, "all_" + h["section"])}</a><a href="{rel(path, horse_path(nxt, lang))}">{E(nxt["name"])} →</a></nav></main>')
-        title = f'{name}: {L(lang, "title_mare" if h["section"] == "mares" else "title_athlete")} {pedigree} · B2B Ranch'
+        kind_of = 'mare' if h['section'] == 'mares' else 'pf' if h['pf'] else 'athlete'
+        title = f'{name}: {L(lang, "title_" + kind_of)} {pedigree} · B2B Ranch'
         if len(title) > 70:
-            title = f'{name} ({L(lang, "title_mare" if h["section"] == "mares" else "title_athlete")}) · B2B Ranch'
-        who = L(lang, 'desc_mare' if h['section'] == 'mares' else 'desc_athlete')
+            title = f'{name} ({L(lang, "title_" + kind_of)}) · B2B Ranch'
+        who = L(lang, 'desc_' + kind_of)
         desc = fit_desc(f'{name}, {who} ({pedigree}).', text, L(lang, 'desc_more'))
         page(path, lang, title, desc, body, img=h['img'], kind='article', img_alt=alt,
              nodes=[crumbs_ld(crumb), {'@type': 'WebPage', '@id': url(path), 'url': url(path), 'name': title, 'inLanguage': HTML_LANG[lang], 'about': {'@type': 'Thing', 'name': name, 'description': f'American Quarter Horse. {pedigree}'}, 'publisher': {'@id': BASE + '/#org'}}])
@@ -613,7 +614,8 @@ FILMS = [('1wnK9MEXw0Y', 'assets/institucional-2-poster.webp', ('B2B Ranch, o fi
 
 def build_hubs():
     mares = [h for h in HORSES.values() if h['section'] == 'mares']
-    athletes = [h for h in HORSES.values() if h['section'] == 'athletes' and not h.get('extra')]
+    athletes = [h for h in HORSES.values() if h['section'] == 'athletes' and not h.get('extra') and not h['pf']]
+    foals = [h for h in HORSES.values() if h['pf']]
     extras = [h for h in HORSES.values() if h.get('extra')]
     latest = sorted(NEWS, key=lambda n: n['date'], reverse=True)
     for lang in LANGS:
@@ -630,7 +632,7 @@ def build_hubs():
                  'Atletas da criação B2B Ranch nos Três Tambores e Seis Balizas: pedigree, tempos e resultados publicados de cada cavalo.' if pt else 'Quarter Horse athletes bred by B2B Ranch in barrel racing and pole bending: pedigrees, times and published results for each horse.',
                  'Atletas da criação B2B Ranch' if pt else 'Athletes bred by B2B Ranch',
                  'A genética B2B medida em segundos, nas principais provas de Três Tambores e Seis Balizas do Brasil.' if pt else 'B2B genetics measured in seconds, at the main barrel racing and pole bending events in Brazil.',
-                 lambda path, l=lang: f'<h2 class="p-sub">{L(l, "hub_athletes_h")}</h2>' + horse_grid(athletes, path, l, eager=True) + f'<h2 class="p-sub">{L(l, "extras_h")}</h2>' + horse_grid(extras, path, l), img='assets/at/quaker-tux-guy.webp', img_alt=t2(('B2B Quaker Tux Guy contornando o tambor no Grand Prix', 'B2B Quaker Tux Guy turning a barrel at the Grand Prix'), lang))
+                 lambda path, l=lang: f'<h2 class="p-sub">{L(l, "hub_athletes_h")}</h2>' + horse_grid(athletes, path, l, eager=True) + f'<h2 class="p-sub">{L(l, "hub_pf_h")}</h2>' + horse_grid(foals, path, l) + f'<h2 class="p-sub">{L(l, "extras_h")}</h2>' + horse_grid(extras, path, l), img='assets/at/quaker-tux-guy.webp', img_alt=t2(('B2B Quaker Tux Guy contornando o tambor no Grand Prix', 'B2B Quaker Tux Guy turning a barrel at the Grand Prix'), lang))
         stall = [('Tux N Rolls', 'tux-n-rolls', 'assets/tux-profile.webp', 'First Down Dash × Zevis Doll · 1999–2023',
                   ('A base do B2B Ranch: 7.672 pontos ABQM e R$ 5.018.420,75 em ganhos dos filhos pelo SGP Três Tambores. Pai de B2B Lovergirl Rolls, única tríplice coroada do Brasil.',
                    'The foundation of B2B Ranch: 7,672 ABQM points and R$ 5,018,420.75 in offspring earnings on the SGP barrel racing record. Sire of B2B Lovergirl Rolls, the only Triple Crown winner in Brazil.')),
