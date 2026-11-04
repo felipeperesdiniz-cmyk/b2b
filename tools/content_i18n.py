@@ -64,7 +64,7 @@ CAT = {
 
 KEEP = {
     'B2B Ranch', 'Menu', 'YouTube', 'Instagram', 'TikTok', 'Facebook', 'Instagram · @b2branch', 'Facebook · B2B Ranch', 'YouTube · B2B Ranch', 'TikTok · @b2branch',
-    'B2B', 'PF', 'Ranch', 'B2B Ranch Quarter Horse', 'contato@b2branch.com.br', 'E-mail', 'b2branch.com.br', '@b2branch', 'US$ 1 mi+', 'NFR 2025', 'Top 3', '16.671', '2028',
+    'B2B', 'PF', 'Ranch', 'B2B Ranch Quarter Horse', 'b2branchagencia@gmail.com', 'E-mail', 'b2branch.com.br', '@b2branch', 'US$ 1 mi+', 'NFR 2025', 'Top 3', '16.671', '2028',
     'Tux N Rolls', 'B2B Lucius Ta Fame', 'Adios Pantalones', 'First Down Dash', 'Zevis Doll', 'KR The Black Pearl', 'Tres Seis', 'French Bar Belle', 'Frenchmans Guy', 'SI 97', 'Palomino', 'Crystal Mine OFV',
     'Seleção Nacional', 'B2B Maximus Rolls', 'B2B Lovergirl Rolls', 'B2B Noa Carat Rolls', 'B2B Brave Rolls', 'B2B Aphrodite Rolls', 'B2B Tiberius Rolls', 'B2B Darwin Bar Belle',
     'Condomínio Adios Pantalones', '10×', 'BR', 'Tux N Rolls · B2B Ranch', 'B2B Lucius Ta Fame · B2B Ranch', 'Adios Pantalones · B2B Ranch',

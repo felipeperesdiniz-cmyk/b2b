@@ -52,8 +52,8 @@ BREEDING = dict(
         ('p', 'O plantel reúne éguas importadas e de linhagens raras, como Mended Heart, filha de Heart Of The Cartel; Three Carat Diamond, mãe de B2B Noa Carat Rolls; e B2B Movidas Guy, irmã própria de A Smooth Guy. Veja o plantel completo na <a href="MATRIZES">página de matrizes</a> e como <a href="VENDA">comprar cavalos e embriões</a>.',
          'The band includes imported mares and rare bloodlines, such as Mended Heart, by Heart Of The Cartel; Three Carat Diamond, dam of B2B Noa Carat Rolls; and B2B Movidas Guy, full sister to A Smooth Guy. See the whole band on the <a href="MATRIZES">broodmares page</a>, and how to <a href="VENDA">buy horses and embryos</a>.'),
         ('h', 'Como falar sobre coberturas e produtos', 'How to ask about breeding and horses'),
-        ('p', 'Coberturas, genética e disponibilidade de produtos são tratadas diretamente com a equipe, pelo WhatsApp +55 (24) 99944-2266 ou pelo e-mail contato@b2branch.com.br. Informe o garanhão ou a linhagem de interesse.',
-         'Breeding, genetics and availability are handled directly with the team, on WhatsApp at +55 (24) 99944-2266 or by email at contato@b2branch.com.br. Tell us which stallion or bloodline you are interested in.'),
+        ('p', 'Coberturas, genética e disponibilidade de produtos são tratadas diretamente com a equipe, pelo WhatsApp +55 (24) 99944-2266 ou pelo e-mail b2branchagencia@gmail.com. Informe o garanhão ou a linhagem de interesse.',
+         'Breeding, genetics and availability are handled directly with the team, on WhatsApp at +55 (24) 99944-2266 or by email at b2branchagencia@gmail.com. Tell us which stallion or bloodline you are interested in.'),
     ])
 
 AUCTIONS = dict(
@@ -86,8 +86,8 @@ SALE = dict(
     alt=('HP Boom Shockalocka, égua alazã, no pasto', 'HP Boom Shockalocka, a chestnut mare, at pasture'),
     body=[
         ('h', 'Disponibilidade', 'Availability'),
-        ('p', 'A disponibilidade de animais e embriões muda ao longo do ano e é informada diretamente pela equipe, pelo WhatsApp +55 (24) 99944-2266 ou pelo e-mail contato@b2branch.com.br.',
-         'Horses and embryos available change through the year, and the team confirms them directly, on WhatsApp at +55 (24) 99944-2266 or by email at contato@b2branch.com.br.'),
+        ('p', 'A disponibilidade de animais e embriões muda ao longo do ano e é informada diretamente pela equipe, pelo WhatsApp +55 (24) 99944-2266 ou pelo e-mail b2branchagencia@gmail.com.',
+         'Horses and embryos available change through the year, and the team confirms them directly, on WhatsApp at +55 (24) 99944-2266 or by email at b2branchagencia@gmail.com.'),
         ('h', 'Leilões', 'Auctions'),
         ('p', 'O <a href="LEILOES">Leilão B2B Ranch &amp; Amigos</a>, com mais de 17 edições, acontece durante o Congresso da ABQM. O haras também participa de leilões de parceiros, como já fez com o Rancho 3D e o 4º Leilão 3DM.',
          'The <a href="LEILOES">B2B Ranch &amp; Friends Auction</a>, with more than 17 editions, takes place during the ABQM Congress. The ranch also takes part in partners\' auctions, as it has with Rancho 3D and the 4th 3DM Auction.'),
@@ -166,7 +166,7 @@ FAQ = dict(
         (('O que é o B2B Ranch?', 'What is B2B Ranch?'), ('É um haras de criação e treinamento de cavalos Quarto de Milha de alta performance, dedicado aos Três Tambores, fundado por Odilon e Maria Izabel (Bebel) Diniz.', 'It is a ranch that breeds and trains high-performance Quarter Horses for barrel racing, founded by Odilon and Maria Izabel (Bebel) Diniz.')),
         (('Onde fica o B2B Ranch?', 'Where is B2B Ranch?'), ('Em Três Rios, no estado do Rio de Janeiro, Brasil.', 'In Três Rios, in the state of Rio de Janeiro, Brazil.')),
         (('Quais são os garanhões do B2B Ranch?', 'Who are the B2B Ranch stallions?'), ('Tux N Rolls, base da criação (1999–2023), B2B Lucius Ta Fame, e Adios Pantalones, cuja genética chega ao Brasil por um condomínio do qual o B2B Ranch faz parte.', 'Tux N Rolls, the foundation of the program (1999–2023), B2B Lucius Ta Fame, and Adios Pantalones, whose genetics reach Brazil through a syndicate that includes B2B Ranch.')),
-        (('Como falar sobre coberturas ou compra de animais?', 'How do I ask about breeding or buying horses?'), ('Pelo WhatsApp +55 (24) 99944-2266 ou pelo e-mail contato@b2branch.com.br. A disponibilidade é informada diretamente pela equipe.', 'On WhatsApp at +55 (24) 99944-2266 or by email at contato@b2branch.com.br. The team confirms availability directly.')),
+        (('Como falar sobre coberturas ou compra de animais?', 'How do I ask about breeding or buying horses?'), ('Pelo WhatsApp +55 (24) 99944-2266 ou pelo e-mail b2branchagencia@gmail.com. A disponibilidade é informada diretamente pela equipe.', 'On WhatsApp at +55 (24) 99944-2266 or by email at b2branchagencia@gmail.com. The team confirms availability directly.')),
         (('Posso visitar o haras?', 'Can I visit the ranch?'), ('Fale com a equipe pelo WhatsApp para combinar uma visita.', 'Contact the team on WhatsApp to arrange a visit.')),
         (('Compradores de outros países podem entrar em contato?', 'Can buyers from other countries get in touch?'), ('Sim. Um cavalo da criação, B2B The Fling French, foi exportado depois de um leilão do B2B Ranch e ganhou mais de US$ 8 mil em Houston. As condições de cada caso são tratadas com a equipe.', 'Yes. One horse from the program, B2B The Fling French, was exported after a B2B Ranch auction and earned over US$8,000 in Houston. The terms of each case are discussed with the team.')),
         (('O que é o Leilão B2B Ranch &amp; Amigos?', 'What is the B2B Ranch &amp; Friends Auction?'), ('É o leilão do haras, com mais de 17 edições, realizado durante o Congresso da ABQM com a participação de criadores convidados.', 'It is the ranch&#x27;s auction, with more than 17 editions, held during the ABQM Congress with invited breeders.')),

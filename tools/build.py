@@ -22,7 +22,7 @@ BASE = 'https://b2branch.com.br'
 TODAY = datetime.date.today().isoformat()
 PHONE = '+55 (24) 99944-2266'
 PHONE_E164 = '+5524999442266'
-EMAIL = 'contato@b2branch.com.br'
+EMAIL = 'b2branchagencia@gmail.com'
 SOCIAL = ['https://www.instagram.com/b2branch/', 'https://www.facebook.com/people/B2B-Ranch/100050369475180/',
           'https://www.youtube.com/@B2BRanch', 'https://www.tiktok.com/@b2branch']
 LANGS = ('pt', 'en')
