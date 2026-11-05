@@ -232,11 +232,16 @@ def sitemap_links(path, lang):
             + '</div>')
 
 
+def credit(lang):
+    href = 'https://www.thedinizstudio.com' + ('/pt' if lang == 'pt' else '')
+    return f'<span class="credit">{L(lang, "site_by")} <a href="{href}" target="_blank" rel="noopener">The Diniz Studio</a></span>'
+
+
 def foot(path, lang):
     home = HUBS['home'][LANGS.index(lang)]
     return (f'<footer class="s-foot pad"><div class="wrap">{sitemap_links(path, lang)}'
             f'<p class="s-nap"><b>B2B Ranch</b> · {L(lang, "nap")} · <a href="tel:{PHONE_E164}">{PHONE}</a> · <a href="mailto:{EMAIL}">{EMAIL}</a></p>'
-            f'<p class="s-copy"><span>© {TODAY[:4]} B2B Ranch · {L(lang, "slogan")}</span><a href="{rel(path, home)}">b2branch.com.br</a></p></div></footer>')
+            f'<p class="s-copy"><span>© {TODAY[:4]} B2B Ranch · {L(lang, "slogan")}</span>{credit(lang)}</p></div></footer>')
 
 
 def wa_link(msg):
@@ -800,7 +805,7 @@ def gen_regions(path, lang, is_home, title, desc):
         nodes.append({'@type': 'WebSite', '@id': BASE + '/#site', 'url': url(path), 'name': 'B2B Ranch', 'inLanguage': HTML_LANG[lang], 'publisher': {'@id': BASE + '/#org'}})
     head = (alt_links(path, lang) + f'\n<meta property="og:locale" content="{OG_LOCALE[lang]}">\n<meta property="og:locale:alternate" content="{OG_LOCALE["en" if lang == "pt" else "pt"]}">\n'
             f'<meta property="og:url" content="{url(path)}">\n' + ''.join(x + '\n' for x in extra_head()) + ld_script(nodes))
-    regions = {'head': head, 'foot': foot(path, lang), 'map': sitemap_links(path, lang), 'lang': lang_button(path, lang), 'langjs': LANG_JS + analytics(), 'top': top(path, lang)}
+    regions = {'head': head, 'foot': foot(path, lang), 'map': sitemap_links(path, lang), 'lang': lang_button(path, lang), 'langjs': LANG_JS + analytics(), 'top': top(path, lang), 'credit': credit(lang)}
     regions['hub'] = ('<p class="nw-all">' + ' · '.join(f'<a href="{rel(path, HUBS[k][idx])}">{L(lang, "all_" + k)}</a>' for k in ('mares', 'athletes', 'news')) + '</p>')
     return regions
 

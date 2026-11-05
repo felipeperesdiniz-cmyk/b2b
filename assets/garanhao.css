@@ -154,4 +154,6 @@ a{color:inherit}
 .s-nap a{text-decoration:none}
 .s-copy{margin:10px 0 0;display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;font-size:.78rem;color:var(--mute)}
 .s-copy a{text-decoration:none}
+.credit a{color:inherit;border-bottom:1px solid transparent;transition:color .3s,border-color .3s}
+.credit a:hover{color:var(--ink);border-bottom-color:currentColor}
 @media (max-width:640px){.s-map{grid-template-columns:1fr}}

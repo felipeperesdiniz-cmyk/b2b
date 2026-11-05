@@ -15,7 +15,7 @@ UI = {
     'nav_films': ('Filmes', 'Films'), 'nav_faq': ('Perguntas frequentes', 'FAQ'), 'nav_breeding': ('Genética e coberturas', 'Genetics and breeding'),
     'nav_auctions': ('Leilões', 'Auctions'), 'nav_glossary': ('Glossário', 'Glossary'),
     'foot_ranch': ('B2B Ranch', 'B2B Ranch'), 'nap': ('Três Rios, RJ, Brasil', 'Três Rios, Rio de Janeiro, Brazil'),
-    'slogan': ('Apaixonados por grandes cavalos', 'Passionate about great horses'), 'contact': ('Contato', 'Contact'),
+    'slogan': ('Apaixonados por grandes cavalos', 'Passionate about great horses'), 'site_by': ('Site por', 'Site by'), 'contact': ('Contato', 'Contact'),
     'cta_text': ('Coberturas, genética e disponibilidade de produtos: responderemos pelo WhatsApp.', 'Breeding, genetics and available horses: we will reply on WhatsApp.'),
     'cta_btn': ('Falar no WhatsApp', 'Message us on WhatsApp'),
     'role_mare': ('Matriz', 'Broodmare'), 'role_also': ('Também atleta', 'Also an athlete'), 'role_athlete': ('Atleta', 'Athlete'),
