@@ -753,22 +753,26 @@ const hFrames = new Array(H_N).fill(null);
 hFg.width = H_DIR === 'm' ? 540 : 1600; hFg.height = H_DIR === 'm' ? 960 : 900;   // vertical footage on phones, horizontal on computers
 {
   // the opening trot and every 8th frame first, so any scroll position already has a frame close by;
-  // the rest wait until the visitor starts scrolling, so someone who never scrolls never downloads them
-  const order = [], seen = new Set(), saveData = navigator.connection && navigator.connection.saveData;
+  // the rest wait until the visitor starts scrolling, so someone who never scrolls never downloads them.
+  // Only about 40 frames ever load: every decoded frame stays in memory (2 MB on phones, 6 MB on computers), and phones reload the page when it runs out
+  const conn = navigator.connection, H_STEP = H_DIR === 'm' ? 4 : 3;
+  const slowNet = conn && (conn.saveData || /^(slow-2g|2g|3g)$/.test(conn.effectiveType));
+  const order = [], seen = new Set();
   const add = (st, end = H_N) => { for (let i = 0; i < end; i += st) if (!seen.has(i)) { seen.add(i); order.push(i); } };
   add(1, 8); add(8);
   let next = 0;
   const pump = () => {
     if (next >= order.length) return;
     const i = order[next++], im = new Image();
-    im.src = `../assets/horse/${H_DIR}/${String(i).padStart(3, '0')}.webp`;
+    im.fetchPriority = 'low';   // the photos on screen go first
+    im.src =`../assets/horse/${H_DIR}/${String(i).padStart(3, '0')}.webp`;
     const done = () => { hFrames[i] = im; pump(); };
     (im.decode ? im.decode() : new Promise((ok, no) => { im.onload = ok; im.onerror = no; })).then(done, pump);
   };
   pump();   // the first frame right away, the opening set once the page has loaded
-  const start = () => { for (let k = 0; k < 5; k++) pump(); };
+  const start = () => { for (let k = 0; k < 2; k++) pump(); };
   if (document.readyState === 'complete') start(); else addEventListener('load', start, { once: true });
-  addEventListener('scroll', () => { for (const st of saveData ? [4] : [4, 2, 1]) add(st); start(); }, { once: true, passive: true });
+  addEventListener('scroll', () => { if (!slowNet) add(H_STEP); start(); }, { once: true, passive: true });
 }
 let hBase = 0, hDrawn = -1, hLast = 0;
 function horse(now, p, card, sh, wTop, wBot) {
