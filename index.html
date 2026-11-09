@@ -104,7 +104,7 @@ a{color:inherit}
 
 /* ---------- hero: "B2B" and "RANCH" either side of a portrait card of the Lucius film; a few photos
    around it like a contact sheet. Scrolling parts the words and opens the card to full screen. ---------- */
-#hero{height:460vh;position:relative;background:var(--off)}
+#hero{height:200vh;position:relative;background:var(--off)}
 #hero .stage{position:sticky;top:0;height:100vh;height:100svh;overflow:hidden;background:var(--off);color:var(--ink);
   --cw:min(30vw,42svh);--ch:calc(var(--cw)*4/3);--fs:min(9.6vw,15.5svh);--gap:clamp(14px,2vw,34px)}
 .card{position:absolute;left:50%;top:50%;width:var(--cw);height:var(--ch);transform:translate(-50%,-50%);pointer-events:none}
@@ -746,16 +746,17 @@ let introStart = 0;
 requestAnimationFrame(t => { introStart = t; $('#hero').classList.add('ready'); });
 
 /* ---------- intro ---------- */
-/* the horse: 136 frames drawn to canvas. He always keeps moving on his own; scrolling drives him forward, and he grows faster the closer he gets */
+/* the horse: frames drawn to canvas. He trots in place until the first scroll, which plays the whole entrance on its own; he grows faster the closer he gets */
 const hFg = $('#hFg'), hFgC = hFg.getContext('2d');
 const H_DIR = matchMedia('(max-width: 760px) and (orientation: portrait)').matches ? 'm' : 'w', H_N = H_DIR === 'm' ? 136 : 103;
 const hFrames = new Array(H_N).fill(null);
 hFg.width = H_DIR === 'm' ? 540 : 1600; hFg.height = H_DIR === 'm' ? 960 : 900;   // vertical footage on phones, horizontal on computers
+const H_STEP = H_DIR === 'm' ? 4 : 3;
+let hLoaded = 0, hWanted = 1;
 {
-  // the opening trot and every 8th frame first, so any scroll position already has a frame close by;
-  // the rest wait until the visitor starts scrolling, so someone who never scrolls never downloads them.
+  // the opening trot and every 8th frame first, then the rest once the page has loaded, so the entrance is ready before the first scroll.
   // Only about 40 frames ever load: every decoded frame stays in memory (2 MB on phones, 6 MB on computers), and phones reload the page when it runs out
-  const conn = navigator.connection, H_STEP = H_DIR === 'm' ? 4 : 3;
+  const conn = navigator.connection;
   const slowNet = conn && (conn.saveData || /^(slow-2g|2g|3g)$/.test(conn.effectiveType));
   const order = [], seen = new Set();
   const add = (st, end = H_N) => { for (let i = 0; i < end; i += st) if (!seen.has(i)) { seen.add(i); order.push(i); } };
@@ -766,13 +767,12 @@ hFg.width = H_DIR === 'm' ? 540 : 1600; hFg.height = H_DIR === 'm' ? 960 : 900; 
     const i = order[next++], im = new Image();
     im.fetchPriority = 'low';   // the photos on screen go first
     im.src =`assets/horse/${H_DIR}/${String(i).padStart(3, '0')}.webp`;
-    const done = () => { hFrames[i] = im; pump(); };
+    const done = () => { hFrames[i] = im; hLoaded++; pump(); };
     (im.decode ? im.decode() : new Promise((ok, no) => { im.onload = ok; im.onerror = no; })).then(done, pump);
   };
-  pump();   // the first frame right away, the opening set once the page has loaded
-  const start = () => { for (let k = 0; k < 2; k++) pump(); };
+  pump();   // the first frame right away, the rest once the page has loaded
+  const start = () => { if (!slowNet) add(H_STEP); hWanted = order.length; for (let k = 0; k < 3; k++) pump(); };
   if (document.readyState === 'complete') start(); else addEventListener('load', start, { once: true });
-  addEventListener('scroll', () => { if (!slowNet) add(H_STEP); start(); }, { once: true, passive: true });
 }
 let hBase = 0, hDrawn = -1, hLast = 0;
 function horse(now, p, card, sh, wTop, wBot) {
@@ -782,12 +782,21 @@ function horse(now, p, card, sh, wTop, wBot) {
   hBase = reduce ? target : lerp(hBase, target, 1 - Math.pow(.002, dt));
   // trotting in place while you wait: about real speed, forward and back over a few frames
   const t = (now / 1300) % 1, tri = t < .5 ? t * 2 : 2 - t * 2;
-  const want = clamp(Math.round(hBase + (reduce ? 0 : H_N * .05 * (1 - x) * tri)), 0, H_N - 1);
-  let idx = -1;
-  for (let d = 0; d < H_N && idx < 0; d++) { if (hFrames[want - d]) idx = want - d; else if (hFrames[want + d]) idx = want + d; }
-  if (idx >= 0 && idx !== hDrawn) {
-    hDrawn = idx;
-    hFgC.drawImage(hFrames[idx], 0, 0, hFg.width, hFg.height);
+  const want = clamp(hBase + (reduce ? 0 : H_N * .05 * (1 - sstep(0, .15, x)) * tri), 0, H_N - 1);   // the trot fades as he sets off, so he never steps backward
+  // only every few frames is loaded: fade between the two nearest so the motion stays continuous
+  let a = -1, b = -1;
+  for (let i = Math.floor(want); i >= 0 && a < 0; i--) if (hFrames[i]) a = i;
+  for (let i = Math.floor(want) + 1; i < H_N && b < 0; i++) if (hFrames[i]) b = i;
+  if (a < 0) { a = b; b = -1; }
+  if (a >= 0) {
+    const blend = b >= 0 && b - a <= H_STEP ? Math.round((want - a) / (b - a) * 12) / 12 : 0;
+    const key = a * 1e4 + (blend ? b : 0) + blend;
+    if (key !== hDrawn) {
+      hDrawn = key;
+      hFgC.globalAlpha = 1;
+      hFgC.drawImage(hFrames[a], 0, 0, hFg.width, hFg.height);
+      if (blend) { hFgC.globalAlpha = blend; hFgC.drawImage(hFrames[b], 0, 0, hFg.width, hFg.height); hFgC.globalAlpha = 1; }
+    }
   }
   // apparent size follows perspective: slow while he is far, rushing at the end
   const loom = x * x * (.5 + .5 * x);
@@ -800,6 +809,57 @@ function horse(now, p, card, sh, wTop, wBot) {
   const bob = reduce ? 0 : Math.sin(hBase * 1.05) * (1.5 + 11 * loom);   // his stride reaches the viewer more as he nears
   const y = clamp(cy - fh * S * ay + bob, wBot - fh * S, wTop);
   hFg.style.transform = `translate3d(${(sh.width / 2 - fw * S / 2).toFixed(1)}px,${y.toFixed(1)}px,0) scale(${S.toFixed(4)})`;
+}
+/* one scroll plays the entrance through to the manifesto, then the page scrolls normally. The page holds still while it plays, or a single flick would carry the visitor past it */
+const H_HOLD = .918, H_PLAY = 4500, H_WAIT = 1500;   // the point where every word is lit; length of the entrance; longest wait for frames (ms)
+const H_IDLE = 0, H_PLAYING = 1, H_DONE = 2;
+let hState = H_IDLE, hHeld = false, hAsked = 0, hPlayStart = 0;
+function heroPlay(held) {
+  if (reduce) { heroEnd(); return; }
+  hState = H_PLAYING; hHeld = held; hAsked = performance.now();
+}
+function heroEnd() {
+  hState = H_DONE; hHeld = false;
+  removeEventListener('wheel', heroWheel); removeEventListener('touchstart', heroTouchStart); removeEventListener('touchmove', heroTouchMove); removeEventListener('keydown', heroKey);
+}
+const heroFree = () => hState === H_IDLE && (scrollY > 2 || document.documentElement.style.overflow === 'hidden');   // already down the page, or the menu is open
+function heroWheel(e) {
+  if (e.ctrlKey || heroFree()) return;
+  if (hState === H_PLAYING) { if (hHeld) e.preventDefault(); return; }
+  if (e.deltaY > 0) { e.preventDefault(); heroPlay(true); }
+}
+let hTouchY = 0;
+function heroTouchStart(e) { hTouchY = e.touches[0].clientY; }
+function heroTouchMove(e) {
+  if (heroFree()) return;
+  if (hState === H_PLAYING) { if (hHeld && e.cancelable) e.preventDefault(); return; }
+  const dy = hTouchY - e.touches[0].clientY;
+  if (dy <= 0) return;   // a downward pull stays with the browser (refresh)
+  if (e.cancelable) e.preventDefault();
+  if (dy > 8) heroPlay(true);
+}
+function heroKey(e) {
+  if (heroFree() || !['ArrowDown', 'PageDown', ' ', 'End'].includes(e.key) || e.target.closest('a,button,input,select,textarea,summary')) return;
+  e.preventDefault();
+  if (hState === H_IDLE) heroPlay(true);
+}
+addEventListener('wheel', heroWheel, { passive: false });
+addEventListener('touchstart', heroTouchStart, { passive: true });
+addEventListener('touchmove', heroTouchMove, { passive: false });
+addEventListener('keydown', heroKey);
+function heroProgress(now, H) {
+  const range = H.h - vh;
+  if (hState === H_IDLE && scrollY > 2) { if (scrollY >= range) heroEnd(); else heroPlay(false); }   // arrived by the scrollbar, a link or a restored position
+  if (hState === H_PLAYING && (scrollY >= range || (hHeld && scrollY > 2))) heroEnd();   // a menu link took them elsewhere
+  if (hState === H_DONE) return H_HOLD + (1 - H_HOLD) * clamp((sy - H.top) / range);
+  if (hState === H_IDLE) return 0;
+  if (!hPlayStart) {
+    if (hLoaded < hWanted * .9 && now - hAsked < H_WAIT) return 0;
+    hPlayStart = now;
+  }
+  const t = clamp((now - hPlayStart) / H_PLAY);
+  if (t >= 1) heroEnd();
+  return H_HOLD * lerp(t, t * t * (3 - 2 * t), .55);   // eases in and settles, keeps moving through the middle
 }
 const win = $('#window'), introCap = $('#introCap'), stage = $('#hero .stage');
 const man = $('#manifesto');
@@ -893,7 +953,7 @@ function frame(now) {
 
   // hero: the words part and the photos drift off while the card opens to full screen,
   // then the manifesto lights up word by word over the film
-  const H = sec.hero, p = clamp((sy - H.top) / (H.h - vh));
+  const H = sec.hero, p = heroProgress(now, H);
   const open = reduce ? 1 : sstep(0, 1, clamp((now - introStart) / 1400));
   const part = sstep(0, .36, p), fade = 1 - sstep(.14, .36, p);
   const phone = vw <= 760;
@@ -911,12 +971,12 @@ function frame(now) {
   if (p < 1) horse(now, p, fr, sh, it, sh.height - ib);
   const q = clamp((p - .68) / .32);
   winShade.style.opacity = sstep(.62, .73, p).toFixed(3);
-  man.style.opacity = (sstep(.68, .74, p) * (1 - sstep(.92, .98, p))).toFixed(3);
+  man.style.opacity = (sstep(.68, .74, p) * (1 - sstep(.925, .98, p))).toFixed(3);
   words.forEach((w, i) => { const a = .04 + (i / words.length) * .62; w.style.opacity = (.16 + .84 * sstep(a, a + .08, q)).toFixed(3); });
-  introCap.style.opacity = (sstep(.72, .78, p) * (1 - sstep(.92, .98, p))).toFixed(3);
-  blackout.style.opacity = sstep(.9, .99, p).toFixed(3);
+  introCap.style.opacity = (sstep(.72, .78, p) * (1 - sstep(.925, .98, p))).toFixed(3);
+  blackout.style.opacity = sstep(H_HOLD, .99, p).toFixed(3);
 
-  brand.classList.toggle('small', sy > 40);
+  brand.classList.toggle('small', sy > 40 || p > .02);
   // top bar: hidden over the opening, then tinted to whatever section sits under the menu
   const pastHero = sy > H.top + H.h - vh * .6;
   topbar.classList.toggle('on', pastHero);
