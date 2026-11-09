@@ -99,7 +99,7 @@ T = {
     '01 · Nossa história': '01 · Our story', 'Odilon e Bebel Diniz': 'Odilon and Bebel Diniz',
     'Tudo começou com um sonho: criar e treinar cavalos de alta performance, com paixão e respeito pelos animais.': 'It all began with a dream: to breed and train high-performance horses, with passion and respect for the animals.',
     'Em Três Rios, na região serrana do Rio de Janeiro, são mais de 26 anos no meio equestre, com infraestrutura de ponta e uma equipe que acompanha cada cavalo, da escolha do cruzamento ao treinamento na pista.': 'In Três Rios, in the mountain region of Rio de Janeiro state, that means more than 26 years in the equestrian world, with first-class facilities and a team that follows each horse from the choice of the cross to training in the arena.',
-    'B2B Lucius Ta Fame, no manejo diário': 'B2B Lucius Ta Fame, in daily care', 'B2B Lucius Ta Fame conduzido no cabresto': 'B2B Lucius Ta Fame led in a halter', '02 · Valores': '02 · Values', 'O que nos guia': 'What guides us',
+    'Nossos valores': 'Our values', 'Cavalo escuro rompendo uma folha de papel branco em direção à câmera': 'A dark horse bursting through a sheet of white paper toward the camera', '02 · Valores': '02 · Values', 'O que nos guia': 'What guides us',
     'Excelência': 'Excellence', 'O mais alto padrão em genética, manejo e treinamento.': 'The highest standard in genetics, horse care and training.',
     'Compromisso': 'Commitment', 'Transparência e dedicação com cada parceiro.': 'Transparency and dedication to every partner.',
     'Respeito aos animais': 'Respect for the animals', 'Carinho, ética e atenção individualizada a cada cavalo.': 'Care, ethics and individual attention for every horse.',

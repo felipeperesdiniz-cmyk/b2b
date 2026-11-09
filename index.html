@@ -164,7 +164,8 @@ a{color:inherit}
 .r-media img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;clip-path:inset(100% 0 0 0);transform:scale(1.12);transition:clip-path 1.1s cubic-bezier(.7,0,.2,1),transform 1.6s cubic-bezier(.2,.7,.1,1)}
 .r-media img.on{clip-path:inset(0 0 0 0);transform:none}
 .r-media img.was{clip-path:inset(0 0 0 0);transform:scale(1.04);transition:transform 1.6s ease}
-.r-media figcaption{position:absolute;z-index:2;left:18px;bottom:16px;right:18px;display:flex;justify-content:space-between;font-size:.68rem;letter-spacing:.08em;text-transform:uppercase;color:rgba(255,255,255,.85)}
+.r-media figcaption{position:absolute;z-index:2;left:18px;bottom:16px;right:18px;display:flex;justify-content:space-between;font-size:.68rem;letter-spacing:.08em;text-transform:uppercase;color:rgba(255,255,255,.85);transition:color .5s ease}
+.r-media figcaption.ink{color:rgba(11,10,9,.72)}
 .r-ch{min-height:76vh;display:flex;flex-direction:column;justify-content:center;gap:22px;padding-block:6vh;opacity:.28;transition:opacity .8s ease}
 .r-ch.on{opacity:1}
 .r-ch .n{font-size:.68rem;letter-spacing:.1em;color:rgba(241,237,230,.5);display:flex;align-items:center;gap:14px}
@@ -186,7 +187,7 @@ a{color:inherit}
   .r-media{display:none}
   .r-ch{min-height:0;opacity:1;padding-block:28px}
   .r-ch-img{display:block;width:100%;height:auto;aspect-ratio:1/1;object-fit:cover}
-  .r-ch-img[src*="lucius-cabresto"]{object-position:50% 0}
+  .r-ch-img[src*="cavalo-quebrando"]{object-position:50% 6%}
   .r-ch-img[src*="lucius-frente"]{object-position:50% 12%}
   .r-ch-img[src*="haras-lago"]{aspect-ratio:16/10}
   picture.r-ch-img{aspect-ratio:auto;max-height:70vh;overflow:hidden}
@@ -472,7 +473,7 @@ time{font-size:.7rem;letter-spacing:.1em;text-transform:uppercase;color:#67625b}
     <div class="r-chapters" id="rChapters">
       <figure class="r-media" aria-hidden="true">
         <img src="assets/historia-bebel.webp" alt="" loading="lazy" decoding="async" width="1008" height="1481" class="on" style="object-position:50% 30%">
-        <img src="assets/lucius-cabresto.webp" alt="" loading="lazy" decoding="async" width="1122" height="1402">
+        <img src="assets/cavalo-quebrando.webp" alt="" loading="lazy" decoding="async" width="853" height="1280" style="object-position:50% 6%">
         <img src="assets/lucius-frente.webp" alt="" loading="lazy" decoding="async" width="1145" height="1374">
         <img src="assets/haras-lago.webp" alt="" loading="lazy" decoding="async" width="1672" height="941">
         <figcaption><span id="rMediaCap">Nossa história</span><span id="rMediaNum">01 / 04</span></figcaption>
@@ -485,8 +486,8 @@ time{font-size:.7rem;letter-spacing:.1em;text-transform:uppercase;color:#67625b}
           <p class="big">Tudo começou com um sonho: criar e treinar cavalos de alta performance, com paixão e respeito pelos animais.</p>
           <p>Em Três Rios, na região serrana do Rio de Janeiro, são mais de 26 anos no meio equestre, com infraestrutura de ponta e uma equipe que acompanha cada cavalo, da escolha do cruzamento ao treinamento na pista.</p>
         </article>
-        <article class="r-ch" data-cap="B2B Lucius Ta Fame, no manejo diário">
-          <img class="r-ch-img" src="assets/lucius-cabresto.webp" alt="B2B Lucius Ta Fame conduzido no cabresto" loading="lazy" decoding="async" width="1122" height="1402">
+        <article class="r-ch" data-cap="Nossos valores" data-ink>
+          <img class="r-ch-img" src="assets/cavalo-quebrando.webp" alt="Cavalo escuro rompendo uma folha de papel branco em direção à câmera" loading="lazy" decoding="async" width="853" height="1280">
           <span class="n">02 · Valores</span>
           <h2>O que nos guia</h2>
           <ul class="r-vals">
@@ -895,6 +896,7 @@ const chObs = new IntersectionObserver(es => es.forEach(e => {
   chImgs.forEach((im, k) => { im.classList.toggle('was', k === chOn); im.classList.toggle('on', k === i); im.style.zIndex = k === i ? 2 : k === chOn ? 1 : 0; });
   chOn = i;
   rMediaCap.textContent = e.target.dataset.cap;
+  rMediaCap.parentElement.classList.toggle('ink', 'ink' in e.target.dataset);   // dark caption over a white photo
   rMediaNum.textContent = `0${i + 1} / 0${chapters.length}`;
 }), { rootMargin: '-45% 0px -45% 0px' });
 chapters.forEach(c => chObs.observe(c));
