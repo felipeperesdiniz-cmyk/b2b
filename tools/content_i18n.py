@@ -189,7 +189,7 @@ T = {
     'Seis minutos sobre o haras, a criação e as pessoas por trás de cada cavalo.': 'Six minutes on the ranch, the breeding program and the people behind every horse.',
     'A equipe do B2B Ranch conversando e rindo na selaria do haras': 'The B2B Ranch team talking and laughing in the ranch tack room', 'Assistir ao filme institucional do B2B Ranch (YouTube)': 'Watch the B2B Ranch institutional film (YouTube)',
     'Institucional': 'Institutional', 'A equipe, a rotina do haras e os cavalos que levam o nome B2B às pistas.': 'The team, daily life at the ranch and the horses that carry the B2B name into the arena.',
-    'Venha conhecer o ranch': 'Come and see the ranch', 'Telefone e WhatsApp': 'Phone and WhatsApp', 'Redes': 'Social media', 'Genética e coberturas': 'Genetics and breeding', '© 2026 B2B Ranch · Apaixonados por grandes cavalos': '© 2026 B2B Ranch · Passionate about great horses',
+    'Venha conhecer o B2B Ranch': 'Come and see B2B Ranch', 'Telefone e WhatsApp': 'Phone and WhatsApp', 'Redes': 'Social media', 'Genética e coberturas': 'Genetics and breeding', '© 2026 B2B Ranch · Apaixonados por grandes cavalos': '© 2026 B2B Ranch · Passionate about great horses',
     'Filme institucional do B2B Ranch': 'B2B Ranch institutional film',
     # ---- stallion pages: shared
     'Sobre': 'About', 'O garanhão': 'The stallion', 'Destaques': 'Highlights', 'História': 'History', 'Família': 'Family', 'Nascimento': 'Born', 'Pelagem': 'Coat', 'Pai': 'Sire', 'Mãe': 'Dam',
