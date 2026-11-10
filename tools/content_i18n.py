@@ -189,6 +189,9 @@ T = {
     'Seis minutos sobre o haras, a criação e as pessoas por trás de cada cavalo.': 'Six minutes on the ranch, the breeding program and the people behind every horse.',
     'A equipe do B2B Ranch conversando e rindo na selaria do haras': 'The B2B Ranch team talking and laughing in the ranch tack room', 'Assistir ao filme institucional do B2B Ranch (YouTube)': 'Watch the B2B Ranch institutional film (YouTube)',
     'Institucional': 'Institutional', 'A equipe, a rotina do haras e os cavalos que levam o nome B2B às pistas.': 'The team, daily life at the ranch and the horses that carry the B2B name into the arena.',
+    '10 nov 2026': 'Nov 10, 2026', 'Yasmin de Matteo e B2B Madeleine Rolls conquistam a média da Rodeio Feminina ANTT durante o Grand Slam Cutter': 'Yasmin de Matteo and B2B Madeleine Rolls win the Rodeio Feminina ANTT average at the Grand Slam Cutter',
+    'Filha de Tux N Rolls, a égua já passa de R$ 173 mil em ganhos e foi Top 3 em Barretos neste ano.': 'By Tux N Rolls, the mare has passed R$ 173,000 in earnings and reached the Top 3 at Barretos this year.',
+    'B2B Brave Rolls na pista e no pódio com a placa de 3º lugar': 'B2B Brave Rolls in the arena and on the podium with the third-place plaque',
     'Venha conhecer o B2B Ranch': 'Come and see B2B Ranch', 'Telefone e WhatsApp': 'Phone and WhatsApp', 'Redes': 'Social media', 'Genética e coberturas': 'Genetics and breeding', '© 2026 B2B Ranch · Apaixonados por grandes cavalos': '© 2026 B2B Ranch · Passionate about great horses',
     'Filme institucional do B2B Ranch': 'B2B Ranch institutional film',
     # ---- stallion pages: shared
