@@ -535,6 +535,10 @@ def build_news():
                     out.append('<ul>' + ''.join(f'<li>{link_names(E(t2(x, lang)), path, lang)}</li>' for x in b[1]) + '</ul>')
                 elif b[0] == 'r':
                     out.append('<ul>' + ''.join(result_li(r, lang, path) for r in b[1]) + '</ul>')
+                elif b[0] == 'v':  # ('v', youtube id, vertical?)
+                    vid, tall = b[1], b[2]
+                    out.append(f'<figure class="n-video{" tall" if tall else ""}"><iframe src="https://www.youtube-nocookie.com/embed/{vid}" title="{E(title)}" loading="lazy" allowfullscreen allow="encrypted-media; picture-in-picture"></iframe>'
+                               f'<figcaption><a href="https://www.youtube.com/watch?v={vid}" target="_blank" rel="noopener">{L(lang, "watch_yt")}</a></figcaption></figure>')
             more = [o for o in latest if o is not n][:3]
             crumb = [(L(lang, 'nav_home'), HUBS['home'][idx]), (L(lang, 'nav_news'), HUBS['news'][idx]), (title, path)]
             w, h = webp_size(n['img'])

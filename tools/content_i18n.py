@@ -43,6 +43,7 @@ UI = {
 COAT = {'alazã': 'Chestnut', 'tordilha': 'Gray', 'castanha': 'Bay', 'palomino': 'Palomino'}
 
 CAT = {
+    'Média Rodeio Feminina ANTT, Grand Slam Cutter': 'Rodeio Feminina ANTT average, Grand Slam Cutter',
     'Final Potro do Futuro, Categoria Aberta': 'Potro do Futuro Final, Open', 'Amador': 'Amateur', 'Feminino': 'Ladies',
     'GP ABQM 2D': 'ABQM GP 2D', 'Cavalo Iniciante': 'Beginner Horse', 'Classificatória Potro do Futuro': 'Potro do Futuro Qualifier',
     'Aberta Sênior 2D': 'Open Senior 2D', 'Final Potro do Futuro': 'Potro do Futuro Final', 'GP Heringer Ranch 2D': 'Heringer Ranch GP 2D',

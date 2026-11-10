@@ -23,3 +23,7 @@
 .n-card b{font-weight:400;font-size:1.1rem;line-height:1.25;text-wrap:balance}
 .n-back{color:var(--ink);mix-blend-mode:normal}
 @media (max-width:760px){.n-grid{grid-template-columns:1fr}}
+.n-video{margin:2em 0 2.4em}
+.n-video iframe{display:block;width:100%;aspect-ratio:16/9;border:0;background:#000}
+.n-video.tall iframe{max-width:360px;margin:0 auto;aspect-ratio:9/16}
+.n-video figcaption{margin-top:10px;text-align:center;font-size:.92rem}

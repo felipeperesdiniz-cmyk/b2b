@@ -3,6 +3,21 @@
 K = 'Keverson de Souza'
 
 NEWS = [
+    dict(date='2026-11-10', slug=('madeleine-rolls-media-rodeio-feminina-antt-grand-slam-cutter', 'madeleine-rolls-wins-rodeio-feminina-antt-average-grand-slam-cutter'), img='assets/news/madeleine-grand-slam.webp',
+         title=('Yasmin de Matteo e B2B Madeleine Rolls conquistam a média da Rodeio Feminina ANTT durante o Grand Slam Cutter', 'Yasmin de Matteo and B2B Madeleine Rolls win the Rodeio Feminina ANTT average at the Grand Slam Cutter'),
+         event=('Grand Slam Cutter', 'Grand Slam Cutter'),
+         lede=('A genética de campeões segue conquistando espaço e entregando resultados nas pistas!', 'Champion bloodlines keep gaining ground and delivering results in the arena.'),
+         alt=('Yasmin de Matteo e B2B Madeleine Rolls em velocidade na pista', 'Yasmin de Matteo and B2B Madeleine Rolls at speed in the arena'),
+         body=[('p', 'Durante o Grand Slam Cutter, a dupla Yasmin de Matteo e B2B Madeleine Rolls conquistou a média da categoria Rodeio Feminina ANTT, alcançando mais um importante resultado em sua trajetória nas competições.',
+                'At the Grand Slam Cutter, Yasmin de Matteo and B2B Madeleine Rolls won the average in the Rodeio Feminina ANTT category, adding another important result to their competition record.'),
+               ('r', [('B2B Madeleine Rolls', 1, 'Média Rodeio Feminina ANTT, Grand Slam Cutter', 'Yasmin de Matteo', None)]),
+               ('v', 'JH5GJGrHH_o', True),
+               ('p', 'Filha de Tux N Rolls com Magnolia Shady FF, B2B Madeleine Rolls é um exemplo de genética aliada a desempenho e consistência. A égua já ultrapassa R$ 173 mil em ganhos registrados pelo SGP Sistema e também conquistou o Top 3 em Barretos neste ano, consolidando sua presença entre os destaques da modalidade.',
+                'By Tux N Rolls out of Magnolia Shady FF, B2B Madeleine Rolls combines bloodlines with performance and consistency. The mare has passed R$ 173,000 in earnings on the SGP record and also reached the Top 3 at Barretos this year, securing her place among the standouts of the sport.'),
+               ('p', 'Mais uma conquista que reforça a força de uma genética que se traduz em performance, competitividade e resultados dentro das pistas.',
+                'One more win that confirms the strength of bloodlines that turn into performance, competitiveness and results in the arena.'),
+               ('p', 'Parabéns a Yasmin de Matteo e a toda a equipe por mais essa conquista!',
+                'Congratulations to Yasmin de Matteo and the whole team on another win!')]),
     dict(date='2026-10-17', slug=('brave-rolls-top-3-potro-do-futuro', 'brave-rolls-top-3-potro-do-futuro-final'), img='assets/news/brave-rolls-top3.webp',
          title=('B2B Brave Rolls conquista Top 3 na Final do Potro do Futuro', 'B2B Brave Rolls finishes Top 3 at the Potro do Futuro Final'),
          event=('Final do Potro do Futuro', 'Potro do Futuro Final'),
@@ -267,6 +282,7 @@ NEWS = [
 
 # Shorter titles and descriptions for search results, where the headline is too long to show in full.
 SEO = {
+    'madeleine-rolls-media-rodeio-feminina-antt-grand-slam-cutter': ('B2B Madeleine Rolls vence a média no Grand Slam Cutter', 'B2B Madeleine Rolls Wins the Average at Grand Slam Cutter'),
     'heringer-ranch-1a-etapa': ('B2B Ranch na 1ª etapa do VII Campeonato Heringer Ranch', 'B2B Ranch at Round 1, 7th Heringer Ranch Championship'),
     'vice-campea-final-ouro-potro-do-futuro-pf-copa-wv-2026': ('B2B Brave Rolls, vice na Final Ouro do PF & Copa WV 2026', 'B2B Brave Rolls, Runner-up at PF & Copa WV 2026 Gold Final'),
     'abertura-temporada-2026-copa-organnact': ('B2B Ranch vence o GP ABQM na abertura da Copa Organnact', 'B2B Ranch Wins ABQM GP to Open the 2026 Copa Organnact'),
@@ -280,6 +296,7 @@ SEO = {
     '3o-grand-prix-rancho-gabriela': ('Three Blackpearl e Mended Heart no 3º Grand Prix Gabriela', 'Three Blackpearl and Mended Heart at the 3rd Gabriela GP'),
 }
 DESC = {
+    'madeleine-rolls-media-rodeio-feminina-antt-grand-slam-cutter': ('Yasmin de Matteo e B2B Madeleine Rolls, filha de Tux N Rolls, conquistaram a média da Rodeio Feminina ANTT no Grand Slam Cutter.', 'Yasmin de Matteo and B2B Madeleine Rolls, by Tux N Rolls, won the Rodeio Feminina ANTT average at the Grand Slam Cutter.'),
     'brave-rolls-top-3-potro-do-futuro': ('B2B Brave Rolls, filha de B2B Lucius Ta Fame e Crystal Mine OFV, ficou em terceiro na Categoria Aberta da Final do Potro do Futuro.', 'B2B Brave Rolls, by B2B Lucius Ta Fame out of Crystal Mine OFV, took third in the Open category of the Potro do Futuro Final in Brazil.'),
     'programa-de-incentivo-rjqm-2025-2030': ('Prêmio extra de R$ 5.000 por categoria para campeões de criação B2B Ranch ou Rancho 3D no Campeonato RJQM, de 2025/2026 a 2029/2030.', 'An extra R$ 5,000 per category for RJQM champions bred by B2B Ranch or Rancho 3D, from the 2025/2026 to the 2029/2030 seasons.'),
 }
