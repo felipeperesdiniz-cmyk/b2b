@@ -174,6 +174,16 @@
       "source": "/tools/:path*",
       "destination": "/",
       "permanent": false
+    },
+    {
+      "source": "/matrizes/magnolia-shady-ff.html",
+      "destination": "/matrizes.html",
+      "permanent": true
+    },
+    {
+      "source": "/en/broodmares/magnolia-shady-ff.html",
+      "destination": "/en/broodmares.html",
+      "permanent": true
     }
   ],
   "headers": [

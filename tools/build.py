@@ -903,7 +903,10 @@ def build_site_files():
     # hosting rules: 301s from the old WordPress addresses, one address per home page, browser caching
     redirects = [{'source': f'/{old}{{/}}?', 'destination': f'/{new}', 'permanent': True} for old, new in OLD_URLS.items()]
     redirects += [{'source': '/index.html', 'destination': '/', 'permanent': True}, {'source': '/en/index.html', 'destination': '/en/', 'permanent': True},
-                  {'source': '/en', 'destination': '/en/', 'permanent': True}, {'source': '/tools/:path*', 'destination': '/', 'permanent': False}]
+                  {'source': '/en', 'destination': '/en/', 'permanent': True}, {'source': '/tools/:path*', 'destination': '/', 'permanent': False},
+                  # horses no longer on the site
+                  {'source': '/matrizes/magnolia-shady-ff.html', 'destination': '/matrizes.html', 'permanent': True},
+                  {'source': '/en/broodmares/magnolia-shady-ff.html', 'destination': '/en/broodmares.html', 'permanent': True}]
     week = 'public, max-age=604800, stale-while-revalidate=2592000'
     headers = [{'source': '/assets/(.*)', 'headers': [{'key': 'Cache-Control', 'value': week}]},
                {'source': '/assets/fonts/(.*)', 'headers': [{'key': 'Cache-Control', 'value': 'public, max-age=31536000, immutable'}]}]
