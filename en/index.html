@@ -746,7 +746,7 @@ let introStart = 0;
 requestAnimationFrame(t => { introStart = t; $('#hero').classList.add('ready'); });
 
 /* ---------- intro ---------- */
-/* the horse: frames drawn to canvas. He trots in place until the first scroll, which plays the whole entrance on its own; he grows faster the closer he gets */
+/* the horse: frames drawn to canvas. He stands on the opening frame until the first scroll, which plays the whole entrance on its own; he grows faster the closer he gets */
 const hFg = $('#hFg'), hFgC = hFg.getContext('2d');
 const H_DIR = matchMedia('(max-width: 760px) and (orientation: portrait)').matches ? 'm' : 'w', H_N = H_DIR === 'm' ? 136 : 103;
 const hFrames = new Array(H_N).fill(null);
@@ -770,6 +770,8 @@ let hLoaded = 0, hWanted = 1;
     const done = () => { hFrames[i] = im; hLoaded++; pump(); };
     (im.decode ? im.decode() : new Promise((ok, no) => { im.onload = ok; im.onerror = no; })).then(done, pump);
   };
+  // the opening frame (already preloaded in the head) shows as a still under the canvas, so nothing is blank while it decodes
+  hFg.style.background = `url(${`../assets/horse/${H_DIR}/000.webp`}) 0 0/100% 100% no-repeat`;
   pump();   // the first frame right away, the rest once the page has loaded
   const start = () => { if (!slowNet) add(H_STEP); hWanted = order.length; for (let k = 0; k < 3; k++) pump(); };
   if (document.readyState === 'complete') start(); else addEventListener('load', start, { once: true });
@@ -780,9 +782,8 @@ function horse(now, p, card, sh, wTop, wBot) {
   const x = clamp(p / .74);
   const target = x * (H_N - 1);
   hBase = reduce ? target : lerp(hBase, target, 1 - Math.pow(.002, dt));
-  // trotting in place while you wait: about real speed, forward and back over a few frames
-  const t = (now / 1300) % 1, tri = t < .5 ? t * 2 : 2 - t * 2;
-  const want = clamp(hBase + (reduce ? 0 : H_N * .05 * (1 - sstep(0, .15, x)) * tri), 0, H_N - 1);   // the trot fades as he sets off, so he never steps backward
+  // until the first scroll he holds still on the film's opening frame, so the entrance starts exactly where the still left off
+  const want = clamp(hBase, 0, H_N - 1);
   // only every few frames is loaded: fade between the two nearest so the motion stays continuous
   let a = -1, b = -1;
   for (let i = Math.floor(want); i >= 0 && a < 0; i--) if (hFrames[i]) a = i;
